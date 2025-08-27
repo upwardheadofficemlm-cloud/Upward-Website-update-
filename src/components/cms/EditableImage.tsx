@@ -42,6 +42,8 @@ const EditableImage: React.FC<EditableImageProps> = ({
   };
 
   const handleFileSelect = async (file: File) => {
+    console.log('🖼️ Starting image upload for:', id, file.name, file.size, file.type);
+    
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type.toLowerCase())) {
       alert('Please select a valid image file (JPEG, PNG, GIF, WebP)');
@@ -55,11 +57,40 @@ const EditableImage: React.FC<EditableImageProps> = ({
 
     try {
       setUploading(true);
+      console.log('📤 Uploading image to Firebase...');
       await uploadImage(id, file, localAlt);
+      console.log('✅ Image upload successful');
       setIsLocalEditing(false);
+      
+      // Show success feedback
+      const successDiv = document.createElement('div');
+      successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+      successDiv.textContent = 'Image uploaded successfully!';
+      document.body.appendChild(successDiv);
+      setTimeout(() => {
+        if (document.body.contains(successDiv)) {
+          document.body.removeChild(successDiv);
+        }
+      }, 2000);
+      
     } catch (error) {
-      console.error('Error uploading image:', error);
-      alert('Error uploading image. Please try again.');
+      console.error('❌ Error uploading image:', error);
+      
+      // Show detailed error feedback
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 max-w-md';
+      errorDiv.innerHTML = `
+        <div class="font-bold mb-1">Upload Failed</div>
+        <div class="text-sm">${error.message || 'Unknown error occurred'}</div>
+      `;
+      document.body.appendChild(errorDiv);
+      setTimeout(() => {
+        if (document.body.contains(errorDiv)) {
+          document.body.removeChild(errorDiv);
+        }
+      }, 5000);
+      
+      alert(`Error uploading image: ${error.message || 'Unknown error occurred'}`);
     } finally {
       setUploading(false);
     }

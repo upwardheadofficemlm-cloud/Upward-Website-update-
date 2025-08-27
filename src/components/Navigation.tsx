@@ -198,13 +198,15 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     const newCount = logoClickCount + 1;
     setLogoClickCount(newCount);
     
-    if (newCount === 5) {
+    if (newCount === 1) {
+      // First click: navigate to home
+      navigate('/');
+    } else if (newCount === 5) {
+      // 5th click: show admin panel
       setShowPasswordModal(true);
       setLogoClickCount(0);
-    } else {
-      // Navigate to home on single click
-      navigate('/');
     }
+    // Clicks 2-4: do nothing, stay on current page
   };
 
   const handleAdminLogin = (e: React.FormEvent) => {
@@ -744,8 +746,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
 
       {/* Admin Password Modal */}
       {showPasswordModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100 w-full max-w-lg transform transition-all duration-300 scale-100">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4 min-h-screen">
+          <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100 w-full max-w-lg transform transition-all duration-300 scale-100 mx-auto my-auto">
             <div className="text-center mb-10">
               <div className="w-24 h-24 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl animate-pulse">
                 <Edit3 className="w-12 h-12 text-white" />

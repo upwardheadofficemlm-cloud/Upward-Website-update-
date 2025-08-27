@@ -172,7 +172,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const uploadImage = async (id: string, file: File, alt?: string) => {
     try {
-      console.log('Uploading image:', { id, fileName: file.name, fileSize: file.size, alt });
+      console.log('🖼️ Starting image upload:', { id, fileName: file.name, fileSize: file.size, fileType: file.type, alt });
       
       // Validate file
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
@@ -189,22 +189,39 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const fileExtension = file.name.split('.').pop()?.toLowerCase() || 'png';
       const filename = `${id}_${timestamp}.${fileExtension}`;
       const imageRef = ref(storage, `cms_images/${filename}`);
+      
+      console.log('📁 Uploading to path:', `cms_images/${filename}`);
 
       // Upload the file
+      console.log('📤 Uploading file to Firebase Storage...');
       const uploadResult = await uploadBytes(imageRef, file);
-      console.log('File uploaded successfully:', uploadResult.metadata.fullPath);
+      console.log('✅ File uploaded successfully:', uploadResult.metadata.fullPath);
       
       // Get download URL
+      console.log('🔗 Getting download URL...');
       const downloadURL = await getDownloadURL(imageRef);
-      console.log('Download URL obtained:', downloadURL);
+      console.log('✅ Download URL obtained:', downloadURL);
 
       // Update content with new image URL
+      console.log('💾 Saving image URL to CMS...');
       await updateContent(id, downloadURL, 'image', alt);
       
-      console.log('Image upload completed successfully');
+      console.log('🎉 Image upload completed successfully');
     } catch (error) {
-      console.error('Error uploading image:', error);
-      throw error;
+      console.error('❌ Error uploading image:', error);
+      
+      // Provide more specific error messages
+      if (error.code === 'storage/unauthorized') {
+        throw new Error('Upload failed: Unauthorized. Check Firebase Storage rules.');
+      } else if (error.code === 'storage/quota-exceeded') {
+        throw new Error('Upload failed: Storage quota exceeded.');
+      } else if (error.code === 'storage/retry-limit-exceeded') {
+        throw new Error('Upload failed: Network error. Please try again.');
+      } else if (error.message) {
+        throw new Error(`Upload failed: ${error.message}`);
+      } else {
+        throw new Error('Upload failed: Unknown error occurred.');
+      }
     }
   };
 
