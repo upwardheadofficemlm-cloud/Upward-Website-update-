@@ -440,7 +440,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                 />
                 {logoClickCount > 0 && (
                   <div className="ml-2 text-xs text-gray-500 bg-white/80 px-2 py-1 rounded">
-                    {logoClickCount}/5
+                    {logoClickCount}
                   </div>
                 )}
               </div>
@@ -743,28 +743,30 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
 
       {/* Admin Password Modal */}
       {showPasswordModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-10 shadow-3xl border border-gray-100 w-full max-w-md">
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
-                <Edit3 className="w-10 h-10 text-white" />
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100 w-full max-w-lg transform transition-all duration-300 scale-100">
+            <div className="text-center mb-10">
+              <div className="w-24 h-24 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl animate-pulse">
+                <Edit3 className="w-12 h-12 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Admin Access</h2>
-              <p className="text-gray-600 text-lg">Enter password to access edit mode</p>
+              <h2 className="text-4xl font-black text-gray-900 mb-4">Admin Panel</h2>
+              <p className="text-gray-600 text-xl font-medium">Enter password to access edit mode</p>
             </div>
 
-            <form onSubmit={handleAdminLogin} className="space-y-6">
+            <form onSubmit={handleAdminLogin} className="space-y-8">
               <div>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter admin password"
-                  className="w-full px-6 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#004FED]/20 focus:border-[#004FED] text-lg transition-all duration-300"
+                  className="w-full px-8 py-6 border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-[#004FED]/20 focus:border-[#004FED] text-xl transition-all duration-300 bg-gray-50 focus:bg-white"
                   autoFocus
                 />
                 {loginError && (
-                  <div className="text-red-500 text-sm mt-3">{loginError}</div>
+                  <div className="text-red-500 text-base mt-4 font-medium bg-red-50 p-3 rounded-xl border border-red-200">
+                    {loginError}
+                  </div>
                 )}
               </div>
 
@@ -772,7 +774,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                 <button
                   type="submit"
                   disabled={!password.trim()}
-                  className="flex-1 bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[#004FED]/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white py-6 rounded-2xl font-bold text-xl hover:shadow-2xl hover:shadow-[#004FED]/30 transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   Access Admin Panel
                 </button>
@@ -783,7 +785,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                     setPassword('');
                     setLoginError('');
                   }}
-                  className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-semibold"
+                  className="px-10 py-6 border-2 border-gray-300 text-gray-700 rounded-2xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 font-bold text-lg"
                 >
                   Cancel
                 </button>
