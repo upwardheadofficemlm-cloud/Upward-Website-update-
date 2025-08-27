@@ -4,16 +4,113 @@ import EditableText from '../components/cms/EditableText';
 import EditableImage from '../components/cms/EditableImage';
 import EditableSection from '../components/cms/EditableSection';
 import EditableCard from '../components/cms/EditableCard';
+import { useCMS } from '../contexts/CMSContext';
 
 const PaymentsPage: React.FC = () => {
-  const handleCopy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('Copied to clipboard');
-    } catch (e) {
-      console.error('Copy failed', e);
-      alert('Could not copy. Please copy manually.');
+  const { isAdmin, isEditing, updateContent, content } = useCMS();
+
+  const [methodIds, setMethodIds] = React.useState<string[]>([]);
+
+  // Load methods order (or fallback to 3 defaults)
+  React.useEffect(() => {
+    const key = 'payments-methods-order';
+    const existing = content[key]?.content;
+    if (existing) {
+      try {
+        const parsed = JSON.parse(existing);
+        if (Array.isArray(parsed)) {
+          setMethodIds(parsed);
+          return;
+        }
+      } catch {}
     }
+    setMethodIds(['payments-method-bank', 'payments-method-wallet', 'payments-method-alt']);
+  }, [content]);
+
+  const persistOrder = async (ids: string[]) => {
+    setMethodIds(ids);
+    try {
+      await updateContent('payments-methods-order', JSON.stringify(ids), 'html');
+    } catch (e) {
+      console.error('Failed to persist payment method order', e);
+    }
+  };
+
+  const initMethodDefaults = async (baseId: string) => {
+    try {
+      await Promise.all([
+        updateContent(`${baseId}-name`, 'Payment Method', 'text'),
+        updateContent(`${baseId}-account-name-label`, 'Account Name', 'text'),
+        updateContent(`${baseId}-account-name`, 'Upward Marketing Agency', 'text'),
+        updateContent(`${baseId}-number-label`, 'Account Number', 'text'),
+        updateContent(`${baseId}-number`, '000-000-000', 'text'),
+        updateContent(`${baseId}-note`, 'Send receipt after payment for verification.', 'text')
+      ]);
+    } catch (e) {
+      console.error('Failed to initialize defaults for', baseId, e);
+    }
+  };
+
+  const addMethod = async () => {
+    const newId = `payments-method-${Date.now()}`;
+    await initMethodDefaults(newId);
+    await persistOrder([...methodIds, newId]);
+  };
+
+  const deleteMethod = async (id: string) => {
+    const next = methodIds.filter(mid => mid !== id);
+    await persistOrder(next);
+  };
+
+  const duplicateMethod = async (id: string) => {
+    const newId = `payments-method-${Date.now()}`;
+    const fields = ['name','account-name-label','account-name','number-label','number','note'];
+    try {
+      await Promise.all(fields.map(async (field) => {
+        const srcKey = `${id}-${field}`;
+        const dstKey = `${newId}-${field}`;
+        const value = content[srcKey]?.content || '';
+        if (value) {
+          await updateContent(dstKey, value, 'text');
+        }
+      }));
+    } catch (e) {
+      console.error('Duplicate content failed', e);
+    }
+    await persistOrder([...methodIds, newId]);
+  };
+
+  const copyText = async (text: string) => {
+    const value = (text || '').trim();
+    if (!value) {
+      alert('Nothing to copy');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(value);
+      alert('Copied to clipboard');
+    } catch (err) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = value;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Copied to clipboard');
+      } catch (e2) {
+        console.error('Copy failed', e2);
+        alert('Could not copy. Please copy manually.');
+      }
+    }
+  };
+
+  const handleCopyFromId = async (elementId: string) => {
+    const el = document.getElementById(elementId);
+    await copyText(el?.textContent || '');
   };
 
   return (
@@ -72,12 +169,22 @@ const PaymentsPage: React.FC = () => {
         </div>
 
         {/* Payment Methods */}
-        <EditableText
-          id="payments-methods-title"
-          defaultContent="Payment Methods"
-          className="text-3xl font-bold text-gray-900 mb-6"
-          tag="h2"
-        />
+        <div className="flex items-center justify-between mb-4">
+          <EditableText
+            id="payments-methods-title"
+            defaultContent="Payment Methods"
+            className="text-3xl font-bold text-gray-900"
+            tag="h2"
+          />
+          {isAdmin && isEditing && (
+            <button
+              onClick={addMethod}
+              className="px-4 py-2 rounded-lg bg-[#004FED] text-white font-semibold hover:bg-[#003dcc] transition-colors"
+            >
+              Add Method
+            </button>
+          )}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {/* Bank Transfer Card */}
           <EditableCard id="payments-method-bank" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
@@ -99,45 +206,34 @@ const PaymentsPage: React.FC = () => {
             <EditableText id="payments-bank-note" defaultContent="Transfer fees are borne by the sender. Please email the slip after transfer." className="text-sm text-gray-500 mt-4" tag="p" />
           </EditableCard>
 
-          {/* Mobile Wallet Card */}
-          <EditableCard id="payments-method-wallet" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
-            <div className="flex items-center space-x-4 mb-4">
-              <EditableImage id="payments-wallet-logo" defaultSrc="/upward_logo_primary-blue.png" className="w-14 h-14 object-contain rounded-lg border border-gray-100" />
-              <EditableText id="payments-wallet-name" defaultContent="WavePay" className="text-xl font-bold text-gray-900" tag="h3" />
-            </div>
-            <div className="space-y-2">
-              <EditableText id="payments-wallet-account-name-label" defaultContent="Account Name" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
-              <EditableText id="payments-wallet-account-name" defaultContent="Upward Marketing Agency" className="text-gray-800 font-medium" tag="div" />
-            </div>
-            <div className="mt-4 space-y-2">
-              <EditableText id="payments-wallet-mobile-label" defaultContent="Mobile Number" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
-              <div className="flex items-center justify-between bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
-                <EditableText id="payments-wallet-mobile" defaultContent="09 740 977 946" className="text-gray-900 font-mono" tag="div" />
-                <button onClick={() => handleCopy(document.getElementById('payments-wallet-mobile')?.textContent || '')} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
+          {methodIds.map((id) => (
+            <EditableCard
+              key={id}
+              id={id}
+              className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100"
+              canDelete={isAdmin && isEditing}
+              onDelete={() => deleteMethod(id)}
+              canDuplicate={isAdmin && isEditing}
+              onDuplicate={() => duplicateMethod(id)}
+            >
+              <div className="flex items-center space-x-4 mb-4">
+                <EditableImage id={`${id}-logo`} defaultSrc="/upward_logo_primary-blue.png" className="w-14 h-14 object-contain rounded-lg border border-gray-100" />
+                <EditableText id={`${id}-name`} defaultContent="Payment Method" className="text-xl font-bold text-gray-900" tag="h3" />
               </div>
-            </div>
-            <EditableText id="payments-wallet-note" defaultContent="Send screenshot after payment. Do not pay to unverified accounts." className="text-sm text-gray-500 mt-4" tag="p" />
-          </EditableCard>
-
-          {/* Alternative Method */}
-          <EditableCard id="payments-method-alt" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
-            <div className="flex items-center space-x-4 mb-4">
-              <EditableImage id="payments-alt-logo" defaultSrc="/upward_logo_primary-blue.png" className="w-14 h-14 object-contain rounded-lg border border-gray-100" />
-              <EditableText id="payments-alt-name" defaultContent="AYA Bank" className="text-xl font-bold text-gray-900" tag="h3" />
-            </div>
-            <div className="space-y-2">
-              <EditableText id="payments-alt-account-name-label" defaultContent="Account Name" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
-              <EditableText id="payments-alt-account-name" defaultContent="Upward Marketing Agency" className="text-gray-800 font-medium" tag="div" />
-            </div>
-            <div className="mt-4 space-y-2">
-              <EditableText id="payments-alt-account-no-label" defaultContent="Account Number" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
-              <div className="flex items-center justify-between bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
-                <EditableText id="payments-alt-account-no" defaultContent="001-000-222-333444" className="text-gray-900 font-mono" tag="div" />
-                <button onClick={() => handleCopy(document.getElementById('payments-alt-account-no')?.textContent || '')} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
+              <div className="space-y-2">
+                <EditableText id={`${id}-account-name-label`} defaultContent="Account Name" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
+                <EditableText id={`${id}-account-name`} defaultContent="Upward Marketing Agency" className="text-gray-800 font-medium" tag="div" />
               </div>
-            </div>
-            <EditableText id="payments-alt-note" defaultContent="For international payments, contact us for Swift details." className="text-sm text-gray-500 mt-4" tag="p" />
-          </EditableCard>
+              <div className="mt-4 space-y-2">
+                <EditableText id={`${id}-number-label`} defaultContent="Account Number" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
+                <div className="flex items-center justify-between bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
+                  <EditableText id={`${id}-number`} defaultContent="000-000-000" className="text-gray-900 font-mono" tag="div" />
+                  <button onClick={() => handleCopyFromId(`${id}-number`)} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
+                </div>
+              </div>
+              <EditableText id={`${id}-note`} defaultContent="Send receipt after payment for verification." className="text-sm text-gray-500 mt-4" tag="p" />
+            </EditableCard>
+          ))}
         </div>
 
         {/* Footer Note */}
