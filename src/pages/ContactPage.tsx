@@ -141,11 +141,11 @@ const ContactPage = () => {
   ];
 
   const budgetRanges = [
-    'Under 500,000 MMK',
-    '500,000 - 1,000,000 MMK',
-    '1,000,000 - 3,000,000 MMK',
-    '3,000,000 - 5,000,000 MMK',
-    'Over 5,000,000 MMK'
+    'Under 50,000 MMK',
+    '50,000 - 100,000 MMK',
+    '100,000 - 300,000 MMK',
+    '300,000 - 500,000 MMK',
+    'Over 500,000 MMK'
   ];
 
   const timelines = [
@@ -501,7 +501,7 @@ const ContactPage = () => {
               </div>
               <EditableGoogleMap
                 id="contact-office-map"
-                defaultUrl="https://maps.app.goo.gl/2sVie27wtxShVLK9A?g_st=ipc"
+                defaultUrl="https://maps.app.goo.gl/yc9CtNUKp3H5SSXi9?g_st=ipc"
                 height="300px"
               />
             </div>
