@@ -274,12 +274,7 @@ const Footer = () => {
                   navigationUrl="/terms"
                   navigationType="internal"
                 />
-                <EditableText
-                  id="footer-made-with-love"
-                  defaultContent="Made with ❤️ in Mawlamyine"
-                  className="text-gray-500 text-sm"
-                  tag="span"
-                />
+
               </div>
             </div>
           </div>
