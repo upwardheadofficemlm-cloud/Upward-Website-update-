@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown, Edit3, Save, X as XIcon, ArrowRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCMS } from '../contexts/CMSContext';
 import EditableText from './cms/EditableText';
 
@@ -137,6 +137,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
   const { isAdmin, isEditing } = useCMS();
   const { login } = useCMS();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isOohOpen, setIsOohOpen] = useState(false);
@@ -201,7 +202,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       setLogoClickCount(0);
     } else {
       // Navigate to home on single click
-      handlePageChange('home', '/');
+      navigate('/');
     }
   };
 
@@ -223,6 +224,11 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     setIsMenuOpen(false);
     setIsServicesOpen(false);
     setIsOohOpen(false);
+    
+    // Navigate if URL is provided
+    if (url) {
+      navigate(url);
+    }
   };
 
   const startEditing = (itemId: string, currentLabel: string, currentUrl: string) => {
