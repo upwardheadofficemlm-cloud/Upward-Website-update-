@@ -203,6 +203,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     const newCount = logoClickCount + 1;
     setLogoClickCount(newCount);
     
+    console.log('Logo clicked! Count:', newCount, 'Time since last:', timeSinceLastClick);
+    
     // If clicking continuously (within 500ms), stay on current page
     if (timeSinceLastClick < 500 && newCount > 1) {
       console.log('Continuous click detected, staying on current page');
@@ -210,12 +212,16 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     }
     
     if (newCount === 1) {
+      console.log('First click: navigating to home');
       // First click: navigate to home
       navigate('/');
     } else if (newCount === 5) {
+      console.log('Fifth click: opening admin panel modal');
       // 5th click: show admin panel
       setShowPasswordModal(true);
       setLogoClickCount(0);
+    } else {
+      console.log('Click', newCount, ': staying on current page');
     }
     // Clicks 2-4: do nothing, stay on current page
   };
