@@ -32,6 +32,10 @@ const Layout: React.FC<{ children: React.ReactNode; currentPage: string }> = ({ 
     <div className="min-h-screen">
       <SEOHead page={currentPage} />
       <Navigation currentPage={currentPage} />
+      {/* Deployment Test Indicator */}
+      <div className="fixed top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold z-50">
+        DEPLOYMENT TEST V3
+      </div>
       {children}
       <Footer />
       <AdminPanel />
