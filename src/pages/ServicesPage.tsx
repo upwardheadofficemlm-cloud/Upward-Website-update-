@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import EditableText from '../components/cms/EditableText';
 import EditableImage from '../components/cms/EditableImage';
 import EditableServiceCard from '../components/cms/EditableServiceCard';
@@ -20,6 +21,7 @@ import {
 
 const ServicesPage = () => {
   const { isAdmin, isEditing } = useCMS();
+  const navigate = useNavigate();
   const [services, setServices] = React.useState([
     {
       id: 'service-brand-identity',
@@ -27,7 +29,8 @@ const ServicesPage = () => {
       title: 'Brand Identity',
       description: 'Complete brand development from logo design to brand guidelines that make you stand out.',
       features: ['Logo Design', 'Brand Guidelines', 'Visual Identity', 'Brand Strategy'],
-      color: 'from-[#004FED] to-[#0066FF]'
+      color: 'from-[#004FED] to-[#0066FF]',
+      url: '/brand-identity'
     },
     {
       id: 'service-digital-marketing',
@@ -35,7 +38,8 @@ const ServicesPage = () => {
       title: 'Digital Marketing',
       description: 'SEO, SEM, and digital advertising strategies that drive traffic and conversions.',
       features: ['Search Engine Optimization', 'Google Ads', 'Facebook Advertising', 'Email Marketing'],
-      color: 'from-[#0066FF] to-[#004FED]'
+      color: 'from-[#0066FF] to-[#004FED]',
+      url: '/digital-marketing'
     },
     {
       id: 'service-social-media',
@@ -43,7 +47,8 @@ const ServicesPage = () => {
       title: 'Social Media',
       description: 'Engaging social media campaigns that build communities and boost brand awareness.',
       features: ['Content Creation', 'Community Management', 'Influencer Marketing', 'Social Advertising'],
-      color: 'from-[#004FED] to-[#0080FF]'
+      color: 'from-[#004FED] to-[#0080FF]',
+      url: '/social-media'
     },
     {
       id: 'service-analytics',
@@ -51,7 +56,8 @@ const ServicesPage = () => {
       title: 'Analytics & Insights',
       description: 'Data-driven strategies with comprehensive reporting and performance optimization.',
       features: ['Performance Tracking', 'ROI Analysis', 'Market Research', 'Competitor Analysis'],
-      color: 'from-[#0066FF] to-[#004FED]'
+      color: 'from-[#0066FF] to-[#004FED]',
+      url: '/seo-services'
     },
     {
       id: 'service-content-creation',
@@ -59,7 +65,8 @@ const ServicesPage = () => {
       title: 'Content Creation',
       description: 'High-quality video, photography, and graphic content that tells your story.',
       features: ['Video Production', 'Photography', 'Graphic Design', 'Copywriting'],
-      color: 'from-[#004FED] to-[#0099FF]'
+      color: 'from-[#004FED] to-[#0099FF]',
+      url: '/content-creation'
     },
     {
       id: 'service-traditional-marketing',
@@ -67,7 +74,8 @@ const ServicesPage = () => {
       title: 'Traditional Marketing',
       description: 'Print, radio, and outdoor advertising solutions tailored for the Myanmar market.',
       features: ['Print Advertising', 'Radio Campaigns', 'Outdoor Advertising', 'Event Marketing'],
-      color: 'from-[#0080FF] to-[#004FED]'
+      color: 'from-[#0080FF] to-[#004FED]',
+      url: '/services'
     },
     {
       id: 'service-web-development',
@@ -75,7 +83,8 @@ const ServicesPage = () => {
       title: 'Web Development',
       description: 'Modern, responsive websites and e-commerce platforms that convert visitors.',
       features: ['Website Design', 'E-commerce Development', 'Mobile Optimization', 'CMS Integration'],
-      color: 'from-[#0066FF] to-[#004FED]'
+      color: 'from-[#0066FF] to-[#004FED]',
+      url: '/web-development'
     },
     {
       id: 'service-strategy-consulting',
@@ -83,7 +92,8 @@ const ServicesPage = () => {
       title: 'Strategy Consulting',
       description: 'Comprehensive marketing strategies and business growth consulting services.',
       features: ['Marketing Strategy', 'Business Consulting', 'Growth Planning', 'Market Entry'],
-      color: 'from-[#004FED] to-[#0066FF]'
+      color: 'from-[#004FED] to-[#0066FF]',
+      url: '/services'
     }
   ]);
 
@@ -234,6 +244,14 @@ const ServicesPage = () => {
     ));
   };
 
+  const handleServiceClick = (service: any) => {
+    if (isAdmin && isEditing) {
+      // If in edit mode, don't navigate, allow editing instead
+      return;
+    }
+    navigate(service.url);
+  };
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -267,16 +285,21 @@ const ServicesPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {services.map((service, index) => (
-              <EditableServiceCard
+              <div
                 key={service.id}
-                id={service.id}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                color={service.color}
-                onDelete={() => removeService(service.id)}
-                onDuplicate={() => duplicateService(service.id)}
-              />
+                onClick={() => handleServiceClick(service)}
+                className={`cursor-pointer ${!isAdmin || !isEditing ? 'hover:scale-105' : ''} transition-all duration-300`}
+              >
+                <EditableServiceCard
+                  id={service.id}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  color={service.color}
+                  onDelete={() => removeService(service.id)}
+                  onDuplicate={() => duplicateService(service.id)}
+                />
+              </div>
             ))}
             
             {/* Add Service Card */}
