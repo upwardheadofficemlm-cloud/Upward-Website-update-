@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCMS } from '../../contexts/CMSContext';
-import { useNavigation } from '../../App';
+import { useNavigate } from 'react-router-dom';
 import { Edit3, Save, X, ExternalLink } from 'lucide-react';
 
 // Available internal pages for search
@@ -124,7 +124,7 @@ const EditableButton: React.FC<EditableButtonProps> = ({
   children
 }) => {
   const { isAdmin, isEditing } = useCMS();
-  const navigation = useNavigation();
+  const navigate = useNavigate();
   const [editingButton, setEditingButton] = useState(false);
   const [tempText, setTempText] = useState(defaultText);
   const [tempUrl, setTempUrl] = useState(defaultUrl);
@@ -144,17 +144,14 @@ const EditableButton: React.FC<EditableButtonProps> = ({
       window.open(tempUrl, '_blank', 'noopener noreferrer');
     } else {
       if (tempUrl.startsWith('#')) {
-        navigation.scrollToSection(tempUrl);
-      } else {
-        // Convert URL to page name
-        const page = INTERNAL_PAGES.find(p => p.url === tempUrl);
-        if (page) {
-          navigation.navigateToPage(page.page, tempUrl);
-        } else {
-          // Fallback: extract page name from URL
-          const pageName = tempUrl.replace('/', '') || 'home';
-          navigation.navigateToPage(pageName, tempUrl);
+        // Scroll to section on current page
+        const element = document.querySelector(tempUrl);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
         }
+      } else {
+        // Navigate to internal page
+        navigate(tempUrl);
       }
     }
   };

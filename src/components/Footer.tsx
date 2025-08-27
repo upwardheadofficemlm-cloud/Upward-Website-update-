@@ -2,7 +2,7 @@ import React from 'react';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
 import EditableButton from './cms/EditableButton';
-import { useNavigation } from '../App';
+import { Link } from 'react-router-dom';
 import { 
   ArrowUpRight, 
   MapPin, 
@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 
 const Footer = () => {
-  const navigation = useNavigation();
 
   const quickLinks = [
     { label: 'About Us', url: '/about', page: 'about' },

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useCMS } from '../../contexts/CMSContext';
-import { useNavigation } from '../../App';
+import { useNavigate } from 'react-router-dom';
 import { Edit3, Save, X, Bold, Italic, Underline, Palette, Type } from 'lucide-react';
 
 // Available internal pages for search
@@ -48,7 +48,7 @@ const EditableText: React.FC<EditableTextProps> = ({
   navigationType = 'internal'
 }) => {
   const { content, isEditing, isAdmin, updateContent } = useCMS();
-  const navigation = useNavigation();
+  const navigate = useNavigate();
   const [isLocalEditing, setIsLocalEditing] = useState(false);
   const [localContent, setLocalContent] = useState('');
   const [saving, setSaving] = useState(false);
@@ -100,12 +100,14 @@ const EditableText: React.FC<EditableTextProps> = ({
         window.open(tempNavUrl, '_blank', 'noopener noreferrer');
       } else {
         if (tempNavUrl.startsWith('#')) {
-          navigation.scrollToSection(tempNavUrl);
-        } else {
-          const page = INTERNAL_PAGES.find(p => p.url === tempNavUrl);
-          if (page) {
-            navigation.navigateToPage(page.page, tempNavUrl);
+          // Scroll to section on current page
+          const element = document.querySelector(tempNavUrl);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
           }
+        } else {
+          // Navigate to internal page
+          navigate(tempNavUrl);
         }
       }
       return;

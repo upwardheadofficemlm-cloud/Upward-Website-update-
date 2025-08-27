@@ -23,29 +23,14 @@ import BillboardsPage from './pages/ooh/BillboardsPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
 import PaymentsPage from './pages/PaymentsPage';
 
-// Create a navigation context to share navigation state
-interface NavigationContextType {
-  currentPage: string;
-  navigateToPage: (page: string, url?: string) => void;
-  scrollToSection: (sectionId: string) => void;
-}
 
-const NavigationContext = React.createContext<NavigationContextType | undefined>(undefined);
-
-export const useNavigation = () => {
-  const context = React.useContext(NavigationContext);
-  if (!context) {
-    throw new Error('useNavigation must be used within NavigationProvider');
-  }
-  return context;
-};
 
 // Layout component that wraps all pages
 const Layout: React.FC<{ children: React.ReactNode; currentPage: string }> = ({ children, currentPage }) => {
   return (
     <div className="min-h-screen">
       <SEOHead page={currentPage} />
-      <Navigation currentPage={currentPage} onPageChange={() => {}} />
+      <Navigation currentPage={currentPage} />
       {children}
       <Footer />
       <AdminPanel />

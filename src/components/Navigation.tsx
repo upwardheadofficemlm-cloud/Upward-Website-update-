@@ -6,7 +6,6 @@ import EditableText from './cms/EditableText';
 
 interface NavigationProps {
   currentPage: string;
-  onPageChange: (page: string, url?: string) => void;
 }
 
 interface NavItem {
@@ -134,7 +133,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ onSelect, onClose }) => {
   );
 };
 
-const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
+const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
   const { isAdmin, isEditing } = useCMS();
   const { login } = useCMS();
   const location = useLocation();
@@ -220,7 +219,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
 
   const handlePageChange = (page: string, url?: string) => {
     console.log('Navigation handlePageChange:', page, url);
-    onPageChange(page);
+    // Close menus
     setIsMenuOpen(false);
     setIsServicesOpen(false);
     setIsOohOpen(false);
