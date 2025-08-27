@@ -50,14 +50,10 @@ const Footer = () => {
             {/* Company Info */}
             <div className="lg:col-span-1">
               <div className="flex items-center space-x-3 mb-8">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center shadow-lg">
-                  <ArrowUpRight className="w-6 h-6 text-white" />
-                </div>
-                <EditableText
-                  id="footer-brand-name"
-                  defaultContent="Upward"
-                  className="text-3xl font-bold bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent"
-                  tag="span"
+                <img 
+                  src="/upward_logo_primary-blue.png" 
+                  alt="Upward Logo" 
+                  className="h-12 w-auto"
                 />
               </div>
               
