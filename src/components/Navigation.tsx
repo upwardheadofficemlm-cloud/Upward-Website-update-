@@ -213,8 +213,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       // First click: navigate to home
       navigate('/');
     } else if (newCount === 5) {
-      // 5th click: navigate to admin login page
-      navigate('/admin');
+      // 5th click: show admin panel
+      setShowPasswordModal(true);
       setLogoClickCount(0);
     }
     // Clicks 2-4: do nothing, stay on current page
