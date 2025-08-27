@@ -166,6 +166,173 @@ const AboutPage = () => {
         </div>
       </section>
 
+      {/* Mission & Vision Section */}
+      <EditableSection
+        id="about-mission-vision-section"
+        className="py-32 bg-gradient-to-b from-white to-gray-50"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <EditableText
+              id="about-mission-vision-title"
+              defaultContent="Our Mission & Vision"
+              className="text-4xl md:text-6xl font-black text-gray-900 mb-6"
+              tag="h2"
+            />
+            <EditableText
+              id="about-mission-vision-description"
+              defaultContent="Driving innovation and growth in Myanmar's marketing landscape"
+              className="text-xl text-gray-600 max-w-3xl mx-auto font-light"
+              tag="p"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Mission Card */}
+            <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 relative group">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-t-3xl"></div>
+              
+              <div className="w-20 h-20 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                <Target className="w-10 h-10 text-white" />
+              </div>
+              
+              <EditableText
+                id="about-mission-title"
+                defaultContent="Our Mission"
+                className="text-3xl font-black text-gray-900 mb-6"
+                tag="h3"
+              />
+              
+              <EditableText
+                id="about-mission-description"
+                defaultContent="To empower businesses across Myanmar with innovative, data-driven marketing solutions that drive measurable growth, build lasting brand connections, and create meaningful impact in the digital age. We strive to be the trusted partner that transforms marketing challenges into opportunities for success."
+                className="text-gray-600 leading-relaxed text-lg mb-8"
+                tag="p"
+              />
+              
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center p-4 bg-gray-50 rounded-xl">
+                  <div className="text-2xl font-black text-[#004FED] mb-2">500+</div>
+                  <div className="text-sm text-gray-600 font-medium">Happy Clients</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-xl">
+                  <div className="text-2xl font-black text-[#0066FF] mb-2">3000+</div>
+                  <div className="text-sm text-gray-600 font-medium">Campaigns</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Vision Card */}
+            <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 relative group">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#0066FF] to-[#004FED] rounded-t-3xl"></div>
+              
+              <div className="w-20 h-20 bg-gradient-to-r from-[#0066FF] to-[#004FED] rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                <Globe className="w-10 h-10 text-white" />
+              </div>
+              
+              <EditableText
+                id="about-vision-title"
+                defaultContent="Our Vision"
+                className="text-3xl font-black text-gray-900 mb-6"
+                tag="h3"
+              />
+              
+              <EditableText
+                id="about-vision-description"
+                defaultContent="To be Myanmar's leading marketing innovation hub, recognized for excellence in creative strategy, digital transformation, and measurable business outcomes. We envision a future where every business, regardless of size, has access to world-class marketing expertise that drives sustainable growth and competitive advantage."
+                className="text-gray-600 leading-relaxed text-lg mb-8"
+                tag="p"
+              />
+              
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center p-4 bg-gray-50 rounded-xl">
+                  <div className="text-2xl font-black text-[#0066FF] mb-2">10+</div>
+                  <div className="text-sm text-gray-600 font-medium">Countries</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-xl">
+                  <div className="text-2xl font-black text-[#004FED] mb-2">15+</div>
+                  <div className="text-sm text-gray-600 font-medium">Awards</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Core Principles */}
+          <div className="mt-20">
+            <div className="text-center mb-16">
+              <EditableText
+                id="about-principles-title"
+                defaultContent="Core Principles"
+                className="text-3xl md:text-4xl font-black text-gray-900 mb-6"
+                tag="h3"
+              />
+              <EditableText
+                id="about-principles-description"
+                defaultContent="The foundation of our success"
+                className="text-lg text-gray-600 max-w-2xl mx-auto"
+                tag="p"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center p-8 bg-white rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <Lightbulb className="w-8 h-8 text-white" />
+                </div>
+                <EditableText
+                  id="about-principle-1-title"
+                  defaultContent="Innovation"
+                  className="text-xl font-bold text-gray-900 mb-4"
+                  tag="h4"
+                />
+                <EditableText
+                  id="about-principle-1-description"
+                  defaultContent="Constantly evolving and adapting to new technologies and market trends"
+                  className="text-gray-600 text-sm"
+                  tag="p"
+                />
+              </div>
+
+              <div className="text-center p-8 bg-white rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#0066FF] to-[#004FED] rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <EditableText
+                  id="about-principle-2-title"
+                  defaultContent="Trust"
+                  className="text-xl font-bold text-gray-900 mb-4"
+                  tag="h4"
+                />
+                <EditableText
+                  id="about-principle-2-description"
+                  defaultContent="Building lasting relationships through transparency and reliability"
+                  className="text-gray-600 text-sm"
+                  tag="p"
+                />
+              </div>
+
+              <div className="text-center p-8 bg-white rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#004FED] to-[#0080FF] rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <BarChart3 className="w-8 h-8 text-white" />
+                </div>
+                <EditableText
+                  id="about-principle-3-title"
+                  defaultContent="Results"
+                  className="text-xl font-bold text-gray-900 mb-4"
+                  tag="h4"
+                />
+                <EditableText
+                  id="about-principle-3-description"
+                  defaultContent="Delivering measurable outcomes that drive business growth"
+                  className="text-gray-600 text-sm"
+                  tag="p"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </EditableSection>
+
       {/* Values Section */}
       <EditableSection
         id="about-values-section"
