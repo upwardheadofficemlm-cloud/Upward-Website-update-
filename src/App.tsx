@@ -22,6 +22,7 @@ import TrainingCenterPage from './pages/TrainingCenterPage';
 import BillboardsPage from './pages/ooh/BillboardsPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
 import PaymentsPage from './pages/PaymentsPage';
+import AdminPage from './pages/AdminPage';
 
 
 
@@ -193,6 +194,12 @@ function App() {
                 <PaymentsPage />
               </Layout>
             } 
+          />
+
+          {/* Admin Page */}
+          <Route 
+            path="/admin" 
+            element={<AdminPage />}
           />
 
           {/* 404 Redirect to Home */}
