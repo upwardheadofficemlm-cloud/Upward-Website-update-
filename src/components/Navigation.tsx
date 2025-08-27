@@ -221,8 +221,9 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       setShowPasswordModal(true);
       setLogoClickCount(0);
       console.log('Modal state set to true, showPasswordModal should be:', true);
-      // Add alert for testing - UPDATED
-      alert('Admin panel should be opening now! Check console for logs.');
+      // Add alert for testing - UPDATED V2
+      alert('ADMIN PANEL TEST - If you see this, the new code is deployed!');
+      console.log('=== ADMIN PANEL DEBUGGING ACTIVE ===');
     } else {
       console.log('Click', newCount, ': staying on current page');
     }
@@ -463,7 +464,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                 />
                 {logoClickCount > 0 && (
                   <div className="ml-2 text-xs text-gray-500 bg-white/80 px-2 py-1 rounded">
-                    {logoClickCount}
+                    {logoClickCount} {logoClickCount === 5 ? '(NEW CODE)' : ''}
                   </div>
                 )}
               </div>
