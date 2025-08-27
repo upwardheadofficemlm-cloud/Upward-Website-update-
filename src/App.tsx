@@ -20,6 +20,7 @@ import SEOServicesPage from './pages/services/SEOServicesPage';
 import TrainingCenterPage from './pages/TrainingCenterPage';
 import BillboardsPage from './pages/ooh/BillboardsPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
+import PaymentsPage from './pages/PaymentsPage';
 
 // Create a navigation context to share navigation state
 interface NavigationContextType {
@@ -47,6 +48,33 @@ function App() {
     }, 3000);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Map initial URL path to internal page state on first load
+  React.useEffect(() => {
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+    const routeToPage: Record<string, string> = {
+      '': 'home',
+      'services': 'services',
+      'brand-identity': 'brand-identity',
+      'digital-marketing': 'digital-marketing',
+      'social-media': 'social-media',
+      'web-development': 'web-development',
+      'content-creation': 'content-creation',
+      'seo-services': 'seo-services',
+      'billboards': 'billboards',
+      'adnova': 'adnova',
+      'about': 'about',
+      'training-center': 'training-center',
+      'portfolio': 'portfolio',
+      'team': 'team',
+      'contact': 'contact',
+      'payments': 'payments'
+    };
+    const target = routeToPage[path];
+    if (target) {
+      setCurrentPage(target);
+    }
   }, []);
 
   const navigateToPage = (page: string, url?: string) => {
@@ -101,6 +129,8 @@ function App() {
         return <TeamPage />;
       case 'contact':
         return <ContactPage />;
+      case 'payments':
+        return <PaymentsPage />;
       default:
         return <HomePage />;
     }

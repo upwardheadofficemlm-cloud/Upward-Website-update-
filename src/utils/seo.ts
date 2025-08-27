@@ -7,6 +7,7 @@ export interface SEOData {
   ogImage?: string;
   canonicalUrl?: string;
   structuredData?: any;
+  noindex?: boolean;
 }
 
 export const updatePageSEO = (seoData: SEOData) => {
@@ -33,6 +34,17 @@ export const updatePageSEO = (seoData: SEOData) => {
   // Basic meta tags
   updateMetaTag('description', seoData.description);
   updateMetaTag('keywords', seoData.keywords);
+
+  // Robots (noindex/nofollow)
+  if (seoData.noindex) {
+    updateMetaTag('robots', 'noindex, nofollow');
+  } else {
+    // Ensure robots tag does not block indexing for other pages
+    const robotsMeta = document.querySelector('meta[name="robots"]');
+    if (robotsMeta) {
+      robotsMeta.remove();
+    }
+  }
 
   // Open Graph tags
   updateMetaTag('og:title', seoData.ogTitle || seoData.title, true);
@@ -391,6 +403,14 @@ export const getPageSEO = (page: string): SEOData => {
         "serviceType": "Digital Signage Advertising",
         "description": "Mawlamyine's first smart digital signage advertising system with 65-inch Full HD displays"
       }
+    }
+    ,
+    payments: {
+      title: 'Payments | Upward',
+      description: 'Private payments page for clients. Not indexed by search engines.',
+      keywords: 'payments, invoice, billing',
+      canonicalUrl: `${baseUrl}/payments`,
+      noindex: true
     }
   };
 
