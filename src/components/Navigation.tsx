@@ -221,8 +221,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       setShowPasswordModal(true);
       setLogoClickCount(0);
       console.log('Modal state set to true, showPasswordModal should be:', true);
-      // Add alert for testing
-      alert('Admin panel should be opening now!');
+      // Add alert for testing - UPDATED
+      alert('Admin panel should be opening now! Check console for logs.');
     } else {
       console.log('Click', newCount, ': staying on current page');
     }
