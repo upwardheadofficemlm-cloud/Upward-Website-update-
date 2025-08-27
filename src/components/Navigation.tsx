@@ -46,6 +46,7 @@ const INTERNAL_PAGES = [
   { label: 'Contact', url: '/contact', page: 'contact' },
   { label: 'Billboards', url: '/billboards', page: 'billboards' },
   { label: 'AdNova Digital Signage', url: '/adnova', page: 'adnova' },
+  { label: 'Payments', url: '/payments', page: 'payments' },
   { label: 'Contact Section', url: '#contact', page: 'home' },
   { label: 'Services Section', url: '#services', page: 'home' },
   { label: 'About Section', url: '#about', page: 'home' },

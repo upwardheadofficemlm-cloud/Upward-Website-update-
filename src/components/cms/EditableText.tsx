@@ -574,6 +574,7 @@ const EditableText: React.FC<EditableTextProps> = ({
   return (
     <div className="relative group">
       <Tag 
+        id={id}
         className={`${className} ${
           isAdmin && isEditing 
             ? 'cursor-pointer hover:bg-blue-50/50 hover:outline hover:outline-2 hover:outline-[#004FED]/30 rounded-lg transition-all duration-200 p-2 -m-2' 

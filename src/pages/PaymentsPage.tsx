@@ -140,32 +140,74 @@ const PaymentsPage: React.FC = () => {
       alert('Nothing to copy');
       return;
     }
+    
     try {
+      // Try modern clipboard API first
       await navigator.clipboard.writeText(value);
-      alert('Copied to clipboard');
+      // Show success feedback
+      const button = event?.target as HTMLButtonElement;
+      if (button) {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.backgroundColor = '#10B981';
+        button.style.color = 'white';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+          button.style.color = '';
+        }, 2000);
+      } else {
+        alert('Copied to clipboard!');
+      }
     } catch (err) {
       try {
+        // Fallback for older browsers
         const ta = document.createElement('textarea');
         ta.value = value;
         ta.style.position = 'fixed';
         ta.style.opacity = '0';
+        ta.style.left = '-9999px';
         document.body.appendChild(ta);
         ta.focus();
         ta.select();
-        document.execCommand('copy');
+        const successful = document.execCommand('copy');
         document.body.removeChild(ta);
-        alert('Copied to clipboard');
+        
+        if (successful) {
+          const button = event?.target as HTMLButtonElement;
+          if (button) {
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.style.backgroundColor = '#10B981';
+            button.style.color = 'white';
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.style.backgroundColor = '';
+              button.style.color = '';
+            }, 2000);
+          } else {
+            alert('Copied to clipboard!');
+          }
+        } else {
+          throw new Error('execCommand failed');
+        }
       } catch (e2) {
         console.error('Copy failed', e2);
-        alert('Could not copy. Please copy manually.');
+        alert('Could not copy automatically. Please select and copy manually: ' + value);
       }
     }
   };
 
   const handleCopyFromId = async (elementId: string) => {
+    // Wait a bit for the DOM to be ready
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     const el = document.getElementById(elementId);
     if (!el) {
       console.error('Element not found:', elementId);
+      console.log('Available elements with similar IDs:', 
+        Array.from(document.querySelectorAll('[id*="number"]')).map(e => e.id)
+      );
       alert('Element not found: ' + elementId);
       return;
     }
@@ -187,8 +229,8 @@ const PaymentsPage: React.FC = () => {
       }
     }
     
-    // Remove extra whitespace
-    text = text.trim();
+    // Remove extra whitespace and clean up
+    text = text.trim().replace(/\s+/g, ' ');
     
     console.log('Copying text:', text, 'from element:', elementId, 'element:', el);
     
