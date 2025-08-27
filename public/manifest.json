@@ -1,0 +1,27 @@
+{
+  "name": "Upward Marketing Agency",
+  "short_name": "Upward",
+  "description": "Mawlamyine's premier 360° marketing agency providing comprehensive marketing solutions",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#004FED",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/upward_logo_primary-blue.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/upward_logo_primary-blue.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "marketing", "advertising"],
+  "lang": "en",
+  "dir": "ltr"
+}
