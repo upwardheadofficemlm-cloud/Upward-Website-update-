@@ -24,7 +24,20 @@ const PaymentsPage: React.FC = () => {
         }
       } catch {}
     }
-    setMethodIds(['payments-method-bank', 'payments-method-wallet', 'payments-method-alt']);
+    
+    // Set default method IDs
+    const defaultIds = ['payments-method-bank', 'payments-method-wallet', 'payments-method-alt'];
+    setMethodIds(defaultIds);
+    
+    // Initialize default methods if they don't exist in CMS
+    const initializeDefaults = async () => {
+      const needsInit = defaultIds.some(id => !content[`${id}-name`]);
+      if (needsInit) {
+        await initDefaultMethods();
+      }
+    };
+    
+    initializeDefaults();
   }, [content]);
 
   const persistOrder = async (ids: string[]) => {
@@ -48,6 +61,47 @@ const PaymentsPage: React.FC = () => {
       ]);
     } catch (e) {
       console.error('Failed to initialize defaults for', baseId, e);
+    }
+  };
+
+  const initDefaultMethods = async () => {
+    const defaults = [
+      {
+        id: 'payments-method-bank',
+        name: 'KBZ Bank',
+        accountName: 'Upward Marketing Agency Co., Ltd',
+        number: '123-456-789-012345',
+        note: 'Transfer fees are borne by the sender. Please email the slip after transfer.'
+      },
+      {
+        id: 'payments-method-wallet',
+        name: 'WavePay',
+        accountName: 'Upward Marketing Agency',
+        number: '09 740 977 946',
+        note: 'Send screenshot after payment. Do not pay to unverified accounts.'
+      },
+      {
+        id: 'payments-method-alt',
+        name: 'AYA Bank',
+        accountName: 'Upward Marketing Agency',
+        number: '001-000-222-333444',
+        note: 'For international payments, contact us for Swift details.'
+      }
+    ];
+
+    for (const method of defaults) {
+      try {
+        await Promise.all([
+          updateContent(`${method.id}-name`, method.name, 'text'),
+          updateContent(`${method.id}-account-name-label`, 'Account Name', 'text'),
+          updateContent(`${method.id}-account-name`, method.accountName, 'text'),
+          updateContent(`${method.id}-number-label`, 'Account Number', 'text'),
+          updateContent(`${method.id}-number`, method.number, 'text'),
+          updateContent(`${method.id}-note`, method.note, 'text')
+        ]);
+      } catch (e) {
+        console.error('Failed to initialize default method', method.id, e);
+      }
     }
   };
 
@@ -111,27 +165,36 @@ const PaymentsPage: React.FC = () => {
   const handleCopyFromId = async (elementId: string) => {
     const el = document.getElementById(elementId);
     if (!el) {
-      alert('Element not found');
+      console.error('Element not found:', elementId);
+      alert('Element not found: ' + elementId);
       return;
     }
     
+    // For EditableText components, the text is inside the element
     // Try multiple ways to get text content for Safari compatibility
-    let text = el.textContent || el.innerText || el.innerHTML || '';
+    let text = '';
     
-    // Clean up any HTML tags if present
-    if (text.includes('<')) {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = text;
-      text = tempDiv.textContent || tempDiv.innerText || '';
+    // First try to get the text content directly
+    text = el.textContent || el.innerText || '';
+    
+    // If that's empty, try to get from innerHTML and strip tags
+    if (!text.trim()) {
+      const html = el.innerHTML || '';
+      if (html) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        text = tempDiv.textContent || tempDiv.innerText || '';
+      }
     }
     
     // Remove extra whitespace
     text = text.trim();
     
-    console.log('Copying text:', text, 'from element:', elementId);
+    console.log('Copying text:', text, 'from element:', elementId, 'element:', el);
     
     if (!text) {
-      alert('No text found to copy');
+      console.error('No text found in element:', elementId, 'element:', el);
+      alert('No text found to copy from: ' + elementId);
       return;
     }
     
@@ -211,26 +274,6 @@ const PaymentsPage: React.FC = () => {
           )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {/* Bank Transfer Card */}
-          <EditableCard id="payments-method-bank" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
-            <div className="flex items-center space-x-4 mb-4">
-              <EditableImage id="payments-bank-logo" defaultSrc="/upward_logo_primary-blue.png" className="w-14 h-14 object-contain rounded-lg border border-gray-100" />
-              <EditableText id="payments-bank-name" defaultContent="KBZ Bank" className="text-xl font-bold text-gray-900" tag="h3" />
-            </div>
-            <div className="space-y-2">
-              <EditableText id="payments-bank-account-name-label" defaultContent="Account Name" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
-              <EditableText id="payments-bank-account-name" defaultContent="Upward Marketing Agency Co., Ltd" className="text-gray-800 font-medium" tag="div" />
-            </div>
-            <div className="mt-4 space-y-2">
-              <EditableText id="payments-bank-account-no-label" defaultContent="Account Number" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
-              <div className="flex items-center justify-between bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
-                <EditableText id="payments-bank-account-no" defaultContent="123-456-789-012345" className="text-gray-900 font-mono" tag="div" />
-                <button onClick={() => handleCopyFromId('payments-bank-account-no')} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
-              </div>
-            </div>
-            <EditableText id="payments-bank-note" defaultContent="Transfer fees are borne by the sender. Please email the slip after transfer." className="text-sm text-gray-500 mt-4" tag="p" />
-          </EditableCard>
-
           {methodIds.map((id) => (
             <EditableCard
               key={id}
