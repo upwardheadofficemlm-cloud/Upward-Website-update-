@@ -200,7 +200,7 @@ const PaymentsPage: React.FC = () => {
               <EditableText id="payments-bank-account-no-label" defaultContent="Account Number" className="text-xs uppercase tracking-wider text-gray-500" tag="div" />
               <div className="flex items-center justify-between bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
                 <EditableText id="payments-bank-account-no" defaultContent="123-456-789-012345" className="text-gray-900 font-mono" tag="div" />
-                <button onClick={() => handleCopy(document.getElementById('payments-bank-account-no')?.textContent || '')} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
+                <button onClick={() => handleCopyFromId('payments-bank-account-no')} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
               </div>
             </div>
             <EditableText id="payments-bank-note" defaultContent="Transfer fees are borne by the sender. Please email the slip after transfer." className="text-sm text-gray-500 mt-4" tag="p" />
