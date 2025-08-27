@@ -216,14 +216,11 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       // First click: navigate to home
       navigate('/');
     } else if (newCount === 5) {
-      console.log('Fifth click: opening admin panel modal');
-      // 5th click: show admin panel
-      setShowPasswordModal(true);
+      console.log('Fifth click: navigating to admin panel');
+      // 5th click: navigate to admin panel
+      navigate('/admin');
       setLogoClickCount(0);
-      console.log('Modal state set to true, showPasswordModal should be:', true);
-      // Add alert for testing - UPDATED V2
-      alert('ADMIN PANEL TEST - If you see this, the new code is deployed!');
-      console.log('=== ADMIN PANEL DEBUGGING ACTIVE ===');
+      console.log('Navigating to admin panel');
     } else {
       console.log('Click', newCount, ': staying on current page');
     }
