@@ -110,7 +110,32 @@ const PaymentsPage: React.FC = () => {
 
   const handleCopyFromId = async (elementId: string) => {
     const el = document.getElementById(elementId);
-    await copyText(el?.textContent || '');
+    if (!el) {
+      alert('Element not found');
+      return;
+    }
+    
+    // Try multiple ways to get text content for Safari compatibility
+    let text = el.textContent || el.innerText || el.innerHTML || '';
+    
+    // Clean up any HTML tags if present
+    if (text.includes('<')) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = text;
+      text = tempDiv.textContent || tempDiv.innerText || '';
+    }
+    
+    // Remove extra whitespace
+    text = text.trim();
+    
+    console.log('Copying text:', text, 'from element:', elementId);
+    
+    if (!text) {
+      alert('No text found to copy');
+      return;
+    }
+    
+    await copyText(text);
   };
 
   return (
