@@ -220,6 +220,9 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       // 5th click: show admin panel
       setShowPasswordModal(true);
       setLogoClickCount(0);
+      console.log('Modal state set to true, showPasswordModal should be:', true);
+      // Add alert for testing
+      alert('Admin panel should be opening now!');
     } else {
       console.log('Click', newCount, ': staying on current page');
     }
@@ -762,6 +765,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
       )}
 
       {/* Admin Password Modal */}
+      {console.log('Rendering modal check - showPasswordModal:', showPasswordModal)}
       {showPasswordModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4 min-h-screen">
           <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100 w-full max-w-lg transform transition-all duration-300 scale-100 mx-auto my-auto">
