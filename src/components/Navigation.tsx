@@ -152,6 +152,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [lastClickTime, setLastClickTime] = useState(0);
 
   const [showPageSearch, setShowPageSearch] = useState(false);
   const [searchCallback, setSearchCallback] = useState<((page: any) => void) | null>(null);
@@ -195,8 +196,18 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
   }, [logoClickCount]);
 
   const handleLogoClick = () => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTime;
+    setLastClickTime(currentTime);
+    
     const newCount = logoClickCount + 1;
     setLogoClickCount(newCount);
+    
+    // If clicking continuously (within 500ms), stay on current page
+    if (timeSinceLastClick < 500 && newCount > 1) {
+      console.log('Continuous click detected, staying on current page');
+      return;
+    }
     
     if (newCount === 1) {
       // First click: navigate to home
