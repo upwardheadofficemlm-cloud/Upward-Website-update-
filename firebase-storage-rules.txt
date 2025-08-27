@@ -1,0 +1,64 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // CMS Images - Full access for admin panel image uploads
+    match /cms_images/{allPaths=**} {
+      // Allow public read access for website images
+      allow read: if true;
+      
+      // Allow public write access for admin panel image uploads
+      // File constraints: Max 10MB, images only
+      allow write: if request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      
+      // Allow delete for image management and cleanup
+      allow delete: if true;
+    }
+    
+    // Portfolio Images
+    match /portfolio_images/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if true;
+    }
+    
+    // Team Member Images
+    match /team_images/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if true;
+    }
+    
+    // Client Logo Images
+    match /client_logos/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if true;
+    }
+    
+    // General uploads folder
+    match /uploads/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.resource.size < 15 * 1024 * 1024
+                   && (request.resource.contentType.matches('image/.*') ||
+                       request.resource.contentType.matches('video/.*') ||
+                       request.resource.contentType.matches('application/pdf'));
+      allow delete: if true;
+    }
+    
+    // Temporary files for processing
+    match /temp/{allPaths=**} {
+      allow read, write, delete: if true;
+    }
+    
+    // Allow all other storage operations for flexibility
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.resource.size < 20 * 1024 * 1024;
+      allow delete: if true;
+    }
+  }
+}

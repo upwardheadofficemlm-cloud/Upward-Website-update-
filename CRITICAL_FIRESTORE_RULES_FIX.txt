@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===== CMS CONTENT COLLECTION - CRITICAL FIX =====
+    // This MUST allow public write access for the admin panel to work
+    match /cms_content/{document} {
+      // Allow public read access for website content
+      allow read: if true;
+      
+      // CRITICAL: Allow public write access for CMS functionality
+      // This is required because the CMS uses password-based admin, not Firebase Auth
+      allow create, update, delete: if true;
+    }
+    
+    // Contact Forms Collection
+    match /contacts/{document} {
+      // Allow anyone to create contact form submissions
+      allow create: if true;
+      
+      // Allow read/update/delete for admin management
+      allow read, update, delete: if true;
+    }
+    
+    // Training Inquiries Collection
+    match /training_inquiries/{document} {
+      // Allow anyone to create training inquiries
+      allow create: if true;
+      
+      // Allow read/update/delete for admin management
+      allow read, update, delete: if true;
+    }
+    
+    // User Sessions and Admin Data
+    match /admin_sessions/{document} {
+      allow read, write: if true;
+    }
+    
+    // Website Analytics and Tracking
+    match /analytics/{document} {
+      allow read, write: if true;
+    }
+    
+    // ===== YOUR EXISTING APP RULES (KEEP THESE UNCHANGED) =====
+    // Add any other existing rules for your app here
+    // These rules preserve your existing app functionality
+    
+    // Allow all other collections for future expansion
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

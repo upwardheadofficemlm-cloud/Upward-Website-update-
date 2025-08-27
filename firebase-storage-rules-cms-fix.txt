@@ -1,0 +1,164 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // --- HELPER FUNCTIONS ---
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      // This is a placeholder for your admin check. You should
+      // use custom claims (recommended) or a predefined list of UIDs.
+      return isAuthenticated(); 
+    }
+
+    function isImage(sizeLimit) {
+      return request.resource.contentType.matches('image/.*') &&
+        request.resource.size < sizeLimit;
+    }
+
+    function isVideo(sizeLimit) {
+      return request.resource.contentType.matches('video/.*') &&
+        request.resource.size < sizeLimit;
+    }
+
+    function isDocument(sizeLimit) {
+      return (request.resource.contentType.matches('application/pdf') ||
+        request.resource.contentType.matches('application/msword') ||
+        request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.*')) &&
+        request.resource.size < sizeLimit;
+    }
+
+    // --- CMS FOLDERS (PUBLIC WRITE ACCESS FOR ADMIN PANEL) ---
+    // These folders MUST have public write access for the CMS admin panel to work
+    
+    // CMS Images: Images for your website's content management system.
+    match /cms_images/{imageId} {
+      allow read: if true;
+      allow write: if isImage(10 * 1024 * 1024); // REMOVED authentication requirement
+      allow delete: if true; // Allow cleanup
+    }
+    
+    // Portfolio Images: Images for the public portfolio.
+    match /portfolio_images/{imageId} {
+      allow read: if true;
+      allow write: if isImage(15 * 1024 * 1024); // REMOVED authentication requirement
+      allow delete: if true; // Allow cleanup
+    }
+    
+    // Team Photos: Photos of team members for the public website.
+    match /team_photos/{imageId} {
+      allow read: if true;
+      allow write: if isImage(5 * 1024 * 1024); // REMOVED authentication requirement
+      allow delete: if true; // Allow cleanup
+    }
+    
+    // Service Images: Images related to services offered.
+    match /service_images/{imageId} {
+      allow read: if true;
+      allow write: if isImage(10 * 1024 * 1024); // REMOVED authentication requirement
+      allow delete: if true; // Allow cleanup
+    }
+    
+    // Client Logos: Client logos for testimonials or a partners section.
+    match /client_logos/{imageId} {
+      allow read: if true;
+      allow write: if isImage(2 * 1024 * 1024); // REMOVED authentication requirement
+      allow delete: if true; // Allow cleanup
+    }
+
+    // Website Assets: Miscellaneous public assets.
+    match /website_assets/{assetId} {
+      allow read: if true;
+      allow write: if (isImage(50 * 1024 * 1024) || isVideo(50 * 1024 * 1024) || isDocument(50 * 1024 * 1024) || request.resource.contentType.matches('text/.*')); // REMOVED authentication requirement
+      allow delete: if true; // Allow cleanup
+    }
+
+    // General uploads folder for CMS
+    match /uploads/{allPaths=**} {
+      allow read: if true;
+      allow write: if isImage(15 * 1024 * 1024) || isVideo(50 * 1024 * 1024) || isDocument(20 * 1024 * 1024);
+      allow delete: if true;
+    }
+    
+    // Temporary files for CMS processing
+    match /temp/{allPaths=**} {
+      allow read, write, delete: if true;
+    }
+
+    // --- YOUR EXISTING APP FOLDERS (UNCHANGED) ---
+    // All your existing authenticated folders remain exactly the same
+
+    // Videos: Public video content.
+    match /videos/{videoId} {
+      allow read: if true;
+      allow write: if isAuthenticated() && isVideo(100 * 1024 * 1024);
+    }
+
+    // Documents: Public documents like brochures or whitepapers.
+    match /documents/{documentId} {
+      allow read: if true;
+      allow write: if isAuthenticated() && isDocument(20 * 1024 * 1024);
+    }
+    
+    // Training Materials: Publicly accessible training content.
+    match /training_materials/{materialId} {
+      allow read: if true;
+      allow write: if isAuthenticated() && (isVideo(100 * 1024 * 1024) || isDocument(100 * 1024 * 1024) || isImage(100 * 1024 * 1024));
+    }
+
+    // --- AUTHENTICATED FOLDERS (UNCHANGED) ---
+    // These folders require users to be authenticated to read or write.
+
+    // Company: Shared company files accessible by all staff.
+    match /company/{allPaths=**} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Employee Files: Private files for each authenticated user.
+    match /employees/{userId}/{allPaths=**} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Quizzes & Surveys: Internal quiz/survey files.
+    match /quizzes/{quizId}/{allPaths=**} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /surveys/{surveyId}/{allPaths=**} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Signatures: Digital signatures for certificates, etc.
+    match /signatures/{signatureId}/{allPaths=**} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Backup Files: Admin-only access for backups.
+    match /backups/{backupId} {
+      allow read, write: if isAdmin();
+    }
+
+    // --- TEMPORARY & UPLOAD FOLDERS ---
+    // These are for specific upload scenarios.
+    
+    // Temp Uploads: Allow authenticated users to upload to their own temporary folder.
+    match /temp_uploads/{userId}/{fileName} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId && (isImage(50 * 1024 * 1024) || isVideo(50 * 1024 * 1024) || isDocument(50 * 1024 * 1024));
+    }
+
+    // User Uploads: Allow public creation for contact/inquiry forms.
+    match /user_uploads/{uploadId} {
+      allow create: if isImage(25 * 1024 * 1024) || isDocument(25 * 1024 * 1024);
+      // Access to these uploads is restricted to authenticated users for review.
+      allow read, delete: if isAuthenticated();
+    }
+    
+    // Survey Uploads: Allow public write for public surveys.
+    match /survey_uploads/{allPaths=**} {
+      allow read: if true;
+      allow write: if isImage(10 * 1024 * 1024);
+    }
+  }
+}

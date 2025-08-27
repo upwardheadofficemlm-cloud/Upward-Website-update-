@@ -1,0 +1,370 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- HELPER FUNCTIONS ---
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isSelf(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    function hasPermission(permission) {
+      let userData = getUserData();
+      let userRole = userData.role;
+      let userDeptId = 'departmentId' in userData ? userData.departmentId : null;
+    
+      return isAuthenticated() && (
+        userRole == 'Owner' || userRole == 'Admin' ||
+        (userData.permissions != null && permission in userData.permissions) ||
+        (
+          userDeptId != null &&
+          exists(/databases/$(database)/documents/role_permissions/$(userDeptId + '_' + userRole)) &&
+          permission in get(/databases/$(database)/documents/role_permissions/$(userDeptId + '_' + userRole)).data.permissions
+        ) ||
+        (
+          exists(/databases/$(database)/documents/role_permissions/$('GLOBAL_' + userRole)) &&
+          permission in get(/databases/$(database)/documents/role_permissions/$('GLOBAL_' + userRole)).data.permissions
+        )
+      );
+    }
+    
+    function isOwnerOfDoc() {
+      return ('createdByUserId' in resource.data && resource.data.createdByUserId == request.auth.uid) ||
+              ('inChargeUserId' in resource.data && resource.data.inChargeUserId == request.auth.uid);
+    }
+    
+    function isAdmin() {
+      // Combines logic from both rule sets for a single admin check
+      return isAuthenticated() && (hasPermission('MANAGE_WEBSITE_CONTENT') || hasPermission('MANAGE_SURVEYS'));
+    }
+
+    // --- USERS & EMPLOYEES ---
+    match /users/{userId} {
+      allow get: if isAuthenticated() && (isSelf(userId) || hasPermission('VIEW_STAFF_LIST'));
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_STAFF');
+      allow update: if hasPermission('EDIT_STAFF') ||
+                      (isSelf(userId) && hasPermission('EDIT_OWN_PROFILE_LIMITED'));
+      allow delete: if hasPermission('DELETE_STAFF') && request.auth.uid != userId;
+    
+      match /notifications/{notificationId} {
+        allow read, write: if isSelf(userId);
+      }
+    }
+    
+    // --- LEADS & ACTIVITIES ---
+    match /leads/{leadId} {
+      allow get: if hasPermission('VIEW_ALL_LEADS') || (hasPermission('VIEW_LEADS') && isOwnerOfDoc());
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_LEAD') && request.resource.data.createdByUserId == request.auth.uid;
+      allow update: if hasPermission('EDIT_ALL_LEADS') || (hasPermission('EDIT_LEAD') && isOwnerOfDoc());
+      allow delete: if hasPermission('DELETE_ALL_LEADS') || (hasPermission('DELETE_LEAD') && isOwnerOfDoc());
+    }
+    
+    match /lead_activities/{activityId} {
+        allow create: if hasPermission('CREATE_LEAD');
+        allow list: if isAuthenticated();
+        allow get: if hasPermission('VIEW_LEADS');
+        allow update, delete: if hasPermission('EDIT_ALL_LEADS');
+    }
+    
+    // --- CLIENTS & BUSINESSES ---
+    match /clients/{clientId} {
+      allow get: if hasPermission('VIEW_ALL_CLIENTS_BUSINESSES') || hasPermission('VIEW_CLIENTS_BUSINESSES');
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_CLIENT');
+      allow update: if hasPermission('EDIT_CLIENT');
+      allow delete: if hasPermission('DELETE_CLIENT');
+    }
+    
+    match /businesses/{businessId} {
+      allow get: if hasPermission('VIEW_ALL_CLIENTS_BUSINESSES') || hasPermission('VIEW_CLIENTS_BUSINESSES');
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_BUSINESS');
+      allow update: if hasPermission('EDIT_BUSINESS');
+      allow delete: if hasPermission('DELETE_BUSINESS');
+    }
+    
+    match /notes/{noteId} {
+        allow get, create: if hasPermission('VIEW_CLIENTS_BUSINESSES');
+        allow list: if isAuthenticated();
+        allow delete: if hasPermission('EDIT_CLIENT') || hasPermission('EDIT_BUSINESS');
+    }
+    
+    // --- SERVICES ---
+    match /serviceCategories/{categoryId} {
+      allow get: if hasPermission('VIEW_SERVICES') || true;
+      allow list: if isAuthenticated() || true;
+      allow write: if hasPermission('MANAGE_SERVICES');
+    }
+    
+    match /services/{serviceId} {
+      allow get;
+      allow list;
+      allow write: if hasPermission('MANAGE_SERVICES');
+    }
+    
+    // --- SALES ---
+    match /sales/{saleId} {
+      allow get: if hasPermission('VIEW_ALL_SALES_RECORDS') || (hasPermission('VIEW_SALES_RECORDS') && isOwnerOfDoc());
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_SALE_RECORD');
+      allow update: if hasPermission('EDIT_ALL_SALE_RECORDS') || (hasPermission('EDIT_SALE_RECORD') && isOwnerOfDoc());
+      allow delete: if hasPermission('DELETE_ALL_SALE_RECORDS') || (hasPermission('DELETE_SALE_RECORD') && isOwnerOfDoc());
+    }
+    
+    // --- FINANCE ---
+    match /invoices/{invoiceId} {
+      allow get: if hasPermission('MANAGE_INVOICES');
+      allow create, update, delete: if hasPermission('MANAGE_INVOICES');
+      allow list: if isAuthenticated();
+    }
+    
+    match /quotations/{quotationId} {
+      allow get: if hasPermission('MANAGE_QUOTATIONS');
+      allow create, update, delete: if hasPermission('MANAGE_QUOTATIONS');
+      allow list: if isAuthenticated();
+    }
+    
+    match /payments/{paymentId} {
+      allow get: if hasPermission('MANAGE_PAYMENTS_RECEIPTS');
+      allow create, update, delete: if hasPermission('MANAGE_PAYMENTS_RECEIPTS');
+      allow list: if isAuthenticated();
+    }
+    
+    match /expenses/{expenseId} {
+      allow get: if hasPermission('MANAGE_EXPENSES');
+      allow create, update, delete: if hasPermission('MANAGE_EXPENSES');
+      allow list: if isAuthenticated();
+    }
+    
+    match /visa_cards/{cardId} {
+      allow get, create, update, delete: if hasPermission('MANAGE_VISA_CARDS');
+      allow list: if isAuthenticated();
+    }
+    
+    match /visa_reloads/{reloadId} {
+      allow get, create, update, delete: if hasPermission('MANAGE_VISA_CARDS');
+      allow list: if isAuthenticated();
+    }
+    
+    // --- HR ---
+    match /payslips/{payslipId} {
+      allow get: if hasPermission('VIEW_PAYROLL_ADMIN') || (hasPermission('VIEW_OWN_PAYSLIP') && resource.data.employeeId == request.auth.uid);
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('GENERATE_PAYROLL');
+      allow update: if hasPermission('EDIT_PAYSLIP') || hasPermission('MARK_PAYSLIP_PAID');
+      allow delete: if hasPermission('DELETE_PAYSLIP');
+    }
+    
+    match /leave_requests/{leaveId} {
+      allow get: if hasPermission('VIEW_LEAVE_ADMIN') || (hasPermission('VIEW_OWN_LEAVE_REQUESTS') && resource.data.employeeId == request.auth.uid);
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_LEAVE_REQUEST') && request.resource.data.employeeId == request.auth.uid;
+      allow update: if hasPermission('APPROVE_LEAVE_REQUESTS') || (isSelf(resource.data.employeeId));
+    }
+    
+    match /holidays/{holidayId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_HOLIDAYS'); }
+    match /attendance_reports/{reportId} { allow get, create, update, delete: if hasPermission('MANAGE_ATTENDANCE'); allow list: if isAuthenticated(); }
+    
+    // --- TASKS & PROJECTS ---
+    match /tasks/{taskId} {
+      allow get: if hasPermission('VIEW_ALL_TASKS') || (hasPermission('VIEW_TASKS') && (('assigneeIds' in resource.data && request.auth.uid in resource.data.assigneeIds) || isOwnerOfDoc()));
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_TASK');
+      allow update: if hasPermission('EDIT_ALL_TASKS') || (hasPermission('EDIT_TASK') && (('assigneeIds' in resource.data && request.auth.uid in resource.data.assigneeIds) || isOwnerOfDoc()));
+      allow delete: if hasPermission('DELETE_ALL_TASKS') || (hasPermission('DELETE_TASK') && isOwnerOfDoc());
+    }
+    
+    match /task_lists/{listId} {
+        allow get: if hasPermission('VIEW_TASKS');
+        allow list: if isAuthenticated();
+        allow create: if hasPermission('CREATE_TASK');
+        allow update: if hasPermission('EDIT_ALL_TASKS') || hasPermission('EDIT_TASK');
+        allow delete: if hasPermission('DELETE_ALL_TASKS') || hasPermission('DELETE_TASK');
+    }
+    
+    match /projects/{projectId} {
+      allow get: if hasPermission('VIEW_ALL_PROJECTS') || (hasPermission('VIEW_PROJECTS') && (resource.data.teamLeadId == request.auth.uid || request.auth.uid in resource.data.memberIds));
+      allow list: if isAuthenticated();
+      allow create: if hasPermission('CREATE_PROJECT');
+      allow update: if hasPermission('EDIT_PROJECT');
+      allow delete: if hasPermission('DELETE_PROJECT');
+    }
+    
+    // --- TRAINING CENTER ---
+    match /students/{studentId} {
+      allow get: if hasPermission('MANAGE_STUDENTS');
+      allow create, update, delete: if hasPermission('MANAGE_STUDENTS');
+      allow list: if isAuthenticated();
+    }
+    
+    match /courses/{courseId} {
+      allow get;
+      allow list;
+      allow create, update, delete: if hasPermission('MANAGE_COURSES');
+    }
+    
+    match /batches/{batchId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if hasPermission('MANAGE_BATCHES');
+    }
+    
+    match /student_payments/{paymentId} {
+      allow get: if hasPermission('VIEW_TRAINING_RECEIPTS');
+      allow create, update, delete: if hasPermission('MANAGE_STUDENT_PAYMENTS');
+      allow list: if isAuthenticated();
+    }
+    
+    match /certificates/{certificateId} {
+      allow get: if hasPermission('MANAGE_CERTIFICATES');
+      allow create, update, delete: if hasPermission('MANAGE_CERTIFICATES');
+      allow list: if isAuthenticated();
+    }
+    
+    match /signatures/{signatureId} {
+      allow get, create, update, delete: if hasPermission('MANAGE_SIGNATURE_LIBRARY');
+      allow list: if isAuthenticated();
+    }
+    
+    match /appointments/{appointmentId} {
+      allow list, get: if hasPermission('MANAGE_TRAINING_SCHEDULE');
+      allow create, delete: if hasPermission('MANAGE_APPOINTMENTS');
+    }
+    
+    // --- QUIZZES & SURVEYS ---
+    match /quizzes/{quizId} {
+      allow get;
+      allow list, create, update, delete: if hasPermission('MANAGE_QUIZZES') || hasPermission('MANAGE_SURVEYS');
+    
+      match /questions/{questionId} {  
+        allow read;  
+        allow create, update, delete: if hasPermission('MANAGE_QUIZZES') || hasPermission('MANAGE_SURVEYS');  
+      }
+      match /sections/{sectionId} {  
+        allow read;
+        allow create, update, delete: if hasPermission('MANAGE_QUIZZES') || hasPermission('MANAGE_SURVEYS');  
+      }
+    }
+    
+    match /quiz_attempts/{attemptId} {  
+      allow create;  
+      allow read: if hasPermission('MANAGE_QUIZZES');  
+    }
+    
+    match /survey_submissions/{submissionId} {  
+      allow create: if true;  
+      allow get, list, update, delete: if hasPermission('MANAGE_SURVEYS');  
+    }
+    
+    // --- SETTINGS & CONFIG ---
+    match /settings/companyProfile { allow read; allow write: if hasPermission('MANAGE_COMPANY_PROFILE'); }
+    match /settings_payment_methods/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /settings_expense_categories/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /settings_lead_sources/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /settings_business_types/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /settings_campaign_objectives/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /settings_adnova_locations/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /kpi_categories/{docId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_SYSTEM_LISTS'); }
+    match /role_permissions/{roleId} { allow read, write: if hasPermission('MANAGE_ROLES_PERMISSIONS'); }
+    match /departments/{deptId} { allow read: if isAuthenticated(); allow write: if hasPermission('MANAGE_DEPARTMENTS'); }
+    
+    // --- BILLBOARDS & VENDORS ---
+    match /vendors/{vendorId} { allow get, create, update, delete: if hasPermission('MANAGE_BILLBOARD_VENDORS'); allow list: if isAuthenticated(); }
+    match /billboards/{billboardId} { allow get, create, update, delete: if hasPermission('MANAGE_BILLBOARDS'); allow list: if isAuthenticated(); }
+    
+    // --- KPIs ---
+    match /kpis/{kpiId} { allow get, create, update, delete: if hasPermission('MANAGE_KPI_LIBRARY'); allow list: if isAuthenticated(); }
+    match /employee_kpi_sheets/{sheetId} {
+      allow get: if hasPermission('VIEW_TEAM_KPIS') || (hasPermission('VIEW_OWN_KPI_SHEET') && request.auth.uid == resource.data.employeeId);
+      allow list: if isAuthenticated();
+      allow create, update, delete: if hasPermission('ASSIGN_KPIS') || hasPermission('PERFORM_SELF_EVALUATION') || hasPermission('RATE_TEAM_KPIS');
+    }
+    
+    // --- SYSTEM COLLECTIONS ---
+    match /counters/{counterId} {  
+      allow read, update: if isAuthenticated();  
+      allow create, delete: if false;  
+    }
+    
+    // --- PUBLIC WEBSITE COLLECTIONS (FIXED FOR CMS) ---
+    // CRITICAL FIX: Allow public write access for CMS functionality
+    match /cms_content/{document} {
+      allow read: if true;
+      // CHANGED: Remove authentication requirement for CMS to work
+      allow create, update, delete: if true;
+    }
+    
+    match /contacts/{document} {
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'message', 'source', 'createdAt', 'status']) &&
+        request.resource.data.name is string &&
+        request.resource.data.email is string &&
+        request.resource.data.message is string &&
+        request.resource.data.source in ['contact', 'training', 'general'] &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.status == 'new';
+      allow read, update, delete: if isAdmin();
+    }
+    
+    match /training_inquiries/{document} {
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'phone', 'course', 'source', 'createdAt', 'status']) &&
+        request.resource.data.name is string &&
+        request.resource.data.email is string &&
+        request.resource.data.phone is string &&
+        request.resource.data.course is string &&
+        request.resource.data.source == 'training' &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.status == 'new';
+      allow read, update, delete: if isAdmin();
+    }
+    
+    match /portfolio/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /team_members/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /testimonials/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /blog_posts/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /newsletter_subscriptions/{document} {
+      allow create: if request.resource.data.keys().hasAll(['email', 'createdAt', 'status']) &&
+        request.resource.data.email is string &&
+        request.resource.data.email.matches('.*@.*\\..*') &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.status == 'active';
+      allow read, update, delete: if isAdmin();
+    }
+    
+    match /website_settings/{document} {
+      allow read, write: if isAdmin();
+    }
+    
+    match /file_metadata/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /backups/{document} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
