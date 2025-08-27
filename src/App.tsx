@@ -6,6 +6,7 @@ import AdminPanel from './components/cms/AdminPanel';
 import LoadingScreen from './components/LoadingScreen';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import SettingsButton from './components/SettingsButton';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
@@ -39,6 +40,7 @@ const Layout: React.FC<{ children: React.ReactNode; currentPage: string }> = ({ 
       {children}
       <Footer />
       <AdminPanel />
+      <SettingsButton />
     </div>
   );
 };
