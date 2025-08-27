@@ -157,8 +157,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
   // Navigation items with editable labels and URLs
   const [navItems, setNavItems] = useState<NavItem[]>([
     { id: 'about', label: 'About Us', page: 'about', url: '/about' },
-    { id: 'training', label: 'Training Center', page: 'training-center', url: '/training' },
-    { id: 'creation', label: 'Creation', page: 'portfolio', url: '/creation' },
+    { id: 'training', label: 'Training Center', page: 'training-center', url: '/training-center' },
+    { id: 'creation', label: 'Creation', page: 'portfolio', url: '/portfolio' },
     { id: 'contact', label: 'Contact', page: 'contact', url: '/contact' },
   ]);
 
