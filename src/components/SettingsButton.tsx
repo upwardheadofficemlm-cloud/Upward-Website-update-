@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Settings, Lock, X } from 'lucide-react';
+import { Settings, Lock } from 'lucide-react';
 import { useCMS } from '../contexts/CMSContext';
 
 const SettingsButton: React.FC = () => {
   const navigate = useNavigate();
-  const { isAdmin } = useCMS();
+  const { isAdmin, login } = useCMS();
   const [showTooltip, setShowTooltip] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState('');
@@ -28,8 +28,6 @@ const SettingsButton: React.FC = () => {
     setLoginError('');
 
     try {
-      // Use the login function from CMS context
-      const { login } = useCMS();
       if (login(password)) {
         // Success - navigate to admin page
         setShowPasswordModal(false);
@@ -39,7 +37,7 @@ const SettingsButton: React.FC = () => {
         setLoginError('Invalid password. Please try again.');
         setPassword('');
       }
-    } catch (error) {
+    } catch {
       setLoginError('Login failed. Please try again.');
       setPassword('');
     } finally {

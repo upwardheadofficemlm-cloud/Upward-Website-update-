@@ -1,4 +1,4 @@
-// @ts-nocheck
+// TypeScript errors temporarily disabled for this file
 import React from 'react';
 import EditableText from '../components/cms/EditableText';
 import EditableImage from '../components/cms/EditableImage';
