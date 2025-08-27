@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown, Edit3, Save, X as XIcon, ArrowRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { useCMS } from '../contexts/CMSContext';
-import { useNavigation } from '../App';
 import EditableText from './cms/EditableText';
 
 interface NavigationProps {
@@ -137,7 +137,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ onSelect, onClose }) => {
 const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
   const { isAdmin, isEditing } = useCMS();
   const { login } = useCMS();
-  const navigation = useNavigation();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isOohOpen, setIsOohOpen] = useState(false);
@@ -310,7 +310,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
 
   const renderEditableNavItem = (item: NavItem, type: 'nav' | 'service' | 'ooh' = 'nav') => {
     const isEditing = editingItem === item.id;
-    const isActive = currentPage === item.page;
+    const isActive = location.pathname === item.url || (item.url === '/' && location.pathname === '/');
 
     if (isEditing) {
       return (
@@ -362,8 +362,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
 
     return (
       <div className="relative group">
-        <button
-          onClick={() => handlePageChange(item.page, item.url)}
+        <Link
+          to={item.url}
           className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 rounded-lg ${
             isActive
               ? 'text-[#004FED] bg-white/20'
@@ -371,7 +371,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
           }`}
         >
           {item.label}
-        </button>
+        </Link>
         {isAdmin && isEditing && (
           <button
             onClick={() => startEditing(item.id, item.label, item.url)}
@@ -535,14 +535,14 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
                       </div>
                     ) : (
                       <div className="relative group">
-                        <button
-                          onClick={() => handlePageChange(service.page, service.url)}
+                        <Link
+                          to={service.url}
                           className={`w-full text-left px-4 py-3 text-sm transition-all duration-300 hover:bg-[#004FED]/10 hover:text-[#004FED] rounded-lg ${
-                            currentPage === service.page ? 'text-[#004FED] bg-[#004FED]/10' : 'text-gray-700'
+                            location.pathname === service.url ? 'text-[#004FED] bg-[#004FED]/10' : 'text-gray-700'
                           }`}
                         >
                           {service.label}
-                        </button>
+                        </Link>
                         {isAdmin && isEditing && (
                           <button
                             onClick={() => startEditing(service.id, service.label, service.url)}
@@ -565,7 +565,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
                   onMouseEnter={() => setIsOohOpen(true)}
                   onMouseLeave={() => setIsOohOpen(false)}
                   className={`flex items-center space-x-1 px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 rounded-lg ${
-                    currentPage.includes('ooh') || currentPage === 'billboards' || currentPage === 'adnova'
+                    location.pathname.includes('/billboards') || location.pathname.includes('/adnova')
                       ? 'text-[#004FED] bg-white/20'
                       : 'text-gray-700 hover:text-[#004FED] hover:bg-white/10'
                   }`}
@@ -639,14 +639,14 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) =>
                       </div>
                     ) : (
                       <div className="relative group">
-                        <button
-                          onClick={() => handlePageChange(ooh.page, ooh.url)}
+                        <Link
+                          to={ooh.url}
                           className={`w-full text-left px-4 py-3 text-sm transition-all duration-300 hover:bg-[#004FED]/10 hover:text-[#004FED] rounded-lg ${
-                            currentPage === ooh.page ? 'text-[#004FED] bg-[#004FED]/10' : 'text-gray-700'
+                            location.pathname === ooh.url ? 'text-[#004FED] bg-[#004FED]/10' : 'text-gray-700'
                           }`}
                         >
                           {ooh.label}
-                        </button>
+                        </Link>
                         {isAdmin && isEditing && (
                           <button
                             onClick={() => startEditing(ooh.id, ooh.label, ooh.url)}

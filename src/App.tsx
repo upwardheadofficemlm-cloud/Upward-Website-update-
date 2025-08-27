@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CMSProvider } from './contexts/CMSContext';
 import SEOHead from './components/SEOHead';
 import AdminPanel from './components/cms/AdminPanel';
@@ -38,8 +39,21 @@ export const useNavigation = () => {
   }
   return context;
 };
+
+// Layout component that wraps all pages
+const Layout: React.FC<{ children: React.ReactNode; currentPage: string }> = ({ children, currentPage }) => {
+  return (
+    <div className="min-h-screen">
+      <SEOHead page={currentPage} />
+      <Navigation currentPage={currentPage} onPageChange={() => {}} />
+      {children}
+      <Footer />
+      <AdminPanel />
+    </div>
+  );
+};
+
 function App() {
-  const [currentPage, setCurrentPage] = React.useState('home');
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -50,108 +64,157 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Map initial URL path to internal page state on first load
-  React.useEffect(() => {
-    const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
-    const routeToPage: Record<string, string> = {
-      '': 'home',
-      'services': 'services',
-      'brand-identity': 'brand-identity',
-      'digital-marketing': 'digital-marketing',
-      'social-media': 'social-media',
-      'web-development': 'web-development',
-      'content-creation': 'content-creation',
-      'seo-services': 'seo-services',
-      'billboards': 'billboards',
-      'adnova': 'adnova',
-      'about': 'about',
-      'training-center': 'training-center',
-      'portfolio': 'portfolio',
-      'team': 'team',
-      'contact': 'contact',
-      'payments': 'payments'
-    };
-    const target = routeToPage[path];
-    if (target) {
-      setCurrentPage(target);
-    }
-  }, []);
-
-  const navigateToPage = (page: string, url?: string) => {
-    console.log('Navigating to:', page, url);
-    setCurrentPage(page);
-    
-    // Update browser URL if provided
-    if (url && typeof window !== 'undefined') {
-      window.history.pushState({}, '', url);
-    }
-    
-    // Scroll to top when changing pages
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    console.log('Scrolling to section:', sectionId);
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage />;
-      case 'services':
-        return <ServicesPage />;
-      case 'brand-identity':
-        return <BrandIdentityPage />;
-      case 'digital-marketing':
-        return <DigitalMarketingPage />;
-      case 'social-media':
-        return <SocialMediaPage />;
-      case 'web-development':
-        return <WebDevelopmentPage />;
-      case 'content-creation':
-        return <ContentCreationPage />;
-      case 'seo-services':
-        return <SEOServicesPage />;
-      case 'billboards':
-        return <BillboardsPage />;
-      case 'adnova':
-        return <AdNovaPage />;
-      case 'about':
-        return <AboutPage />;
-      case 'training-center':
-        return <TrainingCenterPage />;
-      case 'portfolio':
-        return <PortfolioPage />;
-      case 'team':
-        return <TeamPage />;
-      case 'contact':
-        return <ContactPage />;
-      case 'payments':
-        return <PaymentsPage />;
-      default:
-        return <HomePage />;
-    }
-  };
-
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   return (
-    <NavigationContext.Provider value={{ currentPage, navigateToPage, scrollToSection }}>
+    <Router>
       <CMSProvider>
-        <div className="min-h-screen">
-          <SEOHead page={currentPage} />
-          <Navigation currentPage={currentPage} onPageChange={navigateToPage} />
-          {renderPage()}
-          <Footer />
-          <AdminPanel />
-        </div>
+        <Routes>
+          {/* Home Page */}
+          <Route 
+            path="/" 
+            element={
+              <Layout currentPage="home">
+                <HomePage />
+              </Layout>
+            } 
+          />
+
+          {/* Services Pages */}
+          <Route 
+            path="/services" 
+            element={
+              <Layout currentPage="services">
+                <ServicesPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/brand-identity" 
+            element={
+              <Layout currentPage="brand-identity">
+                <BrandIdentityPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/digital-marketing" 
+            element={
+              <Layout currentPage="digital-marketing">
+                <DigitalMarketingPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/social-media" 
+            element={
+              <Layout currentPage="social-media">
+                <SocialMediaPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/web-development" 
+            element={
+              <Layout currentPage="web-development">
+                <WebDevelopmentPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/content-creation" 
+            element={
+              <Layout currentPage="content-creation">
+                <ContentCreationPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/seo-services" 
+            element={
+              <Layout currentPage="seo-services">
+                <SEOServicesPage />
+              </Layout>
+            } 
+          />
+
+          {/* OOH Advertising Pages */}
+          <Route 
+            path="/billboards" 
+            element={
+              <Layout currentPage="billboards">
+                <BillboardsPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/adnova" 
+            element={
+              <Layout currentPage="adnova">
+                <AdNovaPage />
+              </Layout>
+            } 
+          />
+
+          {/* Main Pages */}
+          <Route 
+            path="/about" 
+            element={
+              <Layout currentPage="about">
+                <AboutPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/training-center" 
+            element={
+              <Layout currentPage="training-center">
+                <TrainingCenterPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/portfolio" 
+            element={
+              <Layout currentPage="portfolio">
+                <PortfolioPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/team" 
+            element={
+              <Layout currentPage="team">
+                <TeamPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/contact" 
+            element={
+              <Layout currentPage="contact">
+                <ContactPage />
+              </Layout>
+            } 
+          />
+
+          {/* Hidden Pages */}
+          <Route 
+            path="/payments" 
+            element={
+              <Layout currentPage="payments">
+                <PaymentsPage />
+              </Layout>
+            } 
+          />
+
+          {/* 404 Redirect to Home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </CMSProvider>
-    </NavigationContext.Provider>
+    </Router>
   );
 }
 
