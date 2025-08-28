@@ -294,8 +294,8 @@ const PaymentsPage: React.FC = () => {
 
       {/* Instructions + QR */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2 bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
             <EditableText
               id="payments-instruction-title"
               defaultContent="Payment Instructions"
@@ -332,7 +332,7 @@ const PaymentsPage: React.FC = () => {
             </div>
           </div>
           <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 flex items-center justify-center">
-            <div className="w-full">
+            <div className="w-full h-full flex flex-col justify-center">
               <EditableText
                 id="payments-qr-title"
                 defaultContent="Payment QR (Optional)"
@@ -342,7 +342,7 @@ const PaymentsPage: React.FC = () => {
               <EditableImage
                 id="payments-qr-image"
                 defaultSrc="/upward_logo_primary-blue.png"
-                className="w-full rounded-xl border border-gray-100"
+                className="w-full aspect-square rounded-xl border border-gray-100 object-contain"
               />
               <EditableText
                 id="payments-qr-note"
