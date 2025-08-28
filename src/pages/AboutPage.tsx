@@ -129,12 +129,32 @@ const AboutPage = () => {
 
               <div className="grid grid-cols-2 gap-8">
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#004FED] mb-2">3+</div>
-                  <div className="text-gray-600 font-medium">Years of Excellence</div>
+                  <EditableText
+                    id="about-years-excellence-number"
+                    defaultContent="3+"
+                    className="text-3xl font-black text-[#004FED] mb-2"
+                    tag="div"
+                  />
+                  <EditableText
+                    id="about-years-excellence-label"
+                    defaultContent="Years of Excellence"
+                    className="text-gray-600 font-medium"
+                    tag="div"
+                  />
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#0066FF] mb-2">20+</div>
-                  <div className="text-gray-600 font-medium">Team Members</div>
+                  <EditableText
+                    id="about-team-members-number"
+                    defaultContent="20+"
+                    className="text-3xl font-black text-[#0066FF] mb-2"
+                    tag="div"
+                  />
+                  <EditableText
+                    id="about-team-members-label"
+                    defaultContent="Team Members"
+                    className="text-gray-600 font-medium"
+                    tag="div"
+                  />
                 </div>
               </div>
             </div>
@@ -156,8 +176,18 @@ const AboutPage = () => {
                     <Award className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 text-lg">Award Winner</div>
-                    <div className="text-gray-600">Myanmar Marketing Awards 2023</div>
+                    <EditableText
+                      id="about-award-title"
+                      defaultContent="Award Winner"
+                      className="font-bold text-gray-900 text-lg"
+                      tag="div"
+                    />
+                    <EditableText
+                      id="about-award-description"
+                      defaultContent="Myanmar Marketing Awards 2023"
+                      className="text-gray-600"
+                      tag="div"
+                    />
                   </div>
                 </div>
               </div>
@@ -212,12 +242,32 @@ const AboutPage = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <div className="text-2xl font-black text-[#004FED] mb-2">500+</div>
-                  <div className="text-sm text-gray-600 font-medium">Happy Clients</div>
+                  <EditableText
+                    id="about-mission-clients-number"
+                    defaultContent="500+"
+                    className="text-2xl font-black text-[#004FED] mb-2"
+                    tag="div"
+                  />
+                  <EditableText
+                    id="about-mission-clients-label"
+                    defaultContent="Happy Clients"
+                    className="text-sm text-gray-600 font-medium"
+                    tag="div"
+                  />
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <div className="text-2xl font-black text-[#0066FF] mb-2">3000+</div>
-                  <div className="text-sm text-gray-600 font-medium">Campaigns</div>
+                  <EditableText
+                    id="about-mission-campaigns-number"
+                    defaultContent="3000+"
+                    className="text-2xl font-black text-[#0066FF] mb-2"
+                    tag="div"
+                  />
+                  <EditableText
+                    id="about-mission-campaigns-label"
+                    defaultContent="Campaigns"
+                    className="text-sm text-gray-600 font-medium"
+                    tag="div"
+                  />
                 </div>
               </div>
             </div>
@@ -246,12 +296,32 @@ const AboutPage = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <div className="text-2xl font-black text-[#0066FF] mb-2">10+</div>
-                  <div className="text-sm text-gray-600 font-medium">Countries</div>
+                  <EditableText
+                    id="about-vision-countries-number"
+                    defaultContent="10+"
+                    className="text-2xl font-black text-[#0066FF] mb-2"
+                    tag="div"
+                  />
+                  <EditableText
+                    id="about-vision-countries-label"
+                    defaultContent="Countries"
+                    className="text-sm text-gray-600 font-medium"
+                    tag="div"
+                  />
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <div className="text-2xl font-black text-[#004FED] mb-2">15+</div>
-                  <div className="text-sm text-gray-600 font-medium">Awards</div>
+                  <EditableText
+                    id="about-vision-awards-number"
+                    defaultContent="15+"
+                    className="text-2xl font-black text-[#004FED] mb-2"
+                    tag="div"
+                  />
+                  <EditableText
+                    id="about-vision-awards-label"
+                    defaultContent="Awards"
+                    className="text-sm text-gray-600 font-medium"
+                    tag="div"
+                  />
                 </div>
               </div>
             </div>
