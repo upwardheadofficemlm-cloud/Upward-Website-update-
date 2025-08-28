@@ -148,11 +148,11 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
   const [editingBrand, setEditingBrand] = useState(false);
   const [tempBrandName, setTempBrandName] = useState('');
   const [tempBrandLogo, setTempBrandLogo] = useState('');
-  const [logoClickCount, setLogoClickCount] = useState(0);
+
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [lastClickTime, setLastClickTime] = useState(0);
+
 
   const [showPageSearch, setShowPageSearch] = useState(false);
   const [searchCallback, setSearchCallback] = useState<((page: any) => void) | null>(null);
@@ -185,46 +185,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     logo: '/upward_logo_primary-blue.png'
   });
 
-  // Reset click count after 3 seconds
-  React.useEffect(() => {
-    if (logoClickCount > 0) {
-      const timer = setTimeout(() => {
-        setLogoClickCount(0);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [logoClickCount]);
+
 
   const handleLogoClick = () => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTime;
-    setLastClickTime(currentTime);
-    
-    const newCount = logoClickCount + 1;
-    setLogoClickCount(newCount);
-    
-    console.log('Logo clicked! Count:', newCount, 'Time since last:', timeSinceLastClick);
-    
-    // If clicking continuously (within 500ms), stay on current page
-    if (timeSinceLastClick < 500 && newCount > 1) {
-      console.log('Continuous click detected, staying on current page');
-      return;
-    }
-    
-    if (newCount === 1) {
-      console.log('First click: navigating to home');
-      // First click: navigate to home
-      navigate('/');
-    } else if (newCount === 5) {
-      console.log('Fifth click: navigating to admin panel');
-      // 5th click: navigate to admin panel
-      navigate('/admin');
-      setLogoClickCount(0);
-      console.log('Navigating to admin panel');
-    } else {
-      console.log('Click', newCount, ': staying on current page');
-    }
-    // Clicks 2-4: do nothing, stay on current page
+    navigate('/');
   };
 
   const handleAdminLogin = (e: React.FormEvent) => {
@@ -459,11 +423,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                   alt={`${brandInfo.name} Marketing Agency`} 
                   className="h-10 w-auto mr-2"
                 />
-                {logoClickCount > 0 && (
-                  <div className="ml-2 text-xs text-gray-500 bg-white/80 px-2 py-1 rounded">
-                    {logoClickCount} {logoClickCount === 5 ? '(NEW CODE)' : ''}
-                  </div>
-                )}
+
               </div>
             )}
             {isAdmin && isEditing && !editingBrand && (
