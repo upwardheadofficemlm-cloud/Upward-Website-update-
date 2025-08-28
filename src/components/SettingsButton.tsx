@@ -5,7 +5,8 @@ import { useCMS } from '../contexts/CMSContext';
 
 const SettingsButton: React.FC = () => {
   const navigate = useNavigate();
-  const { isAdmin, login } = useCMS();
+  const cms = useCMS();
+  const { isAdmin, login } = cms;
   const [showTooltip, setShowTooltip] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState('');

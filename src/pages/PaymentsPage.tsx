@@ -29,15 +29,22 @@ const PaymentsPage: React.FC = () => {
     const defaultIds = ['payments-method-bank', 'payments-method-wallet', 'payments-method-alt'];
     setMethodIds(defaultIds);
     
-    // Initialize default methods if they don't exist in CMS
+    // Initialize default methods if they don't exist in CMS - only run once
     const initializeDefaults = async () => {
       const needsInit = defaultIds.some(id => !content[`${id}-name`]);
       if (needsInit) {
+        console.log('Initializing default payment methods...');
         await initDefaultMethods();
+        console.log('Default payment methods initialized');
       }
     };
     
-    initializeDefaults();
+    // Only initialize if we haven't done it before
+    const hasInitialized = sessionStorage.getItem('payments_initialized');
+    if (!hasInitialized) {
+      initializeDefaults();
+      sessionStorage.setItem('payments_initialized', 'true');
+    }
   }, [content]);
 
   const persistOrder = async (ids: string[]) => {
@@ -200,7 +207,7 @@ const PaymentsPage: React.FC = () => {
 
   const handleCopyFromId = async (elementId: string) => {
     // Wait a bit for the DOM to be ready
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 50));
     
     const el = document.getElementById(elementId);
     if (!el) {
@@ -273,7 +280,12 @@ const PaymentsPage: React.FC = () => {
               className="text-3xl font-bold text-gray-900 mb-4"
               tag="h2"
             />
-            <EditableSection id="payments-instructions" defaultContent='<p class="text-gray-600 leading-relaxed">Please include your invoice number in the payment reference. After payment, send the receipt to our finance team at <strong>accounts@upwardmm.com</strong>.</p>' />
+            <EditableText
+              id="payments-instructions"
+              defaultContent="Please include your invoice number in the payment reference. After payment, send the receipt to our finance team at accounts@upwardmm.com."
+              className="text-gray-600 leading-relaxed"
+              tag="div"
+            />
           </div>
           <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 flex items-center justify-center">
             <div className="w-full">

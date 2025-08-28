@@ -43,7 +43,15 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const ADMIN_PASSWORD = 'Upward103999@@';
 
   useEffect(() => {
-    loadContent();
+    // Only load content once per session
+    const contentLoaded = sessionStorage.getItem('cms_content_loaded');
+    if (!contentLoaded) {
+      loadContent();
+      sessionStorage.setItem('cms_content_loaded', 'true');
+    } else {
+      setLoading(false);
+    }
+    
     // Check if user is already logged in
     const adminStatus = localStorage.getItem('upward_admin');
     if (adminStatus === 'true') {
@@ -54,7 +62,21 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const loadContent = async () => {
     try {
       setLoading(true);
-      console.log('🔄 Loading content from Firebase...');
+      console.log('🔄 Loading content...');
+      
+      // Try to load from sessionStorage first
+      const cachedContent = sessionStorage.getItem('cms_content_cache');
+      if (cachedContent) {
+        try {
+          const parsed = JSON.parse(cachedContent);
+          console.log('📦 Using cached content from sessionStorage');
+          setContent(parsed);
+          setLoading(false);
+          return;
+        } catch (e) {
+          console.log('❌ Failed to parse cached content, loading from Firebase');
+        }
+      }
       
       // Try to load content from Firebase
       try {
@@ -76,6 +98,10 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         
         console.log('✅ Loaded content from Firebase:', Object.keys(loadedContent).length, 'items');
         console.log('🔑 Content keys:', Object.keys(loadedContent));
+        
+        // Cache in sessionStorage
+        sessionStorage.setItem('cms_content_cache', JSON.stringify(loadedContent));
+        
         setContent(loadedContent);
       } catch (firebaseError) {
         console.error('❌ Firebase content loading failed:', firebaseError);
