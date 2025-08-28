@@ -64,6 +64,8 @@ const PaymentsPage: React.FC = () => {
         updateContent(`${baseId}-account-name`, 'Upward Marketing Agency', 'text'),
         updateContent(`${baseId}-number-label`, 'Account Number', 'text'),
         updateContent(`${baseId}-number`, '000-000-000', 'text'),
+        updateContent(`${baseId}-qr-title`, 'QR Code (Optional)', 'text'),
+        updateContent(`${baseId}-qr-note`, 'Upload QR code for quick scanning', 'text'),
         updateContent(`${baseId}-note`, 'Send receipt after payment for verification.', 'text')
       ]);
     } catch (e) {
@@ -104,6 +106,8 @@ const PaymentsPage: React.FC = () => {
           updateContent(`${method.id}-account-name`, method.accountName, 'text'),
           updateContent(`${method.id}-number-label`, 'Account Number', 'text'),
           updateContent(`${method.id}-number`, method.number, 'text'),
+          updateContent(`${method.id}-qr-title`, 'QR Code (Optional)', 'text'),
+          updateContent(`${method.id}-qr-note`, 'Upload QR code for quick scanning', 'text'),
           updateContent(`${method.id}-note`, method.note, 'text')
         ]);
       } catch (e) {
@@ -125,7 +129,7 @@ const PaymentsPage: React.FC = () => {
 
   const duplicateMethod = async (id: string) => {
     const newId = `payments-method-${Date.now()}`;
-    const fields = ['name','account-name-label','account-name','number-label','number','note'];
+    const fields = ['name','account-name-label','account-name','number-label','number','qr-title','qr-note','note'];
     try {
       await Promise.all(fields.map(async (field) => {
         const srcKey = `${id}-${field}`;
@@ -375,6 +379,29 @@ const PaymentsPage: React.FC = () => {
                   <button onClick={() => handleCopyFromId(`${id}-number`)} className="ml-4 text-[#004FED] font-semibold hover:underline">Copy</button>
                 </div>
               </div>
+              
+              {/* QR Code Section */}
+              <div className="mt-4">
+                <EditableText 
+                  id={`${id}-qr-title`} 
+                  defaultContent="QR Code (Optional)" 
+                  className="text-sm font-semibold text-gray-700 mb-2" 
+                  tag="div" 
+                />
+                <EditableImage
+                  id={`${id}-qr-code`}
+                  defaultSrc=""
+                  className="w-full max-w-32 mx-auto rounded-lg border border-gray-200 shadow-sm"
+                  alt={`${content[`${id}-name`]?.content || 'Payment method'} QR code`}
+                />
+                <EditableText 
+                  id={`${id}-qr-note`} 
+                  defaultContent="Upload QR code for quick scanning" 
+                  className="text-xs text-gray-500 mt-2 text-center" 
+                  tag="div" 
+                />
+              </div>
+              
               <EditableText id={`${id}-note`} defaultContent="Send receipt after payment for verification." className="text-sm text-gray-500 mt-4" tag="p" />
             </EditableCard>
           ))}
