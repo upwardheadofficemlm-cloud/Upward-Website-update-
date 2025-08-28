@@ -43,10 +43,15 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-all duration-300 px-4 py-2 rounded-xl hover:bg-gray-50">
+            <a
+              href="https://upward-552926055931.us-west1.run.app/#/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-all duration-300 px-4 py-2 rounded-xl hover:bg-gray-50"
+            >
               <LogIn className="w-5 h-5" />
               <span className="font-medium">Employee Login</span>
-            </button>
+            </a>
             <a
               href="#contact"
               className="bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white px-8 py-3 rounded-xl hover:shadow-xl hover:shadow-[#004FED]/25 transform hover:-translate-y-1 transition-all duration-300 font-semibold"
@@ -78,13 +83,16 @@ const Header = () => {
                   {item.label}
                 </a>
               ))}
-              <button
+              <a
+                href="https://upward-552926055931.us-west1.run.app/#/login"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-colors duration-300 py-3 px-4 rounded-xl hover:bg-gray-50"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <LogIn className="w-5 h-5" />
                 <span className="font-medium">Employee Login</span>
-              </button>
+              </a>
               <a
                 href="#contact"
                 className="bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white px-4 py-3 rounded-xl mt-4 text-center font-semibold"
