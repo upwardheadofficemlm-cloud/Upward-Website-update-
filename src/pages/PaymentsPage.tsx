@@ -10,8 +10,9 @@ const PaymentsPage: React.FC = () => {
   const { isAdmin, isEditing, updateContent, content } = useCMS();
 
   const [methodIds, setMethodIds] = React.useState<string[]>([]);
+  const [isInitialized, setIsInitialized] = React.useState(false);
 
-  // Load methods order from Firebase data
+  // Load methods order from Firebase data with improved persistence
   React.useEffect(() => {
     const key = 'payments-methods-order';
     const existing = content[key]?.content;
@@ -22,6 +23,7 @@ const PaymentsPage: React.FC = () => {
         if (Array.isArray(parsed) && parsed.length > 0) {
           console.log('📋 Loading existing payment methods from Firebase:', parsed);
           setMethodIds(parsed);
+          setIsInitialized(true);
           return;
         }
       } catch (error) {
@@ -29,15 +31,22 @@ const PaymentsPage: React.FC = () => {
       }
     }
     
-    // Only initialize defaults if there's NO existing data at all
-    const hasAnyPaymentData = Object.keys(content).some(key => 
-      key.includes('payments-method-') && content[key]?.content
-    );
+    // Check if we have any existing payment method data
+    const existingMethodIds = Object.keys(content)
+      .filter(key => key.includes('payments-method-') && key.endsWith('-name'))
+      .map(key => key.replace('-name', ''));
     
-    if (!hasAnyPaymentData) {
+    if (existingMethodIds.length > 0) {
+      console.log('🔄 Creating order from existing methods:', existingMethodIds);
+      setMethodIds(existingMethodIds);
+      persistOrder(existingMethodIds);
+      setIsInitialized(true);
+    } else if (!isInitialized) {
+      // Only initialize defaults if there's NO existing data at all and we haven't initialized yet
       console.log('🆕 No existing payment data found, initializing defaults...');
       const defaultIds = ['payments-method-bank', 'payments-method-wallet', 'payments-method-alt'];
       setMethodIds(defaultIds);
+      setIsInitialized(true);
       
       // Initialize default methods only if they don't exist
       const initializeDefaults = async () => {
@@ -50,20 +59,8 @@ const PaymentsPage: React.FC = () => {
       };
       
       initializeDefaults();
-    } else {
-      console.log('📦 Existing payment data found, using Firebase data only');
-      // If we have some data but no order, create order from existing methods
-      const existingMethodIds = Object.keys(content)
-        .filter(key => key.includes('payments-method-') && key.endsWith('-name'))
-        .map(key => key.replace('-name', ''));
-      
-      if (existingMethodIds.length > 0) {
-        console.log('🔄 Creating order from existing methods:', existingMethodIds);
-        setMethodIds(existingMethodIds);
-        persistOrder(existingMethodIds);
-      }
     }
-  }, [content]);
+  }, [content, isInitialized]);
 
   const persistOrder = async (ids: string[]) => {
     setMethodIds(ids);
@@ -157,6 +154,13 @@ const PaymentsPage: React.FC = () => {
           await updateContent(dstKey, value, 'text');
         }
       }));
+      
+      // Also copy QR code image if it exists
+      const qrImageKey = `${id}-qr-code`;
+      const qrImageContent = content[qrImageKey];
+      if (qrImageContent?.content) {
+        await updateContent(`${newId}-qr-code`, qrImageContent.content, 'image', qrImageContent.alt);
+      }
     } catch (e) {
       console.error('Duplicate content failed', e);
     }
@@ -270,6 +274,13 @@ const PaymentsPage: React.FC = () => {
     }
     
     await copyText(text);
+  };
+
+  // Helper function to check if QR code image exists and is not default
+  const hasQRCode = (methodId: string) => {
+    const qrImageKey = `${methodId}-qr-code`;
+    const qrContent = content[qrImageKey]?.content;
+    return qrContent && qrContent.trim() !== '' && !qrContent.includes('upward_logo_primary-blue.png');
   };
 
   return (
@@ -398,27 +409,29 @@ const PaymentsPage: React.FC = () => {
                 </div>
               </div>
               
-              {/* QR Code Section */}
-              <div className="mt-4">
-                <EditableText 
-                  id={`${id}-qr-title`} 
-                  defaultContent="QR Code (Optional)" 
-                  className="text-sm font-semibold text-gray-700 mb-2" 
-                  tag="div" 
-                />
-                <EditableImage
-                  id={`${id}-qr-code`}
-                  defaultSrc=""
-                  className="w-full max-w-32 mx-auto rounded-lg border border-gray-200 shadow-sm"
-                  alt={`${content[`${id}-name`]?.content || 'Payment method'} QR code`}
-                />
-                <EditableText 
-                  id={`${id}-qr-note`} 
-                  defaultContent="Upload QR code for quick scanning" 
-                  className="text-xs text-gray-500 mt-2 text-center" 
-                  tag="div" 
-                />
-              </div>
+              {/* QR Code Section - Only show if QR code image exists */}
+              {hasQRCode(id) && (
+                <div className="mt-4">
+                  <EditableText 
+                    id={`${id}-qr-title`} 
+                    defaultContent="QR Code" 
+                    className="text-sm font-semibold text-gray-700 mb-2" 
+                    tag="div" 
+                  />
+                  <EditableImage
+                    id={`${id}-qr-code`}
+                    defaultSrc=""
+                    className="w-full max-w-32 mx-auto rounded-lg border border-gray-200 shadow-sm"
+                    alt={`${content[`${id}-name`]?.content || 'Payment method'} QR code`}
+                  />
+                  <EditableText 
+                    id={`${id}-qr-note`} 
+                    defaultContent="Scan QR code for quick payment" 
+                    className="text-xs text-gray-500 mt-2 text-center" 
+                    tag="div" 
+                  />
+                </div>
+              )}
               
               <EditableText id={`${id}-note`} defaultContent="Send receipt after payment for verification." className="text-sm text-gray-500 mt-4" tag="p" />
             </EditableCard>
