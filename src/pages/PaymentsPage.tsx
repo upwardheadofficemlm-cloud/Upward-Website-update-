@@ -283,9 +283,31 @@ const PaymentsPage: React.FC = () => {
             <EditableText
               id="payments-instructions"
               defaultContent="Please include your invoice number in the payment reference. After payment, send the receipt to our finance team at accounts@upwardmm.com."
-              className="text-gray-600 leading-relaxed"
+              className="text-gray-600 leading-relaxed mb-6"
               tag="div"
             />
+            
+            {/* Payment Instruction Image */}
+            <div className="mt-6">
+              <EditableText
+                id="payments-instruction-image-title"
+                defaultContent="Reference Image (Optional)"
+                className="text-lg font-bold text-gray-900 mb-3"
+                tag="h3"
+              />
+              <EditableImage
+                id="payments-instruction-image"
+                defaultSrc="/upward_logo_primary-blue.png"
+                className="w-full max-w-4xl rounded-xl border border-gray-100 shadow-lg"
+                alt="Payment instruction reference image"
+              />
+              <EditableText
+                id="payments-instruction-image-note"
+                defaultContent="Upload a 1920x1080 reference image for payment instructions, forms, or process guides. Recommended format: PNG or JPG."
+                className="text-sm text-gray-500 mt-3"
+                tag="p"
+              />
+            </div>
           </div>
           <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 flex items-center justify-center">
             <div className="w-full">
