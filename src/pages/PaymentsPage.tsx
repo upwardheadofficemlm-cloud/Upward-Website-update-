@@ -12,6 +12,33 @@ const PaymentsPage: React.FC = () => {
   const [methodIds, setMethodIds] = React.useState<string[]>([]);
   const [isInitialized, setIsInitialized] = React.useState(false);
 
+  // Force cache refresh for payments page
+  React.useEffect(() => {
+    // Add cache-busting parameter to current URL
+    const currentUrl = new URL(window.location.href);
+    if (!currentUrl.searchParams.has('nocache')) {
+      currentUrl.searchParams.set('nocache', Date.now().toString());
+      window.history.replaceState({}, '', currentUrl.toString());
+    }
+    
+    // Clear any existing caches for this page
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.open(cacheName).then(cache => {
+            cache.keys().then(requests => {
+              requests.forEach(request => {
+                if (request.url.includes('/payments') || request.url.includes('PaymentsPage')) {
+                  cache.delete(request);
+                }
+              });
+            });
+          });
+        });
+      });
+    }
+  }, []);
+
   // Load methods order from Firebase data with improved persistence
   React.useEffect(() => {
     const key = 'payments-methods-order';
