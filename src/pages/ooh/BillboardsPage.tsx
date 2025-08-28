@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EditableText from '../../components/cms/EditableText';
 import EditableImage from '../../components/cms/EditableImage';
 import EditableStatBlock from '../../components/cms/EditableStatBlock';
-import { MapPin, Eye, TrendingUp, Users, CheckCircle, ArrowRight, Award, Clock, Target, ExternalLink } from 'lucide-react';
+import { MapPin, Eye, TrendingUp, Users, CheckCircle, ArrowRight, Award, Clock, Target, ExternalLink, Filter, Search } from 'lucide-react';
 
 const BillboardsPage = () => {
+  const navigate = useNavigate();
+  const [filterType, setFilterType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  
   const locations = [
     {
+      id: 'BB001',
       name: 'Strand Road Junction',
       traffic: '50,000+',
       type: 'Premium Billboard',
@@ -15,6 +21,7 @@ const BillboardsPage = () => {
       image: 'https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=600'
     },
     {
+      id: 'BB002',
       name: 'Mawlamyine University Area',
       traffic: '30,000+',
       type: 'Student Zone Billboard',
@@ -23,6 +30,7 @@ const BillboardsPage = () => {
       image: 'https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=600'
     },
     {
+      id: 'BB003',
       name: 'Central Market District',
       traffic: '40,000+',
       type: 'Commercial Billboard',
@@ -31,6 +39,7 @@ const BillboardsPage = () => {
       image: 'https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=600'
     },
     {
+      id: 'BB004',
       name: 'Thanlwin Bridge Approach',
       traffic: '60,000+',
       type: 'Highway Billboard',
@@ -127,6 +136,16 @@ const BillboardsPage = () => {
     { number: '95%', label: 'Client Retention', icon: Award },
     { number: '3+', label: 'Years Experience', icon: TrendingUp }
   ];
+
+  // Filter locations based on type and search term
+  const filteredLocations = locations.filter(location => {
+    const matchesType = filterType === 'all' || location.type.toLowerCase().includes(filterType.toLowerCase());
+    const matchesSearch = location.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         location.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesType && matchesSearch;
+  });
+
+  const uniqueTypes = ['all', ...new Set(locations.map(loc => loc.type))];
 
   return (
     <div className="min-h-screen pt-20">
@@ -248,9 +267,46 @@ const BillboardsPage = () => {
             </p>
           </div>
 
+          {/* Filter Section */}
+          <div className="mb-12">
+            <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
+              {/* Search Bar */}
+              <div className="relative w-full max-w-md">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search locations..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004FED]/20 focus:border-[#004FED] transition-all duration-300"
+                />
+              </div>
+
+              {/* Filter Dropdown */}
+              <div className="relative">
+                <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <select
+                  value={filterType}
+                  onChange={(e) => setFilterType(e.target.value)}
+                  className="pl-12 pr-8 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004FED]/20 focus:border-[#004FED] transition-all duration-300 appearance-none bg-white"
+                >
+                  {uniqueTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type === 'all' ? 'All Types' : type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {locations.map((location, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500">
+            {filteredLocations.map((location, index) => (
+              <div 
+                key={index} 
+                onClick={() => navigate(`/billboards/${location.id}`)}
+                className="bg-gradient-to-br from-gray-50 to-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 cursor-pointer group"
+              >
                 <div className="relative h-64">
                   <img
                     src={location.image}
@@ -259,6 +315,9 @@ const BillboardsPage = () => {
                   />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full">
                     <span className="text-[#004FED] font-bold">{location.traffic} daily views</span>
+                  </div>
+                  <div className="absolute top-4 left-4 bg-[#004FED]/90 backdrop-blur-md px-3 py-1 rounded-full">
+                    <span className="text-white font-bold text-sm">{location.id}</span>
                   </div>
                 </div>
                 
@@ -272,6 +331,11 @@ const BillboardsPage = () => {
                   
                   <div className="text-[#004FED] font-bold mb-4">{location.type}</div>
                   <p className="text-gray-600 leading-relaxed">{location.description}</p>
+                  
+                  <div className="mt-6 flex items-center justify-between">
+                    <span className="text-sm text-gray-500">Click to view details</span>
+                    <ArrowRight className="w-5 h-5 text-[#004FED] group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
                 </div>
               </div>
             ))}

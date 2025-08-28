@@ -21,6 +21,7 @@ import ContentCreationPage from './pages/services/ContentCreationPage';
 import SEOServicesPage from './pages/services/SEOServicesPage';
 import TrainingCenterPage from './pages/TrainingCenterPage';
 import BillboardsPage from './pages/ooh/BillboardsPage';
+import BillboardDetailPage from './pages/ooh/BillboardDetailPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
 import PaymentsPage from './pages/PaymentsPage';
 import AdminPage from './pages/AdminPage';
@@ -135,6 +136,14 @@ function App() {
             element={
               <Layout currentPage="billboards">
                 <BillboardsPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/billboards/:id" 
+            element={
+              <Layout currentPage="billboards">
+                <BillboardDetailPage />
               </Layout>
             } 
           />
