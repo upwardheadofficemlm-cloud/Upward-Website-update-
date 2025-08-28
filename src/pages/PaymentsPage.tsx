@@ -11,39 +11,57 @@ const PaymentsPage: React.FC = () => {
 
   const [methodIds, setMethodIds] = React.useState<string[]>([]);
 
-  // Load methods order (or fallback to 3 defaults)
+  // Load methods order from Firebase data
   React.useEffect(() => {
     const key = 'payments-methods-order';
     const existing = content[key]?.content;
+    
     if (existing) {
       try {
         const parsed = JSON.parse(existing);
-        if (Array.isArray(parsed)) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          console.log('📋 Loading existing payment methods from Firebase:', parsed);
           setMethodIds(parsed);
           return;
         }
-      } catch {}
+      } catch (error) {
+        console.error('❌ Failed to parse payment methods order:', error);
+      }
     }
     
-    // Set default method IDs
-    const defaultIds = ['payments-method-bank', 'payments-method-wallet', 'payments-method-alt'];
-    setMethodIds(defaultIds);
+    // Only initialize defaults if there's NO existing data at all
+    const hasAnyPaymentData = Object.keys(content).some(key => 
+      key.includes('payments-method-') && content[key]?.content
+    );
     
-    // Initialize default methods if they don't exist in CMS - only run once
-    const initializeDefaults = async () => {
-      const needsInit = defaultIds.some(id => !content[`${id}-name`]);
-      if (needsInit) {
-        console.log('Initializing default payment methods...');
-        await initDefaultMethods();
-        console.log('Default payment methods initialized');
-      }
-    };
-    
-    // Only initialize if we haven't done it before
-    const hasInitialized = sessionStorage.getItem('payments_initialized');
-    if (!hasInitialized) {
+    if (!hasAnyPaymentData) {
+      console.log('🆕 No existing payment data found, initializing defaults...');
+      const defaultIds = ['payments-method-bank', 'payments-method-wallet', 'payments-method-alt'];
+      setMethodIds(defaultIds);
+      
+      // Initialize default methods only if they don't exist
+      const initializeDefaults = async () => {
+        try {
+          await initDefaultMethods();
+          console.log('✅ Default payment methods initialized');
+        } catch (error) {
+          console.error('❌ Failed to initialize default payment methods:', error);
+        }
+      };
+      
       initializeDefaults();
-      sessionStorage.setItem('payments_initialized', 'true');
+    } else {
+      console.log('📦 Existing payment data found, using Firebase data only');
+      // If we have some data but no order, create order from existing methods
+      const existingMethodIds = Object.keys(content)
+        .filter(key => key.includes('payments-method-') && key.endsWith('-name'))
+        .map(key => key.replace('-name', ''));
+      
+      if (existingMethodIds.length > 0) {
+        console.log('🔄 Creating order from existing methods:', existingMethodIds);
+        setMethodIds(existingMethodIds);
+        persistOrder(existingMethodIds);
+      }
     }
   }, [content]);
 

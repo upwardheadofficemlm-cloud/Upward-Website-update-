@@ -43,13 +43,23 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const ADMIN_PASSWORD = 'Upward103999@@';
 
   useEffect(() => {
-    // Only load content once per session
-    const contentLoaded = sessionStorage.getItem('cms_content_loaded');
-    if (!contentLoaded) {
-      loadContent();
-      sessionStorage.setItem('cms_content_loaded', 'true');
+    // Always load content from cache or Firebase to ensure data persistence
+    const cachedContent = sessionStorage.getItem('cms_content_cache');
+    if (cachedContent) {
+      try {
+        const parsed = JSON.parse(cachedContent);
+        console.log('📦 Using cached content from sessionStorage');
+        setContent(parsed);
+        setLoading(false);
+        
+        // Also load fresh data from Firebase in background
+        loadContent();
+      } catch (e) {
+        console.log('❌ Failed to parse cached content, loading from Firebase');
+        loadContent();
+      }
     } else {
-      setLoading(false);
+      loadContent();
     }
     
     // Check if user is already logged in
@@ -99,10 +109,16 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         console.log('✅ Loaded content from Firebase:', Object.keys(loadedContent).length, 'items');
         console.log('🔑 Content keys:', Object.keys(loadedContent));
         
-        // Cache in sessionStorage
-        sessionStorage.setItem('cms_content_cache', JSON.stringify(loadedContent));
-        
-        setContent(loadedContent);
+        // Merge with existing content to preserve any local changes
+        setContent(prevContent => {
+          const mergedContent = { ...prevContent, ...loadedContent };
+          console.log('🔄 Merged content:', Object.keys(mergedContent).length, 'total items');
+          
+          // Cache merged content in sessionStorage
+          sessionStorage.setItem('cms_content_cache', JSON.stringify(mergedContent));
+          
+          return mergedContent;
+        });
       } catch (firebaseError) {
         console.error('❌ Firebase content loading failed:', firebaseError);
         console.error('🔒 This is likely a permissions issue. Check Firebase rules.');
