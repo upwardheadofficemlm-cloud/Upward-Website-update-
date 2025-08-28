@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Settings, Lock } from 'lucide-react';
 import { useCMS } from '../contexts/CMSContext';
 
 const SettingsButton: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const cms = useCMS();
   const { isAdmin, login } = cms;
   const [showTooltip, setShowTooltip] = useState(false);
@@ -15,8 +16,8 @@ const SettingsButton: React.FC = () => {
 
   const handleSettingsClick = () => {
     if (isAdmin) {
-      // If already logged in, navigate to admin page
-      navigate('/admin');
+      // If already logged in, navigate to admin page with current page info
+      navigate('/admin', { state: { from: location.pathname } });
     } else {
       // Show password modal
       setShowPasswordModal(true);
@@ -30,10 +31,10 @@ const SettingsButton: React.FC = () => {
 
     try {
       if (login(password)) {
-        // Success - navigate to admin page
+        // Success - navigate to admin page with current page info
         setShowPasswordModal(false);
         setPassword('');
-        navigate('/admin');
+        navigate('/admin', { state: { from: location.pathname } });
       } else {
         setLoginError('Invalid password. Please try again.');
         setPassword('');

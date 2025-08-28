@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCMS } from '../contexts/CMSContext';
 import { Edit3, Lock, Eye, EyeOff } from 'lucide-react';
 
 const AdminPage: React.FC = () => {
   const { login, isAdmin } = useCMS();
   const navigate = useNavigate();
+  const location = useLocation();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Redirect if already logged in
+  // Get the referring page from location state or default to home
+  const referringPage = location.state?.from || '/';
+
+  // Redirect if already logged in - go back to referring page
   useEffect(() => {
     if (isAdmin) {
-      navigate('/');
+      navigate(referringPage);
     }
-  }, [isAdmin, navigate]);
+  }, [isAdmin, navigate, referringPage]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,8 +29,8 @@ const AdminPage: React.FC = () => {
 
     try {
       if (login(password)) {
-        // Success - redirect to home page
-        navigate('/');
+        // Success - redirect back to referring page
+        navigate(referringPage);
       } else {
         setLoginError('Invalid password. Please try again.');
         setPassword('');
@@ -40,7 +44,7 @@ const AdminPage: React.FC = () => {
   };
 
   const handleBackToHome = () => {
-    navigate('/');
+    navigate(referringPage);
   };
 
   return (
