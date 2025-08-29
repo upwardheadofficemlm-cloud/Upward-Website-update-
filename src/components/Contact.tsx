@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import EditableText from './cms/EditableText';
 import EditableButton from './cms/EditableButton';
 import { submitContactForm, ContactFormData } from '../services/contactService';
+import { trackContactForm, trackPhoneCall, trackEmailClick, trackSocialMediaClick } from './MetaPixel';
 import { 
   Mail, 
   Phone, 
@@ -55,6 +56,9 @@ const Contact = () => {
 
     submitContactForm(contactData)
       .then((docId) => {
+        // Track form submission
+        trackContactForm(formData.service || 'general');
+        
         alert('Thank you for your message! We will contact you soon. Reference ID: ' + docId.substring(0, 8));
         setFormData({
           name: '',
@@ -318,26 +322,36 @@ const Contact = () => {
               />
               <div className="flex space-x-6">
                 <a
-                  href="#"
+                  href="https://facebook.com/upwardmm"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center hover:bg-white/30 transition-all duration-300 hover:scale-110"
+                  onClick={() => trackSocialMediaClick('Facebook', 'https://facebook.com/upwardmm')}
                 >
                   <Facebook className="w-7 h-7" />
                 </a>
                 <a
-                  href="#"
+                  href="https://instagram.com/upwardmm"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center hover:bg-white/30 transition-all duration-300 hover:scale-110"
+                  onClick={() => trackSocialMediaClick('Instagram', 'https://instagram.com/upwardmm')}
                 >
                   <Instagram className="w-7 h-7" />
                 </a>
                 <a
-                  href="#"
+                  href="https://linkedin.com/company/upwardmm"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center hover:bg-white/30 transition-all duration-300 hover:scale-110"
+                  onClick={() => trackSocialMediaClick('LinkedIn', 'https://linkedin.com/company/upwardmm')}
                 >
                   <Linkedin className="w-7 h-7" />
                 </a>
                 <a
-                  href="#"
+                  href="mailto:contact@upwardmm.com"
                   className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center hover:bg-white/30 transition-all duration-300 hover:scale-110"
+                  onClick={() => trackEmailClick('contact@upwardmm.com')}
                 >
                   <MessageCircle className="w-7 h-7" />
                 </a>
@@ -362,6 +376,7 @@ const Contact = () => {
                 <a
                   href="tel:09740977946"
                   className="flex-1 bg-[#004FED]/10 text-[#004FED] px-6 py-4 rounded-xl text-center font-bold hover:bg-[#004FED]/20 transition-all duration-300 text-lg block"
+                  onClick={() => trackPhoneCall('09740977946')}
                 >
                   <EditableText
                     id="contact-call-button"

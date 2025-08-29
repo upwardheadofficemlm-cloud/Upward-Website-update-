@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight, LogIn } from 'lucide-react';
+import { trackEmployeeLoginClick } from './MetaPixel';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,6 +49,7 @@ const Header = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-all duration-300 px-4 py-2 rounded-xl hover:bg-gray-50"
+              onClick={trackEmployeeLoginClick}
             >
               <LogIn className="w-5 h-5" />
               <span className="font-medium">Employee Login</span>
@@ -88,7 +90,10 @@ const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-colors duration-300 py-3 px-4 rounded-xl hover:bg-gray-50"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  trackEmployeeLoginClick();
+                }}
               >
                 <LogIn className="w-5 h-5" />
                 <span className="font-medium">Employee Login</span>

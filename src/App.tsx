@@ -7,6 +7,7 @@ import LoadingScreen from './components/LoadingScreen';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import SettingsButton from './components/SettingsButton';
+import MetaPixelTracker from './components/MetaPixel';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
@@ -61,6 +62,7 @@ function App() {
   return (
     <Router>
       <CMSProvider>
+        <MetaPixelTracker />
         <Routes>
           {/* Home Page */}
           <Route 
