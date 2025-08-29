@@ -3,7 +3,7 @@ import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
 import EditableButton from './cms/EditableButton';
 import { Link } from 'react-router-dom';
-import { trackEvent } from './MetaPixel';
+import { useMetaPixel } from './MetaPixel';
 import { 
   ArrowUpRight, 
   MapPin, 
@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 
 const Footer = () => {
+  const { trackEvent } = useMetaPixel();
 
   const quickLinks = [
     { label: 'About Us', url: '/about', page: 'about' },
