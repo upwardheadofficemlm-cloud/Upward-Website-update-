@@ -48,7 +48,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <EditableText
                   id="privacy-intro-1"
-                  defaultContent="Welcome to Upward ERP ("we," "us," or "our"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Enterprise Resource Planning (ERP) application (the "Service")."
+                  defaultContent="Welcome to Upward ERP (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Enterprise Resource Planning (ERP) application (the &quot;Service&quot;)."
                   className="text-lg"
                   tag="p"
                 />
@@ -238,7 +238,7 @@ const PrivacyPolicyPage: React.FC = () => {
                       />
                       <EditableText
                         id="privacy-disconnect-content"
-                        defaultContent="You can remove our application's permissions from your Facebook account by visiting your Facebook "Apps and Websites" settings here:"
+                        defaultContent="You can remove our application's permissions from your Facebook account by visiting your Facebook &quot;Apps and Websites&quot; settings here:"
                         className="text-gray-700 mb-2"
                         tag="p"
                       />
@@ -267,7 +267,7 @@ const PrivacyPolicyPage: React.FC = () => {
                       />
                       <EditableText
                         id="privacy-request-content"
-                        defaultContent="To request the permanent deletion of all data we have stored about you and your account, please send an email to contact@upwardmm.com with the subject line "Data Deletion Request." Please include your account username or email in the body of the message. We will process your request and permanently delete your account data within 30 days."
+                        defaultContent="To request the permanent deletion of all data we have stored about you and your account, please send an email to contact@upwardmm.com with the subject line &quot;Data Deletion Request.&quot; Please include your account username or email in the body of the message. We will process your request and permanently delete your account data within 30 days."
                         className="text-gray-700"
                         tag="p"
                       />
@@ -287,7 +287,7 @@ const PrivacyPolicyPage: React.FC = () => {
               />
               <EditableText
                 id="privacy-changes-content"
-                defaultContent="We may update this Privacy Policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Effective Date" at the top."
+                defaultContent="We may update this Privacy Policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Effective Date&quot; at the top."
                 className="text-lg text-gray-700"
                 tag="p"
               />
