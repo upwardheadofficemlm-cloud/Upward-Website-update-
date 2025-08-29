@@ -252,15 +252,12 @@ const Footer = () => {
               </div>
               
               <div className="flex items-center space-x-8">
-                <EditableText
-                  id="footer-privacy-link"
-                  defaultContent="Privacy Policy"
-                  className="text-gray-400 hover:text-[#004FED] transition-colors duration-300 cursor-pointer"
-                  tag="button"
-                  isNavigable={true}
-                  navigationUrl="/privacy"
-                  navigationType="internal"
-                />
+                <Link
+                  to="/privacy-policy"
+                  className="text-gray-400 hover:text-[#004FED] transition-colors duration-300"
+                >
+                  Privacy Policy
+                </Link>
                 <EditableText
                   id="footer-terms-link"
                   defaultContent="Terms of Service"

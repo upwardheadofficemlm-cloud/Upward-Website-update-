@@ -26,6 +26,7 @@ import BillboardDetailPage from './pages/ooh/BillboardDetailPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
 import PaymentsPage from './pages/PaymentsPage';
 import AdminPage from './pages/AdminPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 
 
@@ -206,6 +207,16 @@ function App() {
             element={
               <Layout currentPage="payments">
                 <PaymentsPage />
+              </Layout>
+            } 
+          />
+
+          {/* Privacy Policy Page */}
+          <Route 
+            path="/privacy-policy" 
+            element={
+              <Layout currentPage="privacy-policy">
+                <PrivacyPolicyPage />
               </Layout>
             } 
           />
