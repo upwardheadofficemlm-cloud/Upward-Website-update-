@@ -3,6 +3,7 @@ import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
 import EditableButton from './cms/EditableButton';
 import { Link } from 'react-router-dom';
+import { trackEvent } from './MetaPixel';
 import { 
   ArrowUpRight, 
   MapPin, 
@@ -255,18 +256,27 @@ const Footer = () => {
                 <Link
                   to="/privacy-policy"
                   className="text-gray-400 hover:text-[#004FED] transition-colors duration-300"
+                  onClick={() => trackEvent('ViewContent', {
+                    content_name: 'Privacy Policy',
+                    content_category: 'Legal',
+                    value: 1,
+                    currency: 'USD'
+                  })}
                 >
                   Privacy Policy
                 </Link>
-                <EditableText
-                  id="footer-terms-link"
-                  defaultContent="Terms of Service"
-                  className="text-gray-400 hover:text-[#004FED] transition-colors duration-300 cursor-pointer"
-                  tag="button"
-                  isNavigable={true}
-                  navigationUrl="/terms"
-                  navigationType="internal"
-                />
+                <Link
+                  to="/terms-of-service"
+                  className="text-gray-400 hover:text-[#004FED] transition-colors duration-300"
+                  onClick={() => trackEvent('ViewContent', {
+                    content_name: 'Terms of Service',
+                    content_category: 'Legal',
+                    value: 1,
+                    currency: 'USD'
+                  })}
+                >
+                  Terms of Service
+                </Link>
 
               </div>
             </div>
