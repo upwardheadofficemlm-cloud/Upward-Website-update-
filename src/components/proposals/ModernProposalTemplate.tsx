@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Download, Share2, CheckCircle, Star, TrendingUp, Users, Target, Award, Clock, DollarSign, ArrowRight } from 'lucide-react';
+import { Copy, Download, Share2, CheckCircle, Star, TrendingUp, Users, Target, Award, Clock, DollarSign, ArrowRight, ArrowUpRight } from 'lucide-react';
 import EditableText from '../cms/EditableText';
 import EditableSection from '../cms/EditableSection';
 import EditableImage from '../cms/EditableImage';
@@ -40,7 +40,7 @@ const ModernProposalTemplate: React.FC<ModernProposalTemplateProps> = ({
   };
 
   const handleShare = async () => {
-    await shareProposal(window.location.href, `Proposal from Upward Marketing Agency`);
+    await shareProposal(window.location.href, `Proposal from Upward Marketing House`);
     onShare?.();
   };
 
@@ -138,11 +138,16 @@ const ModernProposalTemplate: React.FC<ModernProposalTemplateProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center">
-                <Star className="w-6 h-6 text-white" />
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center shadow-lg">
+                  <ArrowUpRight className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">
+                  Upward
+                </span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Upward Marketing Agency</h1>
+                <h1 className="text-xl font-bold text-gray-900">Upward Marketing House</h1>
                 <p className="text-sm text-gray-600">Professional Proposal</p>
               </div>
             </div>
@@ -462,10 +467,13 @@ const ModernProposalTemplate: React.FC<ModernProposalTemplateProps> = ({
       <footer className="py-12 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Star className="w-8 h-8 text-white" />
+            <div className="flex items-center justify-center space-x-2 mx-auto mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center shadow-lg">
+                <ArrowUpRight className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-3xl font-bold text-white">Upward</span>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Upward Marketing Agency</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Upward Marketing House</h3>
             <p className="text-gray-400 mb-6">Transforming businesses through digital innovation</p>
             <div className="flex items-center justify-center space-x-6 text-sm text-gray-400">
               <span>contact@upwardmm.com</span>
