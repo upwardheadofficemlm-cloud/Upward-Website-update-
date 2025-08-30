@@ -56,6 +56,11 @@ const Layout: React.FC<{ children: React.ReactNode; currentPage: string }> = ({ 
 function App() {
   const [isLoading, setIsLoading] = React.useState(true);
 
+  // Debug logging
+  console.log('App component loaded');
+  console.log('Current URL:', window.location.href);
+  console.log('Current pathname:', window.location.pathname);
+
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -223,9 +228,33 @@ function App() {
           <Route 
             path="/payments" 
             element={
-              <Layout currentPage="payments">
-                <PaymentsPage />
-              </Layout>
+              <div style={{ 
+                minHeight: '100vh', 
+                backgroundColor: 'red', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                color: 'white',
+                fontSize: '2rem',
+                fontWeight: 'bold'
+              }}>
+                PAYMENTS PAGE TEST - ROUTING WORKS!
+                <br />
+                <button 
+                  onClick={() => window.location.href = '/'}
+                  style={{
+                    marginTop: '20px',
+                    padding: '10px 20px',
+                    backgroundColor: 'white',
+                    color: 'red',
+                    border: 'none',
+                    borderRadius: '5px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Go Home
+                </button>
+              </div>
             } 
           />
 
