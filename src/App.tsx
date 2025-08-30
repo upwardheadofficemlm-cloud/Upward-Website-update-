@@ -209,6 +209,16 @@ function App() {
             } 
           />
 
+          {/* Admin Pages */}
+          <Route 
+            path="/admin" 
+            element={<AdminPage />}
+          />
+          <Route 
+            path="/admin/dashboard" 
+            element={<AdminDashboardPage />}
+          />
+
           {/* Hidden Pages */}
           <Route 
             path="/payments" 
@@ -289,16 +299,6 @@ function App() {
                 <GenericProposalPage />
               </Layout>
             } 
-          />
-
-          {/* Admin Pages */}
-          <Route 
-            path="/admin" 
-            element={<AdminPage />}
-          />
-          <Route 
-            path="/admin/dashboard" 
-            element={<AdminDashboardPage />}
           />
 
           {/* 404 Redirect to Home */}

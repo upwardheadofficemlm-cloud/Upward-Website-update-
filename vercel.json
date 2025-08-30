@@ -85,6 +85,14 @@
       "destination": "/index.html"
     },
     {
+      "source": "/admin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/index.html"
+    },
+    {
       "source": "/proposals/(.*)",
       "destination": "/index.html"
     },
@@ -101,6 +109,16 @@
     },
     {
       "source": "/payments/(.*)",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/admin",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/admin/(.*)",
       "destination": "/index.html",
       "permanent": false
     },
