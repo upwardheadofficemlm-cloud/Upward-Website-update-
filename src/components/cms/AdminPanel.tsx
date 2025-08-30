@@ -35,7 +35,12 @@ const AdminPanel: React.FC = () => {
   }
 
   // Only show admin panel if user is already logged in as admin
-  if (!isAdmin) return null;
+  if (!isAdmin) {
+    console.log('AdminPanel: User is not admin, not showing panel');
+    return null;
+  }
+  
+  console.log('AdminPanel: User is admin, showing panel');
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -59,7 +64,10 @@ const AdminPanel: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button
-              onClick={() => navigate('/admin/dashboard?tab=proposals')}
+              onClick={() => {
+                console.log('AdminPanel: Navigating to proposals dashboard');
+                navigate('/admin/dashboard?tab=proposals');
+              }}
               className="flex items-center justify-center space-x-2 px-3 py-2 bg-[#004FED] text-white rounded-lg text-xs font-semibold hover:bg-[#0066FF] transition-colors"
               title="View All Proposals"
             >
@@ -67,7 +75,10 @@ const AdminPanel: React.FC = () => {
               <span>View All</span>
             </button>
             <button
-              onClick={() => navigate('/admin/dashboard?tab=proposals&action=create')}
+              onClick={() => {
+                console.log('AdminPanel: Navigating to create proposal');
+                navigate('/admin/dashboard?tab=proposals&action=create');
+              }}
               className="flex items-center justify-center space-x-2 px-3 py-2 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition-colors"
               title="Create New Proposal"
             >
