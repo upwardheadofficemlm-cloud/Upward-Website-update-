@@ -8,6 +8,11 @@ import { useCMS } from '../contexts/CMSContext';
 
 const PaymentsPage: React.FC = () => {
   const { isAdmin, isEditing, updateContent, content } = useCMS();
+  
+  // Debug logging
+  console.log('PaymentsPage component loaded');
+  console.log('isAdmin:', isAdmin);
+  console.log('isEditing:', isEditing);
 
   const [methodIds, setMethodIds] = React.useState<string[]>([]);
   const [isInitialized, setIsInitialized] = React.useState(false);
@@ -380,6 +385,7 @@ const PaymentsPage: React.FC = () => {
               <EditableImage
                 id="payments-qr-image"
                 defaultSrc="/upward_logo_primary-blue.png"
+                alt="Payment QR Code"
                 className="w-full aspect-square rounded-xl border border-gray-100 object-contain"
               />
               <EditableText
@@ -421,7 +427,7 @@ const PaymentsPage: React.FC = () => {
               onDuplicate={() => duplicateMethod(id)}
             >
               <div className="flex items-center space-x-4 mb-4">
-                <EditableImage id={`${id}-logo`} defaultSrc="/upward_logo_primary-blue.png" className="w-14 h-14 object-contain rounded-lg border border-gray-100" />
+                <EditableImage id={`${id}-logo`} defaultSrc="/upward_logo_primary-blue.png" alt={`${id} logo`} className="w-14 h-14 object-contain rounded-lg border border-gray-100" />
                 <EditableText id={`${id}-name`} defaultContent="Payment Method" className="text-xl font-bold text-gray-900" tag="h3" />
               </div>
               <div className="space-y-2">
