@@ -77,6 +77,14 @@
   ],
   "rewrites": [
     {
+      "source": "/payments",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/payments/(.*)",
+      "destination": "/index.html"
+    },
+    {
       "source": "/proposals/(.*)",
       "destination": "/index.html"
     },
@@ -86,6 +94,16 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/payments",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/payments/(.*)",
+      "destination": "/index.html",
+      "permanent": false
+    },
     {
       "source": "/proposals/digital-marketing/:proposalId",
       "destination": "/index.html",
