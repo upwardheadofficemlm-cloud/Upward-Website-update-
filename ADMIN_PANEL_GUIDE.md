@@ -1,3 +1,4 @@
+
 # Admin Panel Guide - Proposal Management
 
 ## 🎯 **Overview**

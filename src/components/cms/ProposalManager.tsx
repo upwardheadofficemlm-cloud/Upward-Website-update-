@@ -99,9 +99,32 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
   };
 
   // Copy URL to clipboard
-  const copyUrl = (url: string) => {
-    navigator.clipboard.writeText(url);
-    // You could add a toast notification here
+  const copyUrl = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      
+      // Show success notification
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center space-x-2';
+      notification.innerHTML = `
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span>URL copied to clipboard!</span>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        if (document.body.contains(notification)) {
+          document.body.removeChild(notification);
+        }
+      }, 3000);
+    } catch (error) {
+      console.error('Failed to copy URL:', error);
+      
+      // Fallback: show URL in alert
+      alert(`Proposal URL: ${url}`);
+    }
   };
 
   // Filter proposals
