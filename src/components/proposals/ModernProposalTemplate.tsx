@@ -142,9 +142,6 @@ const ModernProposalTemplate: React.FC<ModernProposalTemplateProps> = ({
                 <div className="w-10 h-10 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center shadow-lg">
                   <ArrowUpRight className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">
-                  Upward
-                </span>
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">Upward Marketing House</h1>
@@ -467,11 +464,10 @@ const ModernProposalTemplate: React.FC<ModernProposalTemplateProps> = ({
       <footer className="py-12 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mx-auto mb-6">
+            <div className="flex items-center justify-center mx-auto mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center shadow-lg">
                 <ArrowUpRight className="w-6 h-6 text-white" />
               </div>
-              <span className="text-3xl font-bold text-white">Upward</span>
             </div>
             <h3 className="text-2xl font-bold text-white mb-4">Upward Marketing House</h3>
             <p className="text-gray-400 mb-6">Transforming businesses through digital innovation</p>
