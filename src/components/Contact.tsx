@@ -122,11 +122,11 @@ const Contact = () => {
     'Over 500,000 MMK'
   ];
   return (
-    <section id="contact" className="py-32 bg-gradient-to-b from-gray-50 to-white">
+    <section id="contact" className="py-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-24">
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-6">
+          <h2 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-gray-100 mb-6">
             <EditableText
               id="contact-title-get"
               defaultContent="Get In"

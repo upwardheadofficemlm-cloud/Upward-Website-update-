@@ -36,11 +36,11 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-gradient-to-b from-gray-50 to-white">
+    <section id="about" className="py-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-24">
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-6">
+          <h2 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-gray-100 mb-6">
             <EditableText
               id="about-title-about"
               defaultContent="About"
@@ -58,7 +58,7 @@ const About = () => {
           <EditableText
             id="about-description"
             defaultContent="Mawlamyine's premier marketing agency since 2021, transforming businesses through innovative strategies and proven results."
-            className="text-2xl text-gray-600 max-w-4xl mx-auto font-light leading-relaxed"
+            className="text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto font-light leading-relaxed"
             tag="p"
           />
         </div>
@@ -108,7 +108,7 @@ const About = () => {
               />
             </div>
             {/* Floating Card */}
-            <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-2xl border border-gray-100">
+            <div className="absolute -bottom-10 -left-10 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700">
               <div className="flex items-center space-x-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center">
                   <Award className="w-8 h-8 text-white" />
@@ -117,13 +117,13 @@ const About = () => {
                   <EditableText
                     id="about-award-title"
                     defaultContent="Award Winner"
-                    className="font-bold text-gray-900 text-lg"
+                    className="font-bold text-gray-900 dark:text-gray-100 text-lg"
                     tag="div"
                   />
                   <EditableText
                     id="about-award-subtitle"
                     defaultContent="Myanmar Marketing Awards 2023"
-                    className="text-gray-600"
+                    className="text-gray-600 dark:text-gray-400"
                     tag="div"
                   />
                 </div>
@@ -187,11 +187,11 @@ const About = () => {
                 };
                 setAchievements([...achievements, newAchievement]);
               }}
-              className="bg-white/60 backdrop-blur-md rounded-2xl p-8 shadow-lg border-2 border-dashed border-gray-300 hover:border-[#004FED] hover:bg-[#004FED]/5 transition-all duration-300 cursor-pointer flex items-center justify-center min-h-[150px]"
+              className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-2xl p-8 shadow-lg border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-[#004FED] hover:bg-[#004FED]/5 dark:hover:bg-[#004FED]/10 transition-all duration-300 cursor-pointer flex items-center justify-center min-h-[150px]"
             >
               <div className="text-center">
-                <Plus className="w-12 h-12 text-gray-400 hover:text-[#004FED] mx-auto mb-4" />
-                <span className="text-gray-500 font-medium">Add Achievement</span>
+                <Plus className="w-12 h-12 text-gray-400 dark:text-gray-500 hover:text-[#004FED] mx-auto mb-4" />
+                <span className="text-gray-500 dark:text-gray-400 font-medium">Add Achievement</span>
               </div>
             </div>
           )}

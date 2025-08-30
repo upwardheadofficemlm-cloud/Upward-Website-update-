@@ -66,11 +66,11 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-32 bg-gradient-to-b from-white to-gray-50">
+    <section id="services" className="py-32 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-24">
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-6">
+          <h2 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-gray-100 mb-6">
             <EditableText
               id="services-title-our"
               defaultContent="Our"
@@ -88,7 +88,7 @@ const Services = () => {
           <EditableText
             id="services-description"
             defaultContent="Comprehensive 360° marketing solutions tailored for Myanmar businesses. From digital campaigns to brand identity, we deliver results that matter."
-            className="text-2xl text-gray-600 max-w-4xl mx-auto font-light leading-relaxed"
+            className="text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto font-light leading-relaxed"
             tag="p"
           />
         </div>
@@ -98,7 +98,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:shadow-[#004FED]/10 hover:-translate-y-4 transition-all duration-500"
+              className="group bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:shadow-[#004FED]/10 hover:-translate-y-4 transition-all duration-500"
             >
               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} p-4 mb-6 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
                 <service.icon className="w-8 h-8 text-white" />
@@ -107,14 +107,14 @@ const Services = () => {
               <EditableText
                 id={`service-title-${index}`}
                 defaultContent={service.title}
-                className="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#004FED] transition-colors duration-300"
+                className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 group-hover:text-[#004FED] transition-colors duration-300"
                 tag="h3"
               />
               
               <EditableText
                 id={`service-description-${index}`}
                 defaultContent={service.description}
-                className="text-gray-600 leading-relaxed mb-6"
+                className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6"
                 tag="p"
               />
 
@@ -133,17 +133,17 @@ const Services = () => {
 
         {/* CTA Section */}
         <div className="text-center mt-24">
-          <div className="bg-gradient-to-r from-[#004FED]/5 to-[#0066FF]/10 rounded-3xl p-12 md:p-16 border border-[#004FED]/10">
+          <div className="bg-gradient-to-r from-[#004FED]/5 to-[#0066FF]/10 dark:from-[#004FED]/10 dark:to-[#0066FF]/20 rounded-3xl p-12 md:p-16 border border-[#004FED]/10 dark:border-[#004FED]/20">
             <EditableText
               id="services-cta-title"
               defaultContent="Ready to Transform Your Business?"
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6"
               tag="h3"
             />
             <EditableText
               id="services-cta-description"
               defaultContent="Discover how our comprehensive marketing solutions can accelerate your business growth."
-              className="text-2xl text-gray-600 mb-12 max-w-3xl mx-auto font-light"
+              className="text-2xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto font-light"
               tag="p"
             />
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8">
