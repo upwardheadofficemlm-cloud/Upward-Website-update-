@@ -15,12 +15,12 @@ const AdminPage: React.FC = () => {
   // Get the referring page from location state or default to home
   const referringPage = location.state?.from || '/';
 
-  // Redirect if already logged in - go back to referring page
+  // Redirect if already logged in - go to admin dashboard
   useEffect(() => {
     if (isAdmin) {
-      navigate(referringPage);
+      navigate('/admin/dashboard');
     }
-  }, [isAdmin, navigate, referringPage]);
+  }, [isAdmin, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,8 +29,8 @@ const AdminPage: React.FC = () => {
 
     try {
       if (login(password)) {
-        // Success - redirect back to referring page
-        navigate(referringPage);
+        // Success - redirect to admin dashboard
+        navigate('/admin/dashboard');
       } else {
         setLoginError('Invalid password. Please try again.');
         setPassword('');

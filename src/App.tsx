@@ -26,6 +26,7 @@ import BillboardDetailPage from './pages/ooh/BillboardDetailPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
 import PaymentsPage from './pages/PaymentsPage';
 import AdminPage from './pages/AdminPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import DigitalMarketingProposalPage from './pages/proposals/DigitalMarketingProposalPage';
 import WebDevelopmentProposalPage from './pages/proposals/WebDevelopmentProposalPage';
@@ -286,10 +287,14 @@ function App() {
             } 
           />
 
-          {/* Admin Page */}
+          {/* Admin Pages */}
           <Route 
             path="/admin" 
             element={<AdminPage />}
+          />
+          <Route 
+            path="/admin/dashboard" 
+            element={<AdminDashboardPage />}
           />
 
           {/* 404 Redirect to Home */}

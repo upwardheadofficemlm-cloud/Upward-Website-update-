@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCMS } from '../../contexts/CMSContext';
-import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle } from 'lucide-react';
+import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, LayoutDashboard } from 'lucide-react';
 
 const AdminPanel: React.FC = () => {
   const { isAdmin, isEditing, toggleEditing, logout } = useCMS();
+  const navigate = useNavigate();
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleLogout = () => {
@@ -51,7 +53,7 @@ const AdminPanel: React.FC = () => {
         <div className="flex items-center space-x-3">
           <button
             onClick={handleToggleEditing}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 flex-1 ${
+            className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
               isEditing
                 ? 'bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white shadow-lg hover:shadow-xl'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -60,6 +62,14 @@ const AdminPanel: React.FC = () => {
           >
             {isEditing ? <EyeOff className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
             <span>{isEditing ? 'Exit Edit' : 'Edit Mode'}</span>
+          </button>
+          
+          <button
+            onClick={() => navigate('/admin/dashboard')}
+            className="flex items-center space-x-2 px-4 py-3 bg-[#004FED] text-white rounded-xl text-sm font-bold hover:bg-[#0066FF] transition-colors"
+            title="Admin Dashboard"
+          >
+            <LayoutDashboard className="w-4 h-4" />
           </button>
           
           <button
