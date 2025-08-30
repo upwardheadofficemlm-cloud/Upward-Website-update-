@@ -67,7 +67,7 @@ The proposal system has been completely modernized with cutting-edge features, b
 ## 🚀 **How to Use Modern Features**
 
 ### **Creating a New Proposal**
-1. **Access Admin Panel**: Go to `/admin/dashboard`
+1. **Access Admin Panel**: Go to `https://upwardmm.com/admin/dashboard`
 2. **Click "Create New Proposal"**: Use the prominent button
 3. **Fill in Details**: Service type, title, client name
 4. **Generate URL**: System creates unique proposal link

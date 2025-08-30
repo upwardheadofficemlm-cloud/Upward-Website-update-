@@ -68,7 +68,7 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
       createdAt: new Date().toISOString(),
       lastModified: new Date().toISOString(),
       status: 'draft',
-      url: `https://upward-website-update.vercel.app/proposals/${formData.type}/${formData.type}-${Date.now()}`
+      url: `https://upwardmm.com/proposals/${formData.type}/${formData.type}-${Date.now()}`
     };
 
     const updatedProposals = [...proposals, newProposal];

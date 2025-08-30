@@ -8,7 +8,7 @@ The admin panel now includes a comprehensive proposal management system that all
 ## 🔐 **Accessing the Admin Panel**
 
 ### **Method 1: Direct Access**
-1. Go to: `https://upward-website-update.vercel.app/admin`
+1. Go to: `https://upwardmm.com/admin`
 2. Enter the admin password
 3. You'll be redirected to the admin dashboard
 
@@ -131,13 +131,13 @@ The admin panel now includes a comprehensive proposal management system that all
 
 ### **Generated URLs**
 ```
-https://upward-website-update.vercel.app/proposals/{service-type}/{unique-id}
+https://upwardmm.com/proposals/{service-type}/{unique-id}
 ```
 
 ### **Examples**
-- Digital Marketing: `/proposals/digital-marketing/digital-marketing-1703123456789`
-- Web Development: `/proposals/web-development/web-development-1703123456790`
-- Brand Identity: `/proposals/brand-identity/brand-identity-1703123456791`
+- Digital Marketing: `https://upwardmm.com/proposals/digital-marketing/digital-marketing-1703123456789`
+- Web Development: `https://upwardmm.com/proposals/web-development/web-development-1703123456790`
+- Brand Identity: `https://upwardmm.com/proposals/brand-identity/brand-identity-1703123456791`
 
 ## 💾 **Data Storage**
 

@@ -50,7 +50,7 @@ export const updatePageSEO = (seoData: SEOData) => {
   updateMetaTag('og:title', seoData.ogTitle || seoData.title, true);
   updateMetaTag('og:description', seoData.ogDescription || seoData.description, true);
   updateMetaTag('og:type', 'website', true);
-  updateMetaTag('og:site_name', 'Upward Marketing Agency', true);
+  updateMetaTag('og:site_name', 'Upward Marketing House', true);
   
   if (seoData.ogImage) {
     updateMetaTag('og:image', seoData.ogImage, true);
@@ -93,7 +93,7 @@ export const updatePageSEO = (seoData: SEOData) => {
 };
 
 export const getPageSEO = (page: string): SEOData => {
-  const baseUrl = 'https://upward-website-update.vercel.app';
+  const baseUrl = 'https://upwardmm.com';
   const defaultImage = `${baseUrl}/upward_logo_primary-blue.png`;
 
   const seoData: { [key: string]: SEOData } = {
