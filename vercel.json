@@ -77,8 +77,49 @@
   ],
   "rewrites": [
     {
+      "source": "/proposals/(.*)",
+      "destination": "/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/proposals/digital-marketing/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/proposals/web-development/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/proposals/brand-identity/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/proposals/social-media/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/proposals/content-creation/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/proposals/seo-services/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "/proposals/:proposalType/:proposalId",
+      "destination": "/index.html",
+      "permanent": false
     }
   ]
 }

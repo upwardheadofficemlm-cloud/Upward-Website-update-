@@ -51,10 +51,24 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
       const proposals = JSON.parse(savedProposals);
       
       // Update existing proposals to use the new domain
-      const updatedProposals = proposals.map((proposal: Proposal) => ({
-        ...proposal,
-        url: proposal.url.replace('upward-website-update.vercel.app', 'upwardmm.com')
-      }));
+      const updatedProposals = proposals.map((proposal: Proposal) => {
+        let updatedUrl = proposal.url;
+        
+        // Update old Vercel domain to custom domain
+        if (updatedUrl.includes('upward-website-update.vercel.app')) {
+          updatedUrl = updatedUrl.replace('upward-website-update.vercel.app', 'upwardmm.com');
+        }
+        
+        // If we're not on the custom domain, fallback to Vercel domain
+        if (window.location.hostname !== 'upwardmm.com' && updatedUrl.includes('upwardmm.com')) {
+          updatedUrl = updatedUrl.replace('upwardmm.com', 'upward-website-update.vercel.app');
+        }
+        
+        return {
+          ...proposal,
+          url: updatedUrl
+        };
+      });
       
       setProposals(updatedProposals);
       
@@ -71,6 +85,11 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
 
   // Create new proposal
   const createProposal = (formData: any) => {
+    // Use custom domain if available, fallback to Vercel domain
+    const baseUrl = window.location.hostname === 'upwardmm.com' 
+      ? 'https://upwardmm.com' 
+      : 'https://upward-website-update.vercel.app';
+    
     const newProposal: Proposal = {
       id: `${formData.type}-${Date.now()}`,
       type: formData.type,
@@ -79,7 +98,7 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
       createdAt: new Date().toISOString(),
       lastModified: new Date().toISOString(),
       status: 'draft',
-      url: `https://upwardmm.com/proposals/${formData.type}/${formData.type}-${Date.now()}`
+      url: `${baseUrl}/proposals/${formData.type}/${formData.type}-${Date.now()}`
     };
 
     const updatedProposals = [...proposals, newProposal];
