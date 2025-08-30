@@ -181,18 +181,19 @@ button:focus {
   animation: animate-gradient-x 3s ease infinite;
 }
 
-/* Client Logos Carousel Animation */
+/* Client Logos Carousel Animation - Seamless Infinite Scroll */
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-100% - 2rem));
+    transform: translateX(-50%);
   }
 }
 
 .animate-scroll-left {
   animation: scroll-left 30s linear infinite;
+  width: max-content;
 }
 
 /* Pause animation on hover */

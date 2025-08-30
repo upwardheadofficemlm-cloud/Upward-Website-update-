@@ -16,44 +16,55 @@ const ClientLogos = () => {
     { id: 'client-stat-4', number: '24/7', label: 'Support' }
   ]);
 
-  const [clients, setClients] = React.useState([
-    {
-      id: 'client-1',
-      name: 'Golden Myanmar Restaurant',
-      logo: 'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
-      industry: 'Food & Beverage'
-    },
-    {
-      id: 'client-2',
-      name: 'Thanlwin Tech Hub',
-      logo: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
-      industry: 'Technology'
-    },
-    {
-      id: 'client-3',
-      name: 'Mon State Tourism',
-      logo: 'https://images.pexels.com/photos/2666598/pexels-photo-2666598.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
-      industry: 'Tourism'
-    },
-    {
-      id: 'client-4',
-      name: 'Myanmar Gems Exhibition',
-      logo: 'https://images.pexels.com/photos/1454169/pexels-photo-1454169.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
-      industry: 'Retail'
-    },
-    {
-      id: 'client-5',
-      name: 'EcoGreen Myanmar',
-      logo: 'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
-      industry: 'Environmental'
-    },
-    {
-      id: 'client-6',
-      name: 'Mon State Bank',
-      logo: 'https://images.pexels.com/photos/164686/pexels-photo-164686.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
-      industry: 'Finance'
+  const [clients, setClients] = React.useState(() => {
+    const savedClients = localStorage.getItem('upward-client-logos');
+    if (savedClients) {
+      try {
+        return JSON.parse(savedClients);
+      } catch (e) {
+        console.log('Failed to parse saved clients, using defaults');
+      }
     }
-  ]);
+    
+    return [
+      {
+        id: 'client-1',
+        name: 'Golden Myanmar Restaurant',
+        logo: 'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
+        industry: 'Food & Beverage'
+      },
+      {
+        id: 'client-2',
+        name: 'Thanlwin Tech Hub',
+        logo: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
+        industry: 'Technology'
+      },
+      {
+        id: 'client-3',
+        name: 'Mon State Tourism',
+        logo: 'https://images.pexels.com/photos/2666598/pexels-photo-2666598.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
+        industry: 'Tourism'
+      },
+      {
+        id: 'client-4',
+        name: 'Myanmar Gems Exhibition',
+        logo: 'https://images.pexels.com/photos/1454169/pexels-photo-1454169.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
+        industry: 'Retail'
+      },
+      {
+        id: 'client-5',
+        name: 'EcoGreen Myanmar',
+        logo: 'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
+        industry: 'Environmental'
+      },
+      {
+        id: 'client-6',
+        name: 'Mon State Bank',
+        logo: 'https://images.pexels.com/photos/164686/pexels-photo-164686.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
+        industry: 'Finance'
+      }
+    ];
+  });
 
   const addClient = () => {
     const newClient = {
@@ -62,13 +73,17 @@ const ClientLogos = () => {
       logo: 'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=200&h=200',
       industry: 'Industry'
     };
-    setClients([...clients, newClient]);
+    const updatedClients = [...clients, newClient];
+    setClients(updatedClients);
+    localStorage.setItem('upward-client-logos', JSON.stringify(updatedClients));
   };
 
   const removeClient = (clientId: string) => {
     if (clients.length <= 1) return;
     if (window.confirm('Are you sure you want to remove this client?')) {
-      setClients(clients.filter(client => client.id !== clientId));
+      const updatedClients = clients.filter(client => client.id !== clientId);
+      setClients(updatedClients);
+      localStorage.setItem('upward-client-logos', JSON.stringify(updatedClients));
     }
   };
 
@@ -80,7 +95,9 @@ const ClientLogos = () => {
         id: `client-${Date.now()}`,
         name: `${clientToClone.name} Copy`
       };
-      setClients([...clients, newClient]);
+      const updatedClients = [...clients, newClient];
+      setClients(updatedClients);
+      localStorage.setItem('upward-client-logos', JSON.stringify(updatedClients));
     }
   };
 
@@ -103,7 +120,7 @@ const ClientLogos = () => {
         </div>
 
         {/* Animated Logo Carousel */}
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <div className="flex animate-scroll-left space-x-8">
             {/* First set of logos */}
             {clients.map((client, index) => (
@@ -141,6 +158,31 @@ const ClientLogos = () => {
               </EditableCard>
             ))}
             
+            {/* 500+ Card - Always at the end of first set */}
+            <div className="flex-shrink-0 group cursor-pointer">
+              <div className="w-48 h-36 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-2xl shadow-lg border border-[#004FED]/20 flex items-center justify-center p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500">
+                <div className="text-center text-white">
+                  <div className="text-3xl font-black mb-2">500+</div>
+                  <div className="text-sm font-semibold">Happy Clients</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Add Client Card - Only visible in edit mode */}
+            {isAdmin && isEditing && (
+              <div 
+                onClick={addClient}
+                className="flex-shrink-0 cursor-pointer"
+              >
+                <div className="w-48 h-36 bg-white rounded-2xl shadow-lg border-2 border-dashed border-gray-300 hover:border-[#004FED] hover:bg-[#004FED]/5 transition-all duration-500 flex items-center justify-center">
+                  <div className="text-center">
+                    <Plus className="w-8 h-8 text-gray-400 hover:text-[#004FED] mx-auto mb-2" />
+                    <span className="text-xs text-gray-500 font-medium">Add Client</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             {/* Duplicate set for seamless loop */}
             {clients.map((client, index) => (
               <EditableCard
@@ -177,7 +219,17 @@ const ClientLogos = () => {
               </EditableCard>
             ))}
             
-            {/* Add Client Card - Only visible in edit mode */}
+            {/* 500+ Card - Duplicate for seamless loop */}
+            <div className="flex-shrink-0 group cursor-pointer">
+              <div className="w-48 h-36 bg-gradient-to-br from-[#004FED] to-[#0066FF] rounded-2xl shadow-lg border border-[#004FED]/20 flex items-center justify-center p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500">
+                <div className="text-center text-white">
+                  <div className="text-3xl font-black mb-2">500+</div>
+                  <div className="text-sm font-semibold">Happy Clients</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Add Client Card - Duplicate for seamless loop */}
             {isAdmin && isEditing && (
               <div 
                 onClick={addClient}
