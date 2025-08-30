@@ -48,7 +48,18 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
   useEffect(() => {
     const savedProposals = localStorage.getItem('upward-proposals');
     if (savedProposals) {
-      setProposals(JSON.parse(savedProposals));
+      const proposals = JSON.parse(savedProposals);
+      
+      // Update existing proposals to use the new domain
+      const updatedProposals = proposals.map((proposal: Proposal) => ({
+        ...proposal,
+        url: proposal.url.replace('upward-website-update.vercel.app', 'upwardmm.com')
+      }));
+      
+      setProposals(updatedProposals);
+      
+      // Save updated proposals back to localStorage
+      localStorage.setItem('upward-proposals', JSON.stringify(updatedProposals));
     }
   }, []);
 
@@ -95,6 +106,14 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
     if (window.confirm('Are you sure you want to delete this proposal?')) {
       const updatedProposals = proposals.filter(proposal => proposal.id !== id);
       saveProposals(updatedProposals);
+    }
+  };
+
+  // Clear all proposals (for testing/development)
+  const clearAllProposals = () => {
+    if (window.confirm('Are you sure you want to clear all proposals? This action cannot be undone.')) {
+      localStorage.removeItem('upward-proposals');
+      setProposals([]);
     }
   };
 
@@ -186,10 +205,19 @@ const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initi
             <option key={status.value} value={status.value}>{status.label}</option>
           ))}
         </select>
-        <div className="text-right">
+        <div className="text-right flex items-center space-x-4">
           <span className="text-sm text-gray-600">
             {filteredProposals.length} of {proposals.length} proposals
           </span>
+          {proposals.length > 0 && (
+            <button
+              onClick={clearAllProposals}
+              className="text-sm text-red-600 hover:text-red-800 font-medium"
+              title="Clear all proposals"
+            >
+              Clear All
+            </button>
+          )}
         </div>
       </div>
 
