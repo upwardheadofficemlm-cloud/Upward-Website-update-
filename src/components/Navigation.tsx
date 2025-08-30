@@ -73,15 +73,15 @@ const PageSearch: React.FC<PageSearchProps> = ({ onSelect, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 w-full max-w-md max-h-[80vh] overflow-hidden">
-        <div className="p-6 border-b border-gray-100">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 w-full max-w-md max-h-[80vh] overflow-hidden">
+        <div className="p-6 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-bold text-gray-900">Choose Internal Page</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Choose Internal Page</h3>
             <button
               onClick={onClose}
-              className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+              className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
           
@@ -91,11 +91,11 @@ const PageSearch: React.FC<PageSearchProps> = ({ onSelect, onClose }) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search pages..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004FED]/20 focus:border-[#004FED]"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004FED]/20 focus:border-[#004FED] bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
               autoFocus
             />
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-              <div className="w-5 h-5 text-gray-400">🔍</div>
+              <div className="w-5 h-5 text-gray-400 dark:text-gray-500">🔍</div>
             </div>
           </div>
         </div>
@@ -107,22 +107,22 @@ const PageSearch: React.FC<PageSearchProps> = ({ onSelect, onClose }) => {
                 <button
                   key={index}
                   onClick={() => onSelect(page)}
-                  className="w-full text-left px-4 py-3 hover:bg-[#004FED]/10 hover:text-[#004FED] rounded-lg transition-all duration-200 flex items-center justify-between group"
+                  className="w-full text-left px-4 py-3 hover:bg-[#004FED]/10 dark:hover:bg-[#004FED]/20 hover:text-[#004FED] rounded-lg transition-all duration-200 flex items-center justify-between group"
                 >
                   <div>
-                    <div className="font-semibold text-gray-900 group-hover:text-[#004FED]">
+                    <div className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-[#004FED]">
                       {page.label}
                     </div>
-                    <div className="text-sm text-gray-500 group-hover:text-[#0066FF]">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-[#0066FF]">
                       {page.url}
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[#004FED] opacity-0 group-hover:opacity-100 transition-all duration-200" />
+                  <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-[#004FED] opacity-0 group-hover:opacity-100 transition-all duration-200" />
                 </button>
               ))}
             </div>
           ) : (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
               <div className="text-4xl mb-4">🔍</div>
               <div className="font-medium">No pages found</div>
               <div className="text-sm">Try a different search term</div>
@@ -376,7 +376,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
 
   return (
     <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-6">
-      <div className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl shadow-black/5">
+      <div className="bg-white/10 dark:bg-gray-900/10 backdrop-blur-2xl border border-white/20 dark:border-gray-700/20 rounded-2xl shadow-2xl shadow-black/5 dark:shadow-black/20">
         <div className="flex items-center justify-between px-8 py-4">
           {/* Logo */}
           <div className="relative group">

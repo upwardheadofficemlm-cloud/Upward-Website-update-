@@ -15,9 +15,11 @@ interface CMSContextType {
   content: { [key: string]: CMSContent };
   isEditing: boolean;
   isAdmin: boolean;
+  isDarkMode: boolean;
   updateContent: (id: string, newContent: string, type?: 'text' | 'image' | 'html', alt?: string) => Promise<void>;
   uploadImage: (id: string, file: File, alt?: string) => Promise<void>;
   toggleEditing: () => void;
+  toggleDarkMode: () => void;
   login: (password: string) => boolean;
   logout: () => void;
   loading: boolean;
@@ -37,12 +39,23 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [content, setContent] = useState<{ [key: string]: CMSContent }>({});
   const [isEditing, setIsEditing] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Admin password (in production, use proper authentication)
   const ADMIN_PASSWORD = 'Upward103999@@';
 
   useEffect(() => {
+    // Load dark mode preference
+    const savedDarkMode = localStorage.getItem('upward-dark-mode');
+    if (savedDarkMode) {
+      setIsDarkMode(JSON.parse(savedDarkMode));
+    } else {
+      // Check system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(prefersDark);
+    }
+
     // Always load content from cache or Firebase to ensure data persistence
     const cachedContent = sessionStorage.getItem('cms_content_cache');
     if (cachedContent) {
@@ -68,6 +81,20 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setIsAdmin(true);
     }
   }, []);
+
+  // Apply dark mode to document
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('upward-dark-mode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const loadContent = async () => {
     try {
@@ -296,9 +323,11 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       content,
       isEditing,
       isAdmin,
+      isDarkMode,
       updateContent,
       uploadImage,
       toggleEditing,
+      toggleDarkMode,
       login,
       logout,
       loading

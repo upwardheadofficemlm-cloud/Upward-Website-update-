@@ -38,7 +38,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 text-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-[#004FED]/20 to-[#0066FF]/20 rounded-full blur-3xl"></div>

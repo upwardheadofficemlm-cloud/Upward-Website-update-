@@ -41,7 +41,7 @@ import GenericProposalPage from './pages/proposals/GenericProposalPage';
 // Layout component that wraps all pages
 const Layout: React.FC<{ children: React.ReactNode; currentPage: string }> = ({ children, currentPage }) => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <SEOHead page={currentPage} />
       <Navigation currentPage={currentPage} />
       {/* Deployment Test Indicator - Removed since deployment is confirmed */}

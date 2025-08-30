@@ -72,7 +72,7 @@ const Hero = () => {
         {/* Enhanced Background */}
         <div className="absolute inset-0">
           {/* Gradient Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#004FED]/5 via-white to-[#0066FF]/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#004FED]/5 via-white to-[#0066FF]/10 dark:from-[#004FED]/10 dark:via-gray-900 dark:to-[#0066FF]/5"></div>
           
           {/* Animated Grid */}
           <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
@@ -94,7 +94,7 @@ const Hero = () => {
           <div className="max-w-5xl mx-auto">
             {/* Enhanced Badge - Admin Access - Positioned below header */}
             <div className="mb-16 pt-8">
-              <div className="inline-flex items-center px-8 py-4 bg-white/90 backdrop-blur-md rounded-full border border-[#004FED]/20 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-500 cursor-pointer">
+              <div className="inline-flex items-center px-8 py-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full border border-[#004FED]/20 dark:border-[#004FED]/30 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-500 cursor-pointer">
                 <Sparkles className="w-5 h-5 text-[#004FED] mr-3" />
                 <EditableText
                   id="hero-badge"

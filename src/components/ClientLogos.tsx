@@ -102,19 +102,19 @@ const ClientLogos = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <EditableText
             id="clients-title"
             defaultContent="Trusted by Leading Brands"
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4"
             tag="h2"
           />
           <EditableText
             id="clients-description"
             defaultContent="Proud to work with amazing businesses across Myanmar and beyond"
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
             tag="p"
           />
         </div>
@@ -133,7 +133,7 @@ const ClientLogos = () => {
                 canDuplicate={true}
                 onDuplicate={() => duplicateClient(client.id)}
               >
-                <div className="w-48 h-36 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500">
+                <div className="w-48 h-36 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500">
                   <EditableImage
                     id={`client-logo-${client.id}`}
                     defaultSrc={client.logo}
@@ -145,13 +145,13 @@ const ClientLogos = () => {
                   <EditableText
                     id={`client-name-${client.id}`}
                     defaultContent={client.name}
-                    className="text-sm font-semibold text-gray-900"
+                    className="text-sm font-semibold text-gray-900 dark:text-gray-100"
                     tag="div"
                   />
                   <EditableText
                     id={`client-industry-${client.id}`}
                     defaultContent={client.industry}
-                    className="text-xs text-gray-500"
+                    className="text-xs text-gray-500 dark:text-gray-400"
                     tag="div"
                   />
                 </div>
@@ -174,10 +174,10 @@ const ClientLogos = () => {
                 onClick={addClient}
                 className="flex-shrink-0 cursor-pointer"
               >
-                <div className="w-48 h-36 bg-white rounded-2xl shadow-lg border-2 border-dashed border-gray-300 hover:border-[#004FED] hover:bg-[#004FED]/5 transition-all duration-500 flex items-center justify-center">
+                <div className="w-48 h-36 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-[#004FED] hover:bg-[#004FED]/5 dark:hover:bg-[#004FED]/10 transition-all duration-500 flex items-center justify-center">
                   <div className="text-center">
-                    <Plus className="w-8 h-8 text-gray-400 hover:text-[#004FED] mx-auto mb-2" />
-                    <span className="text-xs text-gray-500 font-medium">Add Client</span>
+                    <Plus className="w-8 h-8 text-gray-400 dark:text-gray-500 hover:text-[#004FED] mx-auto mb-2" />
+                    <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Add Client</span>
                   </div>
                 </div>
               </div>

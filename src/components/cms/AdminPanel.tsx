@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCMS } from '../../contexts/CMSContext';
-import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, LayoutDashboard, FileText, Plus, List } from 'lucide-react';
+import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, LayoutDashboard, FileText, Plus, List, Moon, Sun } from 'lucide-react';
 
 const AdminPanel: React.FC = () => {
-  const { isAdmin, isEditing, toggleEditing, logout } = useCMS();
+  const { isAdmin, isEditing, isDarkMode, toggleEditing, toggleDarkMode, logout } = useCMS();
   const navigate = useNavigate();
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -44,23 +44,32 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-3xl border border-white/50 p-6 min-w-[320px]">
+      <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-3xl border border-white/50 dark:border-gray-700/50 p-6 min-w-[320px]">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse shadow-lg"></div>
-            <span className="text-sm font-bold text-gray-700">Admin Panel Active</span>
+            <span className="text-sm font-bold text-gray-700 dark:text-gray-200">Admin Panel Active</span>
           </div>
-          <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center">
-            <Settings className="w-4 h-4 text-white" />
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={toggleDarkMode}
+              className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-gray-600 dark:text-gray-300" /> : <Moon className="w-4 h-4 text-gray-600 dark:text-gray-300" />}
+            </button>
+            <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center">
+              <Settings className="w-4 h-4 text-white" />
+            </div>
           </div>
         </div>
 
         {/* Proposal Management Section */}
-        <div className="mb-4 p-4 bg-gradient-to-r from-[#004FED]/10 to-[#0066FF]/10 rounded-xl border border-[#004FED]/20 relative z-10 shadow-lg">
+        <div className="mb-4 p-4 bg-gradient-to-r from-[#004FED]/10 to-[#0066FF]/10 dark:from-[#004FED]/20 dark:to-[#0066FF]/20 rounded-xl border border-[#004FED]/20 dark:border-[#004FED]/30 relative z-10 shadow-lg">
           <div className="flex items-center space-x-2 mb-3">
             <FileText className="w-5 h-5 text-[#004FED]" />
-            <span className="text-sm font-bold text-gray-900">Proposal Management</span>
+            <span className="text-sm font-bold text-gray-900 dark:text-gray-100">Proposal Management</span>
             <div className="ml-auto w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -122,8 +131,8 @@ const AdminPanel: React.FC = () => {
         </div>
 
         {isEditing && (
-          <div className="pt-4 border-t border-gray-200">
-            <div className="flex items-center space-x-2 text-xs text-gray-600">
+          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center space-x-2 text-xs text-gray-600 dark:text-gray-400">
               <Eye className="w-4 h-4 text-[#004FED]" />
               <span>Click any text or image to edit. Changes save automatically to Firebase.</span>
             </div>
