@@ -55,7 +55,31 @@ The proposal pages follow this URL pattern:
 - **Pricing**: $8,000 - $25,000 project
 - **Timeline**: 12 weeks
 
-### 3. Generic Proposals
+### 3. Brand Identity Proposals
+- **URL Pattern**: `/proposals/brand-identity/{id}`
+- **Features**: Logo Design, Brand Guidelines, Visual Identity, Brand Strategy
+- **Pricing**: $3,000 - $8,000 project
+- **Timeline**: 5 weeks
+
+### 4. Social Media Marketing Proposals
+- **URL Pattern**: `/proposals/social-media/{id}`
+- **Features**: Content Creation, Community Management, Social Advertising, Analytics
+- **Pricing**: $1,500 - $3,500 monthly
+- **Timeline**: Ongoing
+
+### 5. Content Creation Proposals
+- **URL Pattern**: `/proposals/content-creation/{id}`
+- **Features**: Video Production, Photography, Graphic Design, Copywriting
+- **Pricing**: $2,000 - $8,000 project
+- **Timeline**: 5 weeks
+
+### 6. SEO Services Proposals
+- **URL Pattern**: `/proposals/seo-services/{id}`
+- **Features**: On-Page SEO, Off-Page SEO, Technical SEO, Local SEO
+- **Pricing**: $1,000 - $3,000 monthly
+- **Timeline**: 6+ months
+
+### 7. Generic Proposals
 - **URL Pattern**: `/proposals/{any-type}/{id}`
 - **Features**: Flexible content for any service type
 - **Pricing**: $5,000 - $15,000 project
@@ -144,3 +168,6 @@ src/pages/proposals/
 ## Support
 
 For technical support or questions about the proposal system, contact the development team or refer to the main project documentation.
+
+
+

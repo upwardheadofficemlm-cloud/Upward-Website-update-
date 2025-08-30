@@ -291,3 +291,6 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ proposalType, proposalId })
 };
 
 export default ProposalPage;
+
+
+

@@ -521,6 +521,38 @@ export const getPageSEO = (page: string): SEOData => {
       noindex: true
     },
 
+    'brand-identity-proposal': {
+      title: 'Brand Identity Proposal | Upward',
+      description: 'Private brand identity proposal. Not indexed by search engines.',
+      keywords: 'brand identity proposal, logo design, branding services',
+      canonicalUrl: `${baseUrl}/proposals/brand-identity`,
+      noindex: true
+    },
+
+    'social-media-proposal': {
+      title: 'Social Media Marketing Proposal | Upward',
+      description: 'Private social media marketing proposal. Not indexed by search engines.',
+      keywords: 'social media proposal, social media marketing, content creation',
+      canonicalUrl: `${baseUrl}/proposals/social-media`,
+      noindex: true
+    },
+
+    'content-creation-proposal': {
+      title: 'Content Creation Proposal | Upward',
+      description: 'Private content creation proposal. Not indexed by search engines.',
+      keywords: 'content creation proposal, video production, photography, design',
+      canonicalUrl: `${baseUrl}/proposals/content-creation`,
+      noindex: true
+    },
+
+    'seo-services-proposal': {
+      title: 'SEO Services Proposal | Upward',
+      description: 'Private SEO services proposal. Not indexed by search engines.',
+      keywords: 'SEO services proposal, search engine optimization, keyword optimization',
+      canonicalUrl: `${baseUrl}/proposals/seo-services`,
+      noindex: true
+    },
+
     'proposal': {
       title: 'Proposal | Upward',
       description: 'Private proposal page. Not indexed by search engines.',

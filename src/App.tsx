@@ -29,6 +29,10 @@ import AdminPage from './pages/AdminPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import DigitalMarketingProposalPage from './pages/proposals/DigitalMarketingProposalPage';
 import WebDevelopmentProposalPage from './pages/proposals/WebDevelopmentProposalPage';
+import BrandIdentityProposalPage from './pages/proposals/BrandIdentityProposalPage';
+import SocialMediaProposalPage from './pages/proposals/SocialMediaProposalPage';
+import ContentCreationProposalPage from './pages/proposals/ContentCreationProposalPage';
+import SEOServicesProposalPage from './pages/proposals/SEOServicesProposalPage';
 import GenericProposalPage from './pages/proposals/GenericProposalPage';
 
 
@@ -238,6 +242,38 @@ function App() {
             element={
               <Layout currentPage="web-development-proposal">
                 <WebDevelopmentProposalPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/proposals/brand-identity/:proposalId" 
+            element={
+              <Layout currentPage="brand-identity-proposal">
+                <BrandIdentityProposalPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/proposals/social-media/:proposalId" 
+            element={
+              <Layout currentPage="social-media-proposal">
+                <SocialMediaProposalPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/proposals/content-creation/:proposalId" 
+            element={
+              <Layout currentPage="content-creation-proposal">
+                <ContentCreationProposalPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/proposals/seo-services/:proposalId" 
+            element={
+              <Layout currentPage="seo-services-proposal">
+                <SEOServicesProposalPage />
               </Layout>
             } 
           />

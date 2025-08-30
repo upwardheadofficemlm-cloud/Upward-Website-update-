@@ -337,3 +337,6 @@ const GenericProposalPage: React.FC = () => {
 };
 
 export default GenericProposalPage;
+
+
+
