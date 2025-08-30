@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCMS } from '../../contexts/CMSContext';
-import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, LayoutDashboard } from 'lucide-react';
+import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, LayoutDashboard, FileText, Plus, List } from 'lucide-react';
 
 const AdminPanel: React.FC = () => {
   const { isAdmin, isEditing, toggleEditing, logout } = useCMS();
@@ -39,7 +39,8 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-3xl border border-white/50 p-6 min-w-[280px]">
+      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-3xl border border-white/50 p-6 min-w-[320px]">
+        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse shadow-lg"></div>
@@ -49,8 +50,35 @@ const AdminPanel: React.FC = () => {
             <Settings className="w-4 h-4 text-white" />
           </div>
         </div>
+
+        {/* Proposal Management Section */}
+        <div className="mb-4 p-4 bg-gradient-to-r from-[#004FED]/10 to-[#0066FF]/10 rounded-xl border border-[#004FED]/20">
+          <div className="flex items-center space-x-2 mb-3">
+            <FileText className="w-5 h-5 text-[#004FED]" />
+            <span className="text-sm font-bold text-gray-900">Proposal Management</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => navigate('/admin/dashboard?tab=proposals')}
+              className="flex items-center justify-center space-x-2 px-3 py-2 bg-[#004FED] text-white rounded-lg text-xs font-semibold hover:bg-[#0066FF] transition-colors"
+              title="View All Proposals"
+            >
+              <List className="w-3 h-3" />
+              <span>View All</span>
+            </button>
+            <button
+              onClick={() => navigate('/admin/dashboard?tab=proposals&action=create')}
+              className="flex items-center justify-center space-x-2 px-3 py-2 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition-colors"
+              title="Create New Proposal"
+            >
+              <Plus className="w-3 h-3" />
+              <span>Create New</span>
+            </button>
+          </div>
+        </div>
         
-        <div className="flex items-center space-x-3">
+        {/* Main Actions */}
+        <div className="flex items-center space-x-3 mb-4">
           <button
             onClick={handleToggleEditing}
             className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
@@ -82,7 +110,7 @@ const AdminPanel: React.FC = () => {
         </div>
 
         {isEditing && (
-          <div className="mt-4 pt-4 border-t border-gray-200">
+          <div className="pt-4 border-t border-gray-200">
             <div className="flex items-center space-x-2 text-xs text-gray-600">
               <Eye className="w-4 h-4 text-[#004FED]" />
               <span>Click any text or image to edit. Changes save automatically to Firebase.</span>

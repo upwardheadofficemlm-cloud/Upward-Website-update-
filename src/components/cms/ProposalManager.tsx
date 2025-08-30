@@ -12,9 +12,14 @@ interface Proposal {
   url: string;
 }
 
-const ProposalManager: React.FC = () => {
+interface ProposalManagerProps {
+  showCreateForm?: boolean;
+  onCloseCreateForm?: () => void;
+}
+
+const ProposalManager: React.FC<ProposalManagerProps> = ({ showCreateForm: initialShowCreateForm = false, onCloseCreateForm }) => {
   const [proposals, setProposals] = useState<Proposal[]>([]);
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(initialShowCreateForm);
   const [editingProposal, setEditingProposal] = useState<Proposal | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
@@ -69,6 +74,9 @@ const ProposalManager: React.FC = () => {
     const updatedProposals = [...proposals, newProposal];
     saveProposals(updatedProposals);
     setShowCreateForm(false);
+    if (onCloseCreateForm) {
+      onCloseCreateForm();
+    }
   };
 
   // Update proposal
@@ -234,7 +242,12 @@ const ProposalManager: React.FC = () => {
         <CreateProposalModal
           proposalTypes={proposalTypes}
           onCreate={createProposal}
-          onClose={() => setShowCreateForm(false)}
+          onClose={() => {
+            setShowCreateForm(false);
+            if (onCloseCreateForm) {
+              onCloseCreateForm();
+            }
+          }}
         />
       )}
 

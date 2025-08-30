@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCMS } from '../contexts/CMSContext';
 import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, FileText, Users, BarChart3, Home } from 'lucide-react';
 import ProposalManager from '../components/cms/ProposalManager';
@@ -7,8 +7,25 @@ import ProposalManager from '../components/cms/ProposalManager';
 const AdminDashboardPage: React.FC = () => {
   const { isAdmin, isEditing, toggleEditing, logout } = useCMS();
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('proposals');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+
+  // Handle URL parameters for direct navigation
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tabParam = searchParams.get('tab');
+    const actionParam = searchParams.get('action');
+    
+    if (tabParam) {
+      setActiveTab(tabParam);
+    }
+    
+    if (actionParam === 'create' && tabParam === 'proposals') {
+      setShowCreateForm(true);
+    }
+  }, [location.search]);
 
   // Redirect if not admin
   if (!isAdmin) {
@@ -39,7 +56,7 @@ const AdminDashboardPage: React.FC = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'proposals':
-        return <ProposalManager />;
+        return <ProposalManager showCreateForm={showCreateForm} onCloseCreateForm={() => setShowCreateForm(false)} />;
       case 'analytics':
         return (
           <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
