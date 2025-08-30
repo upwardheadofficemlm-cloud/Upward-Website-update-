@@ -5,6 +5,7 @@ Allow: /
 Disallow: /payments
 Disallow: /admin
 Disallow: /api/
+Disallow: /proposals/
 
 # Allow important pages
 Allow: /services

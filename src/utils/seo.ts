@@ -502,6 +502,31 @@ export const getPageSEO = (page: string): SEOData => {
       keywords: 'payments, invoice, billing',
       canonicalUrl: `${baseUrl}/payments`,
       noindex: true
+    },
+
+    // Proposal pages - all with noindex to prevent search engine crawling
+    'digital-marketing-proposal': {
+      title: 'Digital Marketing Proposal | Upward',
+      description: 'Private digital marketing proposal. Not indexed by search engines.',
+      keywords: 'digital marketing proposal, SEO, PPC, social media marketing',
+      canonicalUrl: `${baseUrl}/proposals/digital-marketing`,
+      noindex: true
+    },
+
+    'web-development-proposal': {
+      title: 'Web Development Proposal | Upward',
+      description: 'Private web development proposal. Not indexed by search engines.',
+      keywords: 'web development proposal, website design, custom development',
+      canonicalUrl: `${baseUrl}/proposals/web-development`,
+      noindex: true
+    },
+
+    'proposal': {
+      title: 'Proposal | Upward',
+      description: 'Private proposal page. Not indexed by search engines.',
+      keywords: 'proposal, marketing services, business proposal',
+      canonicalUrl: `${baseUrl}/proposals`,
+      noindex: true
     }
   };
 

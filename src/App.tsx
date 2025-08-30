@@ -27,6 +27,9 @@ import AdNovaPage from './pages/ooh/AdNovaPage';
 import PaymentsPage from './pages/PaymentsPage';
 import AdminPage from './pages/AdminPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import DigitalMarketingProposalPage from './pages/proposals/DigitalMarketingProposalPage';
+import WebDevelopmentProposalPage from './pages/proposals/WebDevelopmentProposalPage';
+import GenericProposalPage from './pages/proposals/GenericProposalPage';
 
 
 
@@ -217,6 +220,32 @@ function App() {
             element={
               <Layout currentPage="privacy-policy">
                 <PrivacyPolicyPage />
+              </Layout>
+            } 
+          />
+
+          {/* Proposal Pages - Not indexed by search engines */}
+          <Route 
+            path="/proposals/digital-marketing/:proposalId" 
+            element={
+              <Layout currentPage="digital-marketing-proposal">
+                <DigitalMarketingProposalPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/proposals/web-development/:proposalId" 
+            element={
+              <Layout currentPage="web-development-proposal">
+                <WebDevelopmentProposalPage />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/proposals/:proposalType/:proposalId" 
+            element={
+              <Layout currentPage="proposal">
+                <GenericProposalPage />
               </Layout>
             } 
           />
