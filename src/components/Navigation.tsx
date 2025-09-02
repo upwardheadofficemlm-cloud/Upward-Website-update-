@@ -162,6 +162,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     { id: 'about', label: 'About Us', page: 'about', url: '/about' },
     { id: 'training', label: 'Training Center', page: 'training-center', url: '/training-center' },
     { id: 'creation', label: 'Creation', page: 'portfolio', url: '/portfolio' },
+    { id: 'payments', label: 'Payments', page: 'payments', url: '/payments' },
     { id: 'contact', label: 'Contact', page: 'contact', url: '/contact' },
   ]);
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CMSProvider } from './contexts/CMSContext';
 import SEOHead from './components/SEOHead';
 import AdminPanel from './components/cms/AdminPanel';
@@ -224,37 +224,13 @@ function App() {
             element={<AdminDashboardPage />}
           />
 
-          {/* Hidden Pages */}
+          {/* Payments Page */}
           <Route 
             path="/payments" 
             element={
-              <div style={{ 
-                minHeight: '100vh', 
-                backgroundColor: 'red', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                color: 'white',
-                fontSize: '2rem',
-                fontWeight: 'bold'
-              }}>
-                PAYMENTS PAGE TEST - ROUTING WORKS!
-                <br />
-                <button 
-                  onClick={() => window.location.href = '/'}
-                  style={{
-                    marginTop: '20px',
-                    padding: '10px 20px',
-                    backgroundColor: 'white',
-                    color: 'red',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Go Home
-                </button>
-              </div>
+              <Layout currentPage="payments">
+                <PaymentsPage />
+              </Layout>
             } 
           />
 
