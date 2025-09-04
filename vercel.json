@@ -1,40 +1,6 @@
 {
   "headers": [
     {
-      "source": "/payments",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        },
-        {
-          "key": "Pragma",
-          "value": "no-cache"
-        },
-        {
-          "key": "Expires",
-          "value": "0"
-        }
-      ]
-    },
-    {
-      "source": "/payments/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        },
-        {
-          "key": "Pragma",
-          "value": "no-cache"
-        },
-        {
-          "key": "Expires",
-          "value": "0"
-        }
-      ]
-    },
-    {
       "source": "/(.*)\\.js",
       "headers": [
         {
@@ -77,23 +43,11 @@
   ],
   "rewrites": [
     {
-      "source": "/payments",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/payments/(.*)",
-      "destination": "/index.html"
-    },
-    {
       "source": "/admin",
       "destination": "/index.html"
     },
     {
       "source": "/admin/(.*)",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/proposals/(.*)",
       "destination": "/index.html"
     },
     {
@@ -111,57 +65,12 @@
   ],
   "redirects": [
     {
-      "source": "/payments",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/payments/(.*)",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
       "source": "/admin",
       "destination": "/index.html",
       "permanent": false
     },
     {
       "source": "/admin/(.*)",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/digital-marketing/:proposalId",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/web-development/:proposalId",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/brand-identity/:proposalId",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/social-media/:proposalId",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/content-creation/:proposalId",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/seo-services/:proposalId",
-      "destination": "/index.html",
-      "permanent": false
-    },
-    {
-      "source": "/proposals/:proposalType/:proposalId",
       "destination": "/index.html",
       "permanent": false
     }
