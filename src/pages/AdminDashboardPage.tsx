@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCMS } from '../contexts/CMSContext';
-import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, FileText, Users, BarChart3, Home } from 'lucide-react';
-import ProposalManager from '../components/cms/ProposalManager';
+import { Settings, Edit3, LogOut, Eye, EyeOff, CheckCircle, Users, BarChart3, Home } from 'lucide-react';
 
 const AdminDashboardPage: React.FC = () => {
   const { isAdmin, isEditing, toggleEditing, logout } = useCMS();
   const navigate = useNavigate();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState('proposals');
+  const [activeTab, setActiveTab] = useState('analytics');
   const [showSuccess, setShowSuccess] = useState(false);
-  const [showCreateForm, setShowCreateForm] = useState(false);
 
   // Handle URL parameters for direct navigation
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const tabParam = searchParams.get('tab');
-    const actionParam = searchParams.get('action');
     
     if (tabParam) {
       setActiveTab(tabParam);
-    }
-    
-    if (actionParam === 'create' && tabParam === 'proposals') {
-      setShowCreateForm(true);
     }
   }, [location.search]);
 
@@ -47,7 +40,6 @@ const AdminDashboardPage: React.FC = () => {
   };
 
   const tabs = [
-    { id: 'proposals', label: 'Proposals', icon: FileText },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'users', label: 'Users', icon: Users },
     { id: 'settings', label: 'Settings', icon: Settings }
@@ -55,8 +47,6 @@ const AdminDashboardPage: React.FC = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'proposals':
-        return <ProposalManager showCreateForm={showCreateForm} onCloseCreateForm={() => setShowCreateForm(false)} />;
       case 'analytics':
         return (
           <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
@@ -121,7 +111,28 @@ const AdminDashboardPage: React.FC = () => {
           </div>
         );
       default:
-        return <ProposalManager />;
+        return (
+          <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Analytics Dashboard</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-gradient-to-r from-[#004FED]/10 to-[#0066FF]/10 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Total Visitors</h3>
+                <p className="text-3xl font-bold text-[#004FED]">12,345</p>
+                <p className="text-sm text-gray-600">+12% from last month</p>
+              </div>
+              <div className="bg-gradient-to-r from-green-500/10 to-green-600/10 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Page Views</h3>
+                <p className="text-3xl font-bold text-green-600">45,678</p>
+                <p className="text-sm text-gray-600">+8% from last month</p>
+              </div>
+              <div className="bg-gradient-to-r from-purple-500/10 to-purple-600/10 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bounce Rate</h3>
+                <p className="text-3xl font-bold text-purple-600">32%</p>
+                <p className="text-sm text-gray-600">-5% from last month</p>
+              </div>
+            </div>
+          </div>
+        );
     }
   };
 
@@ -172,7 +183,7 @@ const AdminDashboardPage: React.FC = () => {
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Manage proposals, view analytics, and control your website</p>
+          <p className="text-gray-600">View analytics, manage users, and control your website</p>
         </div>
 
         {/* Navigation Tabs */}
@@ -208,12 +219,12 @@ const AdminDashboardPage: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <button
-              onClick={() => setActiveTab('proposals')}
+              onClick={() => setActiveTab('analytics')}
               className="bg-gradient-to-r from-[#004FED]/10 to-[#0066FF]/10 rounded-xl p-6 text-left hover:shadow-lg transition-all duration-300"
             >
-              <FileText className="w-8 h-8 text-[#004FED] mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Create New Proposal</h3>
-              <p className="text-gray-600">Generate a new proposal for a client</p>
+              <BarChart3 className="w-8 h-8 text-[#004FED] mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">View Analytics</h3>
+              <p className="text-gray-600">Check website performance and visitor statistics</p>
             </button>
             <button
               onClick={handleToggleEditing}

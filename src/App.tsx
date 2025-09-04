@@ -24,17 +24,9 @@ import TrainingCenterPage from './pages/TrainingCenterPage';
 import BillboardsPage from './pages/ooh/BillboardsPage';
 import BillboardDetailPage from './pages/ooh/BillboardDetailPage';
 import AdNovaPage from './pages/ooh/AdNovaPage';
-import PaymentsPage from './pages/PaymentsPage';
 import AdminPage from './pages/AdminPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import DigitalMarketingProposalPage from './pages/proposals/DigitalMarketingProposalPage';
-import WebDevelopmentProposalPage from './pages/proposals/WebDevelopmentProposalPage';
-import BrandIdentityProposalPage from './pages/proposals/BrandIdentityProposalPage';
-import SocialMediaProposalPage from './pages/proposals/SocialMediaProposalPage';
-import ContentCreationProposalPage from './pages/proposals/ContentCreationProposalPage';
-import SEOServicesProposalPage from './pages/proposals/SEOServicesProposalPage';
-import GenericProposalPage from './pages/proposals/GenericProposalPage';
 
 
 
@@ -224,15 +216,6 @@ function App() {
             element={<AdminDashboardPage />}
           />
 
-          {/* Payments Page */}
-          <Route 
-            path="/payments" 
-            element={
-              <Layout currentPage="payments">
-                <PaymentsPage />
-              </Layout>
-            } 
-          />
 
           {/* Privacy Policy Page */}
           <Route 
@@ -244,63 +227,6 @@ function App() {
             } 
           />
 
-          {/* Proposal Pages - Not indexed by search engines */}
-          <Route 
-            path="/proposals/digital-marketing/:proposalId" 
-            element={
-              <Layout currentPage="digital-marketing-proposal">
-                <DigitalMarketingProposalPage />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/proposals/web-development/:proposalId" 
-            element={
-              <Layout currentPage="web-development-proposal">
-                <WebDevelopmentProposalPage />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/proposals/brand-identity/:proposalId" 
-            element={
-              <Layout currentPage="brand-identity-proposal">
-                <BrandIdentityProposalPage />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/proposals/social-media/:proposalId" 
-            element={
-              <Layout currentPage="social-media-proposal">
-                <SocialMediaProposalPage />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/proposals/content-creation/:proposalId" 
-            element={
-              <Layout currentPage="content-creation-proposal">
-                <ContentCreationProposalPage />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/proposals/seo-services/:proposalId" 
-            element={
-              <Layout currentPage="seo-services-proposal">
-                <SEOServicesProposalPage />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/proposals/:proposalType/:proposalId" 
-            element={
-              <Layout currentPage="proposal">
-                <GenericProposalPage />
-              </Layout>
-            } 
-          />
 
           {/* 404 Redirect to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
