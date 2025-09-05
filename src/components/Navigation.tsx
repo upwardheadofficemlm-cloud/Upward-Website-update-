@@ -649,7 +649,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
 
             {/* Login Button */}
             <a
-              href="https://upward-552926055931.us-west1.run.app/#/login"
+              href="https://upwardmm.app/#/login"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white/20 backdrop-blur-md text-[#004FED] px-6 py-2 rounded-full text-sm font-medium hover:bg-white/30 hover:scale-105 transition-all duration-300 border border-white/30"
@@ -698,7 +698,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
               </div>
               
               <a
-                href="https://upward-552926055931.us-west1.run.app/#/login"
+                href="https://upwardmm.app/#/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/20 backdrop-blur-md text-[#004FED] px-4 py-3 rounded-xl text-sm font-medium mt-4 hover:bg-white/30 transition-all duration-300 border border-white/30 block text-center"

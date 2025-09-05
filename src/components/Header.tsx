@@ -45,7 +45,7 @@ const Header = () => {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="https://upward-552926055931.us-west1.run.app/#/login"
+              href="https://upwardmm.app/#/login"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-all duration-300 px-4 py-2 rounded-xl hover:bg-gray-50"
@@ -86,7 +86,7 @@ const Header = () => {
                 </a>
               ))}
               <a
-                href="https://upward-552926055931.us-west1.run.app/#/login"
+                href="https://upwardmm.app/#/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-gray-600 hover:text-[#004FED] transition-colors duration-300 py-3 px-4 rounded-xl hover:bg-gray-50"
