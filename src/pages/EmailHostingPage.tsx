@@ -392,52 +392,6 @@ const EmailHostingPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Additional Information */}
-        <div className="py-20 bg-gradient-to-br from-[#004FED]/5 via-white to-[#0066FF]/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h3 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
-                Trusted by <span className="bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">500+</span> Businesses
-              </h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Join thousands of satisfied customers who trust our email hosting solutions
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#004FED]/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-white text-2xl">⚡</span>
-                </div>
-                <h4 className="text-2xl font-bold text-gray-900 mb-4 text-center">99.9% Uptime</h4>
-                <p className="text-gray-600 text-center leading-relaxed">Reliable cloud infrastructure ensures your email is always accessible when you need it most.</p>
-              </div>
-              
-              <div className="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#0066FF]/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-[#0066FF] to-[#0080FF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-white text-2xl">🛡️</span>
-                </div>
-                <h4 className="text-2xl font-bold text-gray-900 mb-4 text-center">Advanced Security</h4>
-                <p className="text-gray-600 text-center leading-relaxed">Real-time virus and spam protection keeps your emails secure and your business protected.</p>
-              </div>
-              
-              <div className="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#0080FF]/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-[#0080FF] to-[#0099FF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-white text-2xl">⚙️</span>
-                </div>
-                <h4 className="text-2xl font-bold text-gray-900 mb-4 text-center">Easy Management</h4>
-                <p className="text-gray-600 text-center leading-relaxed">Intuitive control panel gives you complete control over your email accounts and settings.</p>
-              </div>
-            </div>
-            
-            <div className="text-center mt-16">
-              <div className="inline-flex items-center bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white px-8 py-4 rounded-2xl text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                <span className="mr-3">🚀</span>
-                Start Your Email Hosting Journey Today
-              </div>
-            </div>
-          </div>
-        </div>
     </div>
   );
 };
