@@ -29,101 +29,140 @@ const EmailHostingPage: React.FC = () => {
   };
 
   return (
-    <>
-
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white pt-24">
         {/* Hero Section */}
-        <div className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#004FED]/5 via-white to-[#0066FF]/10"></div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-6">
-                Email Hosting
+              <div className="inline-flex items-center bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white px-6 py-2 rounded-full text-sm font-semibold mb-6">
+                <span className="mr-2">📧</span>
+                Professional Email Solutions
+              </div>
+              <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6">
+                Email <span className="bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">Hosting</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                Professional email hosting with SSD storage, advanced security features, and 99.9% uptime guarantee. 
-                Choose the perfect plan for your business needs.
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Enterprise-grade email hosting with SSD storage, advanced security, and 99.9% uptime guarantee. 
+                Scale your business communication with confidence.
               </p>
-              <div className="inline-flex items-center bg-red-50 text-red-700 px-6 py-3 rounded-full text-lg font-semibold">
-                <span className="mr-2">✓</span>
-                Choosing the most suitable plan for your business
+              <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-[#004FED] rounded-full mr-2"></div>
+                  Unlimited Accounts
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-[#0066FF] rounded-full mr-2"></div>
+                  SSD Storage
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-[#0080FF] rounded-full mr-2"></div>
+                  Anti-Virus Protection
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-[#0099FF] rounded-full mr-2"></div>
+                  99.9% Uptime
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Features Section */}
-        <div className="bg-red-600 text-white py-16">
+        <div className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Email Hosting Features</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-red-600 text-sm font-bold">✓</span>
-                  </div>
-                  <p className="text-lg">Create unlimited email accounts within your specified storage limit</p>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+                Why Choose Our <span className="bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">Email Hosting</span>?
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Enterprise-grade features designed for modern businesses
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="group p-8 rounded-2xl bg-gradient-to-br from-[#004FED]/5 to-[#0066FF]/10 hover:from-[#004FED]/10 hover:to-[#0066FF]/20 transition-all duration-300 border border-gray-100 hover:border-[#004FED]/20">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-xl">👥</span>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-red-600 text-sm font-bold">✓</span>
-                  </div>
-                  <p className="text-lg">Use your own domain name for professional email addresses</p>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-red-600 text-sm font-bold">✓</span>
-                  </div>
-                  <p className="text-lg">Cloud server infrastructure ensures zero downtime</p>
-                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Unlimited Accounts</h3>
+                <p className="text-gray-600">Create unlimited email accounts within your specified storage limit for maximum flexibility.</p>
               </div>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-red-600 text-sm font-bold">✓</span>
-                  </div>
-                  <p className="text-lg">Dedicated SSD storage for optimal email performance</p>
+              
+              <div className="group p-8 rounded-2xl bg-gradient-to-br from-[#0066FF]/5 to-[#0080FF]/10 hover:from-[#0066FF]/10 hover:to-[#0080FF]/20 transition-all duration-300 border border-gray-100 hover:border-[#0066FF]/20">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0066FF] to-[#0080FF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-xl">🏢</span>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-red-600 text-sm font-bold">✓</span>
-                  </div>
-                  <p className="text-lg">Real-time virus and spam protection</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Custom Domain</h3>
+                <p className="text-gray-600">Use your own domain name for professional email addresses that build trust.</p>
+              </div>
+              
+              <div className="group p-8 rounded-2xl bg-gradient-to-br from-[#0080FF]/5 to-[#0099FF]/10 hover:from-[#0080FF]/10 hover:to-[#0099FF]/20 transition-all duration-300 border border-gray-100 hover:border-[#0080FF]/20">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0080FF] to-[#0099FF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-xl">☁️</span>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-red-600 text-sm font-bold">✓</span>
-                  </div>
-                  <p className="text-lg">Self-managed control panel for easy administration</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Cloud Infrastructure</h3>
+                <p className="text-gray-600">Cloud server infrastructure ensures zero downtime and maximum reliability.</p>
+              </div>
+              
+              <div className="group p-8 rounded-2xl bg-gradient-to-br from-[#004FED]/5 to-[#0080FF]/10 hover:from-[#004FED]/10 hover:to-[#0080FF]/20 transition-all duration-300 border border-gray-100 hover:border-[#004FED]/20">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#004FED] to-[#0080FF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-xl">💾</span>
                 </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">SSD Storage</h3>
+                <p className="text-gray-600">Dedicated SSD storage for optimal email performance and lightning-fast access.</p>
+              </div>
+              
+              <div className="group p-8 rounded-2xl bg-gradient-to-br from-[#0066FF]/5 to-[#0099FF]/10 hover:from-[#0066FF]/10 hover:to-[#0099FF]/20 transition-all duration-300 border border-gray-100 hover:border-[#0066FF]/20">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0066FF] to-[#0099FF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-xl">🛡️</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Advanced Security</h3>
+                <p className="text-gray-600">Real-time virus and spam protection keeps your emails secure and clean.</p>
+              </div>
+              
+              <div className="group p-8 rounded-2xl bg-gradient-to-br from-[#0080FF]/5 to-[#004FED]/10 hover:from-[#0080FF]/10 hover:to-[#004FED]/20 transition-all duration-300 border border-gray-100 hover:border-[#0080FF]/20">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0080FF] to-[#004FED] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-xl">⚙️</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Easy Management</h3>
+                <p className="text-gray-600">Self-managed control panel for easy administration and complete control.</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Plan Comparison Section */}
-        <div className="py-16 bg-white">
+        <div className="py-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Choose Your Plan</h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+                Choose Your <span className="bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">Perfect Plan</span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Flexible pricing options designed to scale with your business needs
+              </p>
+            </div>
             
             {/* Plan Toggle */}
-            <div className="flex justify-center mb-12">
-              <div className="bg-gray-100 rounded-lg p-1 flex">
+            <div className="flex justify-center mb-16">
+              <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100 flex">
                 <button
                   onClick={() => setSelectedPlan('professional')}
-                  className={`px-8 py-3 rounded-md font-semibold transition-all duration-200 ${
+                  className={`px-8 py-4 rounded-xl font-bold transition-all duration-300 ${
                     selectedPlan === 'professional'
-                      ? 'bg-white text-red-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white shadow-lg transform scale-105'
+                      : 'text-gray-600 hover:text-[#004FED] hover:bg-gray-50'
                   }`}
                 >
                   Professional
                 </button>
                 <button
                   onClick={() => setSelectedPlan('standard')}
-                  className={`px-8 py-3 rounded-md font-semibold transition-all duration-200 ${
+                  className={`px-8 py-4 rounded-xl font-bold transition-all duration-300 ${
                     selectedPlan === 'standard'
-                      ? 'bg-white text-red-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white shadow-lg transform scale-105'
+                      : 'text-gray-600 hover:text-[#004FED] hover:bg-gray-50'
                   }`}
                 >
                   Standard
@@ -132,88 +171,131 @@ const EmailHostingPage: React.FC = () => {
             </div>
 
             {/* Feature Comparison */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-16 border border-gray-100">
+              <div className="bg-gradient-to-r from-[#004FED] to-[#0066FF] px-8 py-6">
+                <h3 className="text-2xl font-bold text-white text-center">Plan Comparison</h3>
+              </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-gray-50">
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Plan Features</th>
-                      <th className={`px-6 py-4 text-center text-sm font-semibold ${
-                        selectedPlan === 'professional' ? 'text-red-600 bg-red-50' : 'text-gray-600'
+                      <th className="px-8 py-6 text-left text-lg font-bold text-gray-900">Features</th>
+                      <th className={`px-8 py-6 text-center text-lg font-bold ${
+                        selectedPlan === 'professional' ? 'text-[#004FED] bg-gradient-to-br from-[#004FED]/10 to-[#0066FF]/10' : 'text-gray-600'
                       }`}>
                         Professional
                       </th>
-                      <th className={`px-6 py-4 text-center text-sm font-semibold ${
-                        selectedPlan === 'standard' ? 'text-red-600 bg-red-50' : 'text-gray-600'
+                      <th className={`px-8 py-6 text-center text-lg font-bold ${
+                        selectedPlan === 'standard' ? 'text-[#004FED] bg-gradient-to-br from-[#004FED]/10 to-[#0066FF]/10' : 'text-gray-600'
                       }`}>
                         Standard
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">SSD Enterprise Harddisk</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
+                  <tbody className="divide-y divide-gray-100">
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">SSD Enterprise Storage</td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
                       </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Unlimited Accounts</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">name@yourdomain.com</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Unlimited Email Accounts</td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
                       </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Anti-Virus Protection</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Anti-Spam Protection</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Custom Domain Email</td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
                       </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Backup Frequency</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-900">2 Layer Daily</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-900">1 Layer Weekly</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Backup Server</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-green-500 text-xl">✓</span>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="text-red-500 text-xl">✗</span>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Suitable For</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-900">Small, Medium, Big Company</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-900">General Use</td>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Anti-Virus Protection</td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
+                      </td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Anti-Spam Protection</td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
+                      </td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Backup Frequency</td>
+                      <td className="px-8 py-6 text-center">
+                        <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white rounded-full text-sm font-semibold">
+                          2 Layer Daily
+                        </span>
+                      </td>
+                      <td className="px-8 py-6 text-center">
+                        <span className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold">
+                          1 Layer Weekly
+                        </span>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Backup Server</td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-white text-lg">✓</span>
+                        </div>
+                      </td>
+                      <td className="px-8 py-6 text-center">
+                        <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mx-auto">
+                          <span className="text-gray-600 text-lg">✗</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-8 py-6 text-lg font-medium text-gray-900">Target Audience</td>
+                      <td className="px-8 py-6 text-center">
+                        <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white rounded-full text-sm font-semibold">
+                          Enterprise
+                        </span>
+                      </td>
+                      <td className="px-8 py-6 text-center">
+                        <span className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold">
+                          General Use
+                        </span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -221,48 +303,62 @@ const EmailHostingPage: React.FC = () => {
             </div>
 
             {/* Pricing Table */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="bg-gray-50 px-6 py-4">
-                <h3 className="text-xl font-bold text-gray-900">Storage & Pricing</h3>
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+              <div className="bg-gradient-to-r from-[#004FED] to-[#0066FF] px-8 py-6">
+                <h3 className="text-2xl font-bold text-white text-center">Storage & Pricing</h3>
+                <p className="text-blue-100 text-center mt-2">Choose the perfect storage size for your needs</p>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-50 border-b">
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Storage & Price</th>
-                      <th className={`px-6 py-4 text-center text-sm font-semibold ${
-                        selectedPlan === 'professional' ? 'text-red-600 bg-red-50' : 'text-gray-600'
+                    <tr className="bg-gray-50 border-b border-gray-100">
+                      <th className="px-8 py-6 text-left text-lg font-bold text-gray-900">Storage Plans</th>
+                      <th className={`px-8 py-6 text-center text-lg font-bold ${
+                        selectedPlan === 'professional' ? 'text-[#004FED] bg-gradient-to-br from-[#004FED]/10 to-[#0066FF]/10' : 'text-gray-600'
                       }`}>
                         Professional
                       </th>
-                      <th className={`px-6 py-4 text-center text-sm font-semibold ${
-                        selectedPlan === 'standard' ? 'text-red-600 bg-red-50' : 'text-gray-600'
+                      <th className={`px-8 py-6 text-center text-lg font-bold ${
+                        selectedPlan === 'standard' ? 'text-[#004FED] bg-gradient-to-br from-[#004FED]/10 to-[#0066FF]/10' : 'text-gray-600'
                       }`}>
                         Standard
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-100">
                     {pricingData.map((item) => (
-                      <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-4">
+                      <tr key={item.id} className="hover:bg-gradient-to-r hover:from-[#004FED]/5 hover:to-[#0066FF]/5 transition-all duration-200">
+                        <td className="px-8 py-6">
                           <div className="flex items-center">
-                            <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded mr-3">
-                              {item.id}
-                            </span>
-                            <span className="text-sm font-medium text-gray-900">
-                              {item.storage} (SSD)
-                            </span>
+                            <div className="w-12 h-12 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-xl flex items-center justify-center mr-4">
+                              <span className="text-white font-bold text-sm">{item.id}</span>
+                            </div>
+                            <div>
+                              <div className="text-lg font-bold text-gray-900">{item.storage} SSD</div>
+                              <div className="text-sm text-gray-500">Enterprise Storage</div>
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <div className="text-lg font-bold text-gray-900">
-                            {formatPrice(item.professional)} MMK/year
+                        <td className="px-8 py-6 text-center">
+                          <div className="space-y-2">
+                            <div className="text-2xl font-black text-gray-900">
+                              {formatPrice(item.professional)}
+                            </div>
+                            <div className="text-sm text-gray-500">MMK/year</div>
+                            <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white rounded-full text-xs font-semibold">
+                              Enterprise
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <div className="text-lg font-bold text-gray-900">
-                            {formatPrice(item.standard)} MMK/year
+                        <td className="px-8 py-6 text-center">
+                          <div className="space-y-2">
+                            <div className="text-2xl font-black text-gray-900">
+                              {formatPrice(item.standard)}
+                            </div>
+                            <div className="text-sm text-gray-500">MMK/year</div>
+                            <div className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
+                              Standard
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -273,69 +369,76 @@ const EmailHostingPage: React.FC = () => {
             </div>
 
             {/* Order Buttons */}
-            <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <div className="mt-16 grid md:grid-cols-2 gap-8">
               <div className="text-center">
-                <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 flex items-center justify-center">
-                  Order Now
-                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button className="group w-full bg-gradient-to-r from-[#004FED] to-[#0066FF] hover:from-[#0066FF] hover:to-[#004FED] text-white font-bold py-6 px-8 rounded-2xl text-xl transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-105">
+                  <span>Get Professional Plan</span>
+                  <svg className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-                <p className="text-sm text-gray-600 mt-2">Professional Plan</p>
+                <p className="text-sm text-gray-600 mt-3 font-medium">Enterprise-grade email hosting</p>
               </div>
               <div className="text-center">
-                <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 flex items-center justify-center">
-                  Order Now
-                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button className="group w-full bg-gradient-to-r from-[#0066FF] to-[#0080FF] hover:from-[#0080FF] hover:to-[#0066FF] text-white font-bold py-6 px-8 rounded-2xl text-xl transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-2xl transform hover:scale-105">
+                  <span>Get Standard Plan</span>
+                  <svg className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-                <p className="text-sm text-gray-600 mt-2">Standard Plan</p>
+                <p className="text-sm text-gray-600 mt-3 font-medium">Perfect for small businesses</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Additional Information */}
-        <div className="bg-gray-50 py-16">
+        <div className="py-20 bg-gradient-to-br from-[#004FED]/5 via-white to-[#0066FF]/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Our Email Hosting?</h3>
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2">99.9% Uptime</h4>
-                  <p className="text-gray-600">Reliable cloud infrastructure ensures your email is always accessible</p>
+            <div className="text-center mb-16">
+              <h3 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+                Trusted by <span className="bg-gradient-to-r from-[#004FED] to-[#0066FF] bg-clip-text text-transparent">500+</span> Businesses
+              </h3>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Join thousands of satisfied customers who trust our email hosting solutions
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#004FED]/20">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#004FED] to-[#0066FF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-2xl">⚡</span>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Advanced Security</h4>
-                  <p className="text-gray-600">Real-time virus and spam protection keeps your emails safe</p>
+                <h4 className="text-2xl font-bold text-gray-900 mb-4 text-center">99.9% Uptime</h4>
+                <p className="text-gray-600 text-center leading-relaxed">Reliable cloud infrastructure ensures your email is always accessible when you need it most.</p>
+              </div>
+              
+              <div className="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#0066FF]/20">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#0066FF] to-[#0080FF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-2xl">🛡️</span>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Easy Management</h4>
-                  <p className="text-gray-600">Self-managed control panel for complete control over your email accounts</p>
+                <h4 className="text-2xl font-bold text-gray-900 mb-4 text-center">Advanced Security</h4>
+                <p className="text-gray-600 text-center leading-relaxed">Real-time virus and spam protection keeps your emails secure and your business protected.</p>
+              </div>
+              
+              <div className="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#0080FF]/20">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#0080FF] to-[#0099FF] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-2xl">⚙️</span>
                 </div>
+                <h4 className="text-2xl font-bold text-gray-900 mb-4 text-center">Easy Management</h4>
+                <p className="text-gray-600 text-center leading-relaxed">Intuitive control panel gives you complete control over your email accounts and settings.</p>
+              </div>
+            </div>
+            
+            <div className="text-center mt-16">
+              <div className="inline-flex items-center bg-gradient-to-r from-[#004FED] to-[#0066FF] text-white px-8 py-4 rounded-2xl text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <span className="mr-3">🚀</span>
+                Start Your Email Hosting Journey Today
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+    </div>
   );
 };
 
