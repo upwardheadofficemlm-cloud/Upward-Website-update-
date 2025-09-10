@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const EmailHostingPage: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<'professional' | 'standard'>('professional');
   
-  // Force deployment update
+  // Force deployment update - remove trusted section
 
   // Pricing data based on the screenshots (original prices only)
   const pricingData = [
