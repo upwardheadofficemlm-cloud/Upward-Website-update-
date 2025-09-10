@@ -494,6 +494,31 @@ export const getPageSEO = (page: string): SEOData => {
             "priceRange": "2,000,000 - 15,000,000 MMK"
           }
         }
+    },
+
+    'email-hosting': {
+      title: 'Email Hosting - Professional Email Solutions',
+      description: 'Professional email hosting with SSD storage, anti-virus protection, and reliable service. Choose from Professional and Standard plans with unlimited accounts.',
+      keywords: 'email hosting, professional email, business email, email server, anti-virus, anti-spam, SSD storage, Myanmar email hosting',
+      canonicalUrl: `${baseUrl}/email-hosting`,
+      noindex: true, // This prevents SEO crawling as requested
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Email Hosting Services",
+        "provider": {
+          "@type": "Organization",
+          "name": "Upward Marketing Agency",
+          "url": baseUrl
+        },
+        "serviceType": "Email Hosting",
+        "description": "Professional email hosting with SSD storage, anti-virus protection, and reliable service",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "MMK",
+          "priceRange": "64,512 - 80,640,000 MMK"
+        }
+      }
     }
   };
 

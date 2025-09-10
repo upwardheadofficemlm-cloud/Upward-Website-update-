@@ -27,6 +27,7 @@ import AdNovaPage from './pages/ooh/AdNovaPage';
 import AdminPage from './pages/AdminPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import EmailHostingPage from './pages/EmailHostingPage';
 
 
 
@@ -227,6 +228,15 @@ function App() {
             } 
           />
 
+          {/* Email Hosting Page - Hidden from navigation */}
+          <Route 
+            path="/email-hosting" 
+            element={
+              <Layout currentPage="email-hosting">
+                <EmailHostingPage />
+              </Layout>
+            } 
+          />
 
           {/* 404 Redirect to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
