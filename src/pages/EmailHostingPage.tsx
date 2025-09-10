@@ -5,23 +5,23 @@ const EmailHostingPage: React.FC = () => {
   
   // Force deployment update - remove trusted section
 
-  // Pricing data based on the screenshots (original prices only)
+  // Updated pricing data to match exact specifications
   const pricingData = [
     { id: 'E1', storage: '1GB', professional: 120960, standard: 80640 },
     { id: 'E2', storage: '2GB', professional: 181440, standard: 120960 },
     { id: 'E3', storage: '3GB', professional: 257040, standard: 171360 },
     { id: 'E4', storage: '4GB', professional: 321300, standard: 214200 },
-    { id: 'E5', storage: '5GB', professional: 403200, standard: 268800 },
-    { id: 'E6', storage: '6GB', professional: 483840, standard: 322560 },
-    { id: 'E7', storage: '7GB', professional: 564480, standard: 376320 },
-    { id: 'E8', storage: '8GB', professional: 645120, standard: 430080 },
-    { id: 'E9', storage: '9GB', professional: 725760, standard: 483840 },
-    { id: 'E10', storage: '10GB', professional: 806400, standard: 537600 },
-    { id: 'E11', storage: '20GB', professional: 1612800, standard: 1075200 },
-    { id: 'E12', storage: '50GB', professional: 4032000, standard: 2688000 },
-    { id: 'E13', storage: '100GB', professional: 8064000, standard: 5376000 },
-    { id: 'E14', storage: '500GB', professional: 40320000, standard: 26880000 },
-    { id: 'E15', storage: '1000GB', professional: 80640000, standard: 53760000 },
+    { id: 'E5', storage: '5GB', professional: 362880, standard: 241920 },
+    { id: 'E6', storage: '10GB', professional: 564480, standard: 376320 },
+    { id: 'E7', storage: '30GB', professional: 1088640, standard: 725760 },
+    { id: 'E8', storage: '50GB', professional: 1797120, standard: 1290240 },
+    { id: 'E9', storage: '100GB', professional: 3369600, standard: 2419200 },
+    { id: 'E10', storage: '200GB', professional: 5616000, standard: 4032000 },
+    { id: 'E11', storage: '300GB', professional: 6739200, standard: 4838400 },
+    { id: 'E12', storage: '400GB', professional: 8236800, standard: 5913600 },
+    { id: 'E13', storage: '500GB', professional: 9734400, standard: 6988800 },
+    { id: 'E14', storage: '750GB', professional: 11232000, standard: 8064000 },
+    { id: 'E15', storage: '1000GB', professional: 12729600, standard: 9139200 },
   ];
 
   const formatPrice = (price: number) => {
